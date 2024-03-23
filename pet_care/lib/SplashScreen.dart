@@ -31,25 +31,29 @@ class SplashScreenState extends State<SplashScreen>{
 
     return Scaffold(
       // ScreenSwitching
-        body:Column(
-          children: [
-            SizedBox(
-              height: 250,
-            ),
-            Container(
-              height: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/bgNo.png'), // Path to your image
-                  fit: BoxFit.cover,
+        body:Container(
+          color: Colors.accents[7],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 400,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/petPic.png'), // Path to your image
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              // color: Colors.blue,
-              child: Center(child: Text("Pet Care.io",style: TextStyle(fontSize: 34,fontWeight: FontWeight.w700,color: Colors.blueGrey))),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 60,left: 30),
+                child: Container(
+                  // color: Colors.blue,
+                  child: Center(child: Text("Pet Care.io",style: TextStyle(fontSize: 34,fontWeight: FontWeight.w700,color: Colors.blueGrey))),
+                ),
+              ),
+            ],
+          ),
         )
     );
 

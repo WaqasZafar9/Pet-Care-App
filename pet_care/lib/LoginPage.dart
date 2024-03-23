@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
                child: ElevatedButton(onPressed: (){
         
                }, child: Text("LogIn"),style: ButtonStyle(
-                 minimumSize:MaterialStateProperty.all(Size(200,40)) ,
+                 minimumSize:MaterialStateProperty.all(Size(180,50)) ,
                  elevation: MaterialStateProperty.all(5)
                ),
                ),
