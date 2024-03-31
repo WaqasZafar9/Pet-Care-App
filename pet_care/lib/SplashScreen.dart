@@ -32,7 +32,7 @@ class SplashScreenState extends State<SplashScreen>{
     return Scaffold(
       // ScreenSwitching
         body:Container(
-          color: Colors.accents[7],
+          color: Colors.accents[9],
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
