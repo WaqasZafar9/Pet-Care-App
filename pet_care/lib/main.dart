@@ -3,6 +3,8 @@ import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/SplashScreen.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

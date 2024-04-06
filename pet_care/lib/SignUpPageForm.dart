@@ -1,4 +1,6 @@
 
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/LoginPage.dart';
@@ -12,9 +14,28 @@ class SignUpForm extends StatefulWidget{
 class _SignUpFormState extends State<SignUpForm> {
 
 
+  // signUP(String email,String password) async{
+  //
+  //   UserCredential? userCredential;
+  //
+  //   try{
+  //     userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password ).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login())));
+  //   }
+  //   on FirebaseAuthException catch(ex){
+  //     return uiHelper.customAlertBox(context, ex.code.toString());
+  //   }
+  //
+  // }
+
+
+
+
   void submitForm(){
 
     if(_SignupFormKey.currentState!.validate()){
+      String email=EmailController.value.text;
+      String password=PasswordController.value.text;
+      // signUP(email, password);
       uiHelper.customAlertBox(context, "Form Valid");
     }
     else{
@@ -154,7 +175,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Opacity(opacity: 0.6,
-                        child: Image(image: AssetImage("assets/images/petPic.png"),width: 60,height: 50,))
+                            child: Image(image: AssetImage("assets/images/petPic.png"),width: 60,height: 50,))
                         ,
 
                         Text(
@@ -166,22 +187,25 @@ class _SignUpFormState extends State<SignUpForm> {
                     )
                 ),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: NameController,
-                keyboardType:TextInputType.emailAddress ,
-                decoration: InputDecoration(
-                    label: Text("Name"),
-                    prefixIcon: Icon(Icons.drive_file_rename_outline),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25)
-                    )
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    controller: NameController,
+                    keyboardType:TextInputType.emailAddress ,
+                    decoration: InputDecoration(
+                        label: Text("Name"),
+                        prefixIcon: Icon(Icons.drive_file_rename_outline),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25)
+                        )
+                    ),
+                    validator: (value) => nameValidator(value),
+                  ),
                 ),
-                validator: (value) => nameValidator(value),
-              ),
-            ),
+                uiHelper.customTextFormField( validator: (value) => emailValidator(value), controller: EmailController, text: "Custom Call", iconData: Icons.ac_unit, toHide: false)
+                ,
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -307,7 +331,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(onPressed: (){
-                   submitForm();
+                    submitForm();
 
 
                   }, child: Text("SignUp"),style: ButtonStyle(
