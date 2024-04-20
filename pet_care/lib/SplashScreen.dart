@@ -4,7 +4,12 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/HomePage.dart';
 import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/temp.dart';
+import 'package:pet_care/test.dart';
+
+import 'GoogleNavBar.dart';
 
 class SplashScreen extends StatefulWidget{
   @override

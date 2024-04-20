@@ -1,0 +1,1 @@
+ S:\\Programms\\MAD\\Pet-Care-App\\pet_care\\.dart_tool\\flutter_build\\5c2b8916fac382b056470976b8c4aa5b\\native_assets.yaml: 

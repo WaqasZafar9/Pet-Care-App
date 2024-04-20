@@ -1,88 +1,78 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-void main() {
-  runApp(const MyApp());
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+
+class Test extends StatefulWidget {
+  const Test({super.key});
+
+  @override
+  State<Test> createState() => _TestState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _TestState extends State<Test> {
+  int index=0;
 
-  // This widget is the root of your application.
+  List<Widget> _screens=<Widget>[
+  Container(color: Colors.lime,),
+  Container(color: Colors.blue,),
+  Container(color: Colors.teal,),
+  Container(color: Colors.greenAccent,),
+  ];
+
+  var userName="Fuzail";
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black38),
-        textTheme: TextTheme(
-            displayLarge: TextStyle(fontSize: 18,color: Colors.blueGrey),
-            titleMedium: TextStyle(fontSize: 12,color: Colors.purple,fontStyle: FontStyle.italic)
+
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+
+        appBar: AppBar(
+          title: Text("Welcome " + userName),
+          backgroundColor: Colors.greenAccent,
+          // centerTitle: true,
         ),
-        useMaterial3: true,
-        // primarySwatch: Colors.amber
+        body: _screens.elementAt(index),
+        bottomNavigationBar: Container(
+          color: Colors.black,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GNav(
+                backgroundColor: Colors.black,
+                color: Colors.white,
+                activeColor: Colors.white,
+                tabBackgroundColor: Colors.grey.shade800,
+                gap: 8,
+                onTabChange: (value) {
+                  setState(() {
+                    index=value;
+                  });
+                },
+                tabs:[
+                  GButton(
+                    icon:Icons.person_2,
+                    text: "Profile",
+                  ),
+                  GButton(
+                    icon: Icons.search,
+                    text: "Shop",
+                  ),
+                  GButton(
+                    icon: Icons.search,
+                    text: "Track",
+                  ),
+                  GButton(
+                    icon: Icons.search,
+                    text: "Home",
+                  ),
+                ]),
+          ),
+        ),
+
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
-  }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  var firstInput=TextEditingController();
-  var names=["Fuzail","Raza","Waqas","Zeeshan","Faseeh"];
-  bool isObscured=true;
-  var time =DateTime.timestamp();
-  // var formatedDate=
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body:
-      Center(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Selecte Date",style: TextStyle(fontSize: 25),),
-                ElevatedButton(onPressed: () async {
-                  DateTime? datePicked= await showDatePicker(
-                      context: context,
-                      // initialDate: DateTime.now(),
-                      firstDate: DateTime(2020),
-                      lastDate: DateTime(2024));
-                  if (datePicked!=null){
-                    print("Time : $datePicked");
-                  }
-                }, child:  Text("Select "),
-                ),
-                Text("Select Time"),
-                ElevatedButton(onPressed: () async {
-                  TimeOfDay? pcikedTime=await  showTimePicker(context: context,
-                      initialTime: TimeOfDay.now(),
-                      initialEntryMode: TimePickerEntryMode.dial);
-                  if (pcikedTime!=null){
-                    print("Time : $pcikedTime");
-                  }
-
-                }, child: const Text("Select"))
-              ],
-            ),
-          )
-      ),
-
-    );
   }
 }

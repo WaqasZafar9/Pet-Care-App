@@ -1,11 +1,13 @@
 
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_care/SignUpPage.dart';
 import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/uihelper.dart';
+
+import 'HomePage.dart';
 
 class Login extends StatefulWidget{
   @override
@@ -14,17 +16,18 @@ class Login extends StatefulWidget{
 
 class _LoginState extends State<Login> {
 
-  // login(email,password) async{
-  //
-  //   // UserCredential? userCredential;
-  //   // try{
-  //   //   userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpForm())));
-  //   // }
-  //   // on FirebaseAuthException catch(ex){
-  //   //   return uiHelper.customAlertBox(context, ex.code.toString());
-  //   // }
-  //
-  // }
+  login(email,password) async{
+
+    UserCredential? userCredential;
+    try{
+      userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpForm())));
+      uiHelper.customAlertBox(context, "LoginIn");
+    }
+    on FirebaseAuthException catch(ex){
+      return uiHelper.customAlertBox(context, ex.code.toString());
+    }
+
+  }
 
   var EmailController=TextEditingController();
   var PasswordController=TextEditingController();
@@ -33,8 +36,9 @@ class _LoginState extends State<Login> {
 
   void _submitForm(){
     if(_LoginFormKey.currentState!.validate()){
-      // login(EmailController.value.text, PasswordController.value.text);
+      login(EmailController.value.text, PasswordController.value.text);
       uiHelper.customAlertBox(context, "Form Valid");
+      MaterialPageRoute(builder: (context) => HomePage(),);
     }
     else{
       uiHelper.customAlertBox(context, "Form Not Valid");

@@ -1,6 +1,6 @@
 
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/LoginPage.dart';
@@ -14,18 +14,18 @@ class SignUpForm extends StatefulWidget{
 class _SignUpFormState extends State<SignUpForm> {
 
 
-  // signUP(String email,String password) async{
-  //
-  //   UserCredential? userCredential;
-  //
-  //   try{
-  //     userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password ).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login())));
-  //   }
-  //   on FirebaseAuthException catch(ex){
-  //     return uiHelper.customAlertBox(context, ex.code.toString());
-  //   }
-  //
-  // }
+  signUP(String email,String password) async{
+
+    UserCredential? userCredential;
+
+    try{
+      userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password ).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login())));
+    }
+    on FirebaseAuthException catch(ex){
+      return uiHelper.customAlertBox(context, ex.code.toString());
+    }
+
+  }
 
 
 
@@ -35,7 +35,7 @@ class _SignUpFormState extends State<SignUpForm> {
     if(_SignupFormKey.currentState!.validate()){
       String email=EmailController.value.text;
       String password=PasswordController.value.text;
-      // signUP(email, password);
+      signUP(email, password);
       uiHelper.customAlertBox(context, "Form Valid");
     }
     else{
@@ -164,6 +164,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
+          color: Color.fromRGBO(10, 101, 10, 0.2),
           child: Form(
             key: _SignupFormKey,
             child: Column(
