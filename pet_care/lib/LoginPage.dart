@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pet_care/ForgotPassword.dart';
 import 'package:pet_care/SignUpPage.dart';
 import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/uihelper.dart';
@@ -148,7 +149,10 @@ class _LoginState extends State<Login> {
                     }, child: Text("SignUp",style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),))
                   ],
                 ),
-                SizedBox(height: 420,)
+                TextButton(onPressed:() => Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(),)), child: Text("Forgot Password ?")),
+                SizedBox(
+                  height: 120,
+                )
               ],
             ),
           ),

@@ -204,8 +204,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     validator: (value) => nameValidator(value),
                   ),
                 ),
-                uiHelper.customTextFormField( validator: (value) => emailValidator(value), controller: EmailController, text: "Custom Call", iconData: Icons.ac_unit, toHide: false)
-                ,
+               
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
