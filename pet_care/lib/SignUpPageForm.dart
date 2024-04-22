@@ -14,12 +14,12 @@ class SignUpForm extends StatefulWidget{
 class _SignUpFormState extends State<SignUpForm> {
 
 
-  signUP(String email,String password) async{
+  signUP(userData) async{
 
     UserCredential? userCredential;
 
     try{
-      userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password ).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login())));
+      userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userData["Email"], password: userData["Password"] ).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login())));
     }
     on FirebaseAuthException catch(ex){
       return uiHelper.customAlertBox((){},context, ex.code.toString());
@@ -35,7 +35,18 @@ class _SignUpFormState extends State<SignUpForm> {
     if(_SignupFormKey.currentState!.validate()){
       String email=EmailController.value.text;
       String password=PasswordController.value.text;
-      signUP(email, password);
+
+      Map userData={
+        "Name":NameController.value.text,
+        "Email":EmailController.value.text,
+        "PhoneNo":PhoneNoController.value.text,
+        "Password":PasswordController.value.text,
+        "City":CityController.value.text,
+        "DateOfBirth":DateOfBirthController.value.text,
+        "Pic":null
+      };
+
+      signUP(userData);
       uiHelper.customAlertBox((){},context, "Form Valid");
     }
     else{
@@ -47,7 +58,7 @@ class _SignUpFormState extends State<SignUpForm> {
     final RegExp emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     final RegExp passwordRejex=RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$');
     final RegExp NameRejex = RegExp(r'\d');
-    final RegExp PhoneNoRejex=RegExp(r'^(0)?\d{3}-?\d{7}$');
+    final RegExp PhoneNoRejex=RegExp(r'^\+92\d{10}$');
     String Name=NameController.value.text;
     String PhoneNo=PhoneNoController.value.text;
     String Email=EmailController.value.text;
@@ -62,7 +73,7 @@ class _SignUpFormState extends State<SignUpForm> {
       uiHelper.customAlertBox((){},context, "Name Not Valid.Must Not Contains Numbers!");
     }
     else if(!PhoneNo.contains(PhoneNoRejex)){
-      uiHelper.customAlertBox((){},context, "Phone No must be in 03XXXXXXXXX Format");
+      uiHelper.customAlertBox((){},context, "Phone No must be in +92XXXXXXXXXX Format");
     }
     else if(!email.contains(emailRegex)){
       uiHelper.customAlertBox((){},context, "Email Not Valid!");
@@ -95,9 +106,9 @@ class _SignUpFormState extends State<SignUpForm> {
     if(value.isEmpty ){
       return( "PLease Enter PhoneNo");
     }
-    final RegExp PhoneNoRejex=RegExp(r'^(0)?\d{3}-?\d{7}$');
+    final RegExp PhoneNoRejex=RegExp(r'^\+92\d{10}$');
     if(!value.contains(PhoneNoRejex)){
-      return( "Phone No must be in 03XXXXXXXXX Format");
+      return( "Phone No must be in +92XXXXXXXXXX Format");
     }
     return null;
   }
@@ -204,7 +215,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     validator: (value) => nameValidator(value),
                   ),
                 ),
-               
+
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),

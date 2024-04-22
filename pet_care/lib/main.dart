@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/SplashScreen.dart';
 
+import 'GoogleNavBar.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.greenAccent,
         )
       ),
-      home: SplashScreen(),
+      home: Tests(),
     );
   }
 }
