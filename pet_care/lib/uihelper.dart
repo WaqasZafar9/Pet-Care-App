@@ -88,7 +88,7 @@ class uiHelper {
 
   }
 
-  static customAlertBox(BuildContext context,String text){
+  static customAlertBox(VoidCallback voidCallback,BuildContext context,String text){
 
     return showDialog(context: context, builder: (BuildContext context){
       return AlertDialog(
@@ -97,9 +97,7 @@ class uiHelper {
           TextButton(onPressed: (){
             Navigator.pop(context);
           }, child:Center(child: Text("OK")),
-            onLongPress: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
-            },)
+            onLongPress: voidCallback,)
         ],
       );
     });

@@ -21,10 +21,10 @@ class _LoginState extends State<Login> {
     UserCredential? userCredential;
     try{
       userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpForm())));
-      uiHelper.customAlertBox(context, "LoginIn");
+      uiHelper.customAlertBox((){},context, "LoginIn");
     }
     on FirebaseAuthException catch(ex){
-      return uiHelper.customAlertBox(context, ex.code.toString());
+      return uiHelper.customAlertBox((){},context, ex.code.toString());
     }
 
   }
@@ -37,11 +37,11 @@ class _LoginState extends State<Login> {
   void _submitForm(){
     if(_LoginFormKey.currentState!.validate()){
       login(EmailController.value.text, PasswordController.value.text);
-      uiHelper.customAlertBox(context, "Form Valid");
+      uiHelper.customAlertBox((){},context, "Form Valid");
       MaterialPageRoute(builder: (context) => HomePage(),);
     }
     else{
-      uiHelper.customAlertBox(context, "Form Not Valid");
+      uiHelper.customAlertBox((){},context, "Form Not Valid");
     }
 
   }

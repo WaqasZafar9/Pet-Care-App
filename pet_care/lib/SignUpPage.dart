@@ -115,28 +115,28 @@ class _SignUpState extends State<SignUp> {
                   String City=CityController.value.text;
                   
                   if(Name.isEmpty || PhoneNo.isEmpty || Email.isEmpty || Password.isEmpty || ConfirmPassword.isEmpty || City.isEmpty  ){
-                    uiHelper.customAlertBox(context, "PLease Fill All Fields!");
+                    uiHelper.customAlertBox((){},context, "PLease Fill All Fields!");
                   }
                   else if(Name.contains(NameRejex)){
-                    uiHelper.customAlertBox(context, "Name Not Valid.Must Not Contains Numbers!");
+                    uiHelper.customAlertBox((){},context, "Name Not Valid.Must Not Contains Numbers!");
                   }
                   else if(!PhoneNo.contains(PhoneNoRejex)){
-                    uiHelper.customAlertBox(context, "Phone No must be in 03XXXXXXXXX Format");
+                    uiHelper.customAlertBox((){},context, "Phone No must be in 03XXXXXXXXX Format");
                   }
                   else if(!email.contains(emailRegex)){
-                    uiHelper.customAlertBox(context, "Email Not Valid!");
+                    uiHelper.customAlertBox((){},context, "Email Not Valid!");
                   }
                   else if(password!=ConfirmPassword){
-                    uiHelper.customAlertBox(context, "Password and Confirm Passwords Must be Same");
+                    uiHelper.customAlertBox((){},context, "Password and Confirm Passwords Must be Same");
                   }
                   else if(!Password.contains(passwordRejex)){
-                    uiHelper.customAlertBox(context, "Password Must Contains at Least One Lower Case,Upper Case,Digit,8 Letters Length");
+                    uiHelper.customAlertBox((){},context, "Password Must Contains at Least One Lower Case,Upper Case,Digit,8 Letters Length");
                   }
                   else if(City.contains(NameRejex)){
-                    uiHelper.customAlertBox(context, "City Not Valid.Must Not Contains Numbers!");
+                    uiHelper.customAlertBox((){},context, "City Not Valid.Must Not Contains Numbers!");
                   }
                   else{
-                    uiHelper.customAlertBox(context, "SignUp SuccessFully");
+                    uiHelper.customAlertBox((){},context, "SignUp SuccessFully");
                   }
 
 
