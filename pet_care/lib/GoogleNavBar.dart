@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:pet_care/ProfilePage.dart';
+import 'package:pet_care/TrackingPet.dart';
 
 class Tests extends StatefulWidget {
   const Tests({super.key});
@@ -18,7 +19,7 @@ class _TestsState extends State<Tests> {
   List<Widget> _screens=<Widget>[
     Container(color: Colors.lime,),
     Container(color: Colors.blue,),
-    Container(color: Colors.teal,),
+    trackingPet(),
     ProfilePage(),
   ];
 

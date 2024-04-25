@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/CheckFiles.dart';
 import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/SplashScreen.dart';
 
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.greenAccent,
         )
       ),
-      home: Tests(),
+      home: checkFiles(),
     );
   }
 }
