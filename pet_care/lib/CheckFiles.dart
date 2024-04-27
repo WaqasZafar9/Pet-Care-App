@@ -35,7 +35,7 @@ class _checkFilesState extends State<checkFiles> {
           children: [
 
             Center(child: ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),)), child: Text("Login"))),
-            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpForm(),)), child: Text("Signup")),
+            ElevatedButton(onPressed: ()=>Navigator.pushNamed(context, 'Signup Page'), child: const Text("Signup Called")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => Tests(),)), child: Text("Google NavBar")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),)), child: Text("HomePage")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentForm( ),)), child: Text("Payment Form")),

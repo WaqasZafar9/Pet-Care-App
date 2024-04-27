@@ -37,27 +37,42 @@ class _trackingPetState extends State<trackingPet> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: 400,
+              // width: 400,
               height: 100,
               decoration: BoxDecoration(
-                  color: Colors.purple,
+                  color: Colors.grey,
                   borderRadius: BorderRadius.circular(10)
               ),
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(28.0),
                 child: DropdownButton(
-                  alignment: AlignmentDirectional.center,
+
+                  dropdownColor: Colors.grey,
+                  
+                  borderRadius: BorderRadius.circular(10),
+                  
+                  isExpanded: true,
+
 
                   // Initial Value
                   value: dropdownvalue,
 
                   // Down Arrow Icon
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon: const Icon(Icons.keyboard_arrow_down_rounded),
 
                   // Array list of items
                   items: items.map((String items) {
                     return DropdownMenuItem(
                       value: items,
-                      child: Text(items),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Image.asset("assets/images/petPic.png"),
+                        ),
+                        title: Text(items),
+                        subtitle: Text("Subs"),
+                        splashColor: Colors.yellow,
+                        // trailing: Icon(Icons.keyboard_arrow_down_rounded),
+                      ),
                     );
                   }).toList(),
                   // After selecting the desired option,it will

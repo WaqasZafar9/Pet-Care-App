@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
 
         appBar: AppBar(
           title: Text("Welcome " + userName),
-          backgroundColor: Colors.greenAccent,
           // centerTitle: true,
           bottom:  const TabBar(tabs: [
             Tab(

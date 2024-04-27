@@ -75,7 +75,6 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.greenAccent,
         title: Center(
             child: Text("Pet Care")),
       ),

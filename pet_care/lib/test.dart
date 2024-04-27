@@ -31,7 +31,6 @@ class _TestState extends State<Test> {
 
         appBar: AppBar(
           title: Text("Welcome " + userName),
-          backgroundColor: Colors.greenAccent,
           // centerTitle: true,
         ),
         body: _screens.elementAt(index),

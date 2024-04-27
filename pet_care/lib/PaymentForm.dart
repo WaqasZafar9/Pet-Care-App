@@ -20,7 +20,7 @@ class _PaymentFormState extends State<PaymentForm> {
     return Scaffold(
       appBar: AppBar(
           title: Text("Welcome " + userName),
-          backgroundColor: Colors.greenAccent),
+      ),
       body: Container(
         color: Colors.grey.shade100,
           child: Form(
