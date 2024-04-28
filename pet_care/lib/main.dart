@@ -4,6 +4,7 @@ import 'package:pet_care/CheckFiles.dart';
 import 'package:pet_care/CommunityScreen.dart';
 import 'package:pet_care/ForgotPassword.dart';
 import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/ProfilePage.dart';
 import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/phoneAuthentication.dart';
@@ -23,13 +24,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    Map<String,dynamic> userData={
+      "Name":"Jerry",
+      "Email":"fuzailraza161@gmail.com",
+      "isVerified":false,
+      "PhoneNo":"+923014384681"
+    };
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Pet Care',
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.black38,
-            background: Color.fromRGBO(10, 101, 10, 0.2),
+            // background: Color.fromRGBO(10, 101, 10, 0.2),
           ),
           inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(
@@ -60,10 +68,13 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Tests(),
-        'Google Nav Bar': (context) => const Tests(),
+        '/': (context) =>Login(),
+        // '/': (context) =>PhoneAuthentication(userData: userData),
+        'Google Nav Bar': (context) => Tests(userData: {
+          "Name":"Test Call"
+        }),
         'Forgot Screen': (context) => ResetPassword(),
-        'PhoneAuthenticate': (context) => const PhoneAuthentication(),
+        'PhoneAuthenticate': (context) => PhoneAuthentication(userData: userData,),
         'Signup Page': (context) => SignUpForm(),
       },
       // home: const checkFiles(),

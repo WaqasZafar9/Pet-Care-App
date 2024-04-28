@@ -6,11 +6,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/GoogleNavBar.dart';
+import 'package:pet_care/HomePage.dart';
 import 'package:pet_care/uihelper.dart';
 
 class PhoneAuthentication extends StatefulWidget {
-  const PhoneAuthentication({super.key});
+  Map<String,dynamic> userData;
+  PhoneAuthentication({super.key,required this.userData});
 
   @override
   State<PhoneAuthentication> createState() => _PhoneAuthenticationState();
@@ -18,15 +21,19 @@ class PhoneAuthentication extends StatefulWidget {
 
 class _PhoneAuthenticationState extends State<PhoneAuthentication> {
 
+  @override
+  void initState() {
+    super.initState();
+    // sendCode();
+  }
+
 
 
   late String OTP;
-  String phoneNo = "+923014384681";
   bool isResendButtonVisible=false;
   var phoneController=TextEditingController();
 
   sendCode() async {
-    phoneNo=phoneController.text;
     await FirebaseAuth.instance.verifyPhoneNumber(
         timeout: Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) {},
@@ -36,28 +43,30 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
         },
         codeSent: (String verificationID, int? resentToken) {
           OTP = verificationID;
-          uiHelper.customAlertBox(() {}, context, "Code Sent SuccessFully");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Code Sent")));
         },
         codeAutoRetrievalTimeout: (String VerificationID) {},
-        phoneNumber: phoneNo);
+        phoneNumber: widget.userData["PhoneNo"]);
   }
 
   VerifyCode() async {
     try {
       PhoneAuthCredential credential = await PhoneAuthProvider.credential(
           verificationId: OTP, smsCode: otp.text.toString());
-      // FirebaseAuth.instanece.signInWithCredential(credential).then((value) => MaterialPageRoute(builder: (context) => Tests(),));
-      FirebaseAuth.instance
+       FirebaseAuth.instance
           .signInWithCredential(credential)
-          .then((value) => uiHelper.customAlertBox(
-              () {}, context, "Verification SuccessFull"))
-          .onError((error, stackTrace) => uiHelper.customAlertBox(
+          .then((value) {
+         DataBase.updateUserData("UserData", widget.userData["Email"] , {
+          "isVerified": true
+        }
+        );
+            uiHelper.customAlertBox(() { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Tests(userData: widget.userData),));}, context, "Verification Successfull");
+          },).onError((error, stackTrace) => uiHelper.customAlertBox(
               () {}, context, error.toString() + "Verification Error"));
     } catch (ex) {
       uiHelper.customAlertBox(() {}, context, ex.toString());
-      // log(ex.toString() as num);
-      uiHelper.customAlertBox(() {}, context, ex.toString());
     }
+
   }
 
   otpValidate(value) {
@@ -81,8 +90,6 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            uiHelper.customTextField(phoneController, "Phone No", Icons.message, false)
-            ,
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
@@ -106,13 +113,6 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                     )),
               ),
             ),
-            ElevatedButton(
-                onPressed: () => sendCode(),
-                child: Text("Verify"),
-                style: ButtonStyle(
-                  minimumSize: MaterialStateProperty.all(Size(180, 50)),
-                  elevation: MaterialStateProperty.all(5),
-                )),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: ElevatedButton(

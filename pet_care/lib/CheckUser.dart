@@ -19,7 +19,9 @@ class _CheckUserState extends State<CheckUser> {
   checkuser() async{
     final user= FirebaseAuth.instance.currentUser;
     if(user!=null){
-      return Tests();
+      return Tests(userData: {
+        "Name":"Test Call"
+      });
     }
     else{
       return Login();

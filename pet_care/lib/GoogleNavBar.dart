@@ -8,24 +8,35 @@ import 'package:pet_care/ProfilePage.dart';
 import 'package:pet_care/TrackingPet.dart';
 
 class Tests extends StatefulWidget {
-  const Tests({super.key});
+  Map<String,dynamic> userData;
+  Tests({super.key,required this.userData});
 
   @override
   State<Tests> createState() => _TestsState();
 }
 
 class _TestsState extends State<Tests> {
+
   int index=0;
 
   List<Widget> _screens=<Widget>[
     Container(color: Colors.lime,),
     Container(color: Colors.blue,),
     trackingPet(),
-    ProfilePage(),
+    ProfilePage(userData: {
+      "Name":"Jerry",
+      "Email":"Jerry161@gamil.com",
+      "isVerified":false
+    }),
     communityScreen(),
   ];
 
-  var userName="Fuzail";
+  @override
+  void initState() {
+    super.initState();
+    _screens[3]=ProfilePage(userData: widget.userData);
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -41,7 +52,7 @@ class _TestsState extends State<Tests> {
             //   child: Image.asset("assets/images/petPic.png"),
             //   backgroundColor: Colors.white70,
             // ),
-            title: Text("Welcome "+userName,style: TextStyle(
+            title: Text("Welcome "+widget.userData["Name"],style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),),

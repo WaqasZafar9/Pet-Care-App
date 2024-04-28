@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/ForgotPassword.dart';
+import 'package:pet_care/GoogleNavBar.dart';
 import 'package:pet_care/SignUpPage.dart';
 import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/uihelper.dart';
@@ -21,8 +23,14 @@ class _LoginState extends State<Login> {
 
     UserCredential? userCredential;
     try{
-      userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUpForm())));
-      uiHelper.customAlertBox((){},context, "LoginIn");
+      userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async{
+
+        Map<String,dynamic> userData=await DataBase.readData("UserData",EmailController.value.text);
+        uiHelper.customAlertBox((){},context, "LoginIn + $userData");
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Tests( userData: userData,)));
+      });
+
     }
     on FirebaseAuthException catch(ex){
       return uiHelper.customAlertBox((){},context, ex.code.toString());
@@ -39,7 +47,6 @@ class _LoginState extends State<Login> {
     if(_LoginFormKey.currentState!.validate()){
       login(EmailController.value.text, PasswordController.value.text);
       uiHelper.customAlertBox((){},context, "Form Valid");
-      MaterialPageRoute(builder: (context) => HomePage(),);
     }
     else{
       uiHelper.customAlertBox((){},context, "Form Not Valid");

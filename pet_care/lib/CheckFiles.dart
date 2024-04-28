@@ -24,6 +24,13 @@ class checkFiles extends StatefulWidget {
 class _checkFilesState extends State<checkFiles> {
   @override
   Widget build(BuildContext context) {
+
+    Map<String,dynamic> userData={
+      "Name":"Jerry",
+      "Email":"fuzailraza161@gmail.com",
+      "isVerified":false,
+      "PhoneNo":"+923014384681"
+    };
     return Scaffold(
       appBar: AppBar(
         title: Text("Check Files"),
@@ -36,12 +43,14 @@ class _checkFilesState extends State<checkFiles> {
 
             Center(child: ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => Login(),)), child: Text("Login"))),
             ElevatedButton(onPressed: ()=>Navigator.pushNamed(context, 'Signup Page'), child: const Text("Signup Called")),
-            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => Tests(),)), child: Text("Google NavBar")),
-            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(),)), child: Text("HomePage")),
+            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => Tests(userData: {
+              "Name":"Test Call"
+            }),)), child: Text("Google NavBar")),
+            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(userData: userData,),)), child: Text("HomePage")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentForm( ),)), child: Text("Payment Form")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(),)), child: Text("Forgot PassWord")),
-            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthentication(),)), child: Text("Phone Authentication")),
-            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(),)), child: Text("Profile Page")),
+            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthentication(userData: userData,),)), child: Text("Phone Authentication")),
+            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(userData: userData),)), child: Text("Profile Page")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen(),)), child: Text("Splash Screen")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp(),)), child: Text("SignUp Page")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => trackingPet(),)), child: Text("Pet Track")),

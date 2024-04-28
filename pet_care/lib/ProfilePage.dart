@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/phoneAuthentication.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+
+  Map<String,dynamic> userData;
+
+  ProfilePage({super.key,required this.userData});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var name = "Fuzail Raza", email = "fuzailraza161@gmail.com";
-
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -39,20 +41,24 @@ class _ProfilePageState extends State<ProfilePage> {
                     print("Clicked");
                   },
                   leading: CircleAvatar(
-                    radius: 35,
+                    radius: 30,
                     child: Image.asset("assets/images/petPic.png"),
                     backgroundColor: Colors.white70,
                   ),
                   title: Text(
-                    name,
+                    widget.userData["Name"],
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                  subtitle: Text(email),
-                  trailing: Icon(Icons.verified_user),
+                  subtitle: Text(widget.userData["Email"]),
+                  trailing: IconButton(
+                    icon: widget.userData["isVerified"] == true ? Icon(Icons.verified_user) : Icon(Icons.add),
+                    onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>PhoneAuthentication(userData: widget.userData,) ,));
+                  },),
                 ),
               ),
               Divider(
