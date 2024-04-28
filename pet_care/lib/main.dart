@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/CheckFiles.dart';
+import 'package:pet_care/CommunityScreen.dart';
 import 'package:pet_care/ForgotPassword.dart';
 import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/SignUpPageForm.dart';

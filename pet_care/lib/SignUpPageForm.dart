@@ -13,13 +13,28 @@ class SignUpForm extends StatefulWidget{
 
 class _SignUpFormState extends State<SignUpForm> {
 
+  saveUserData(userData){
+
+    return false;
+  }
+
 
   signUP(userData) async{
 
     UserCredential? userCredential;
 
     try{
-      userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userData["Email"], password: userData["Password"] ).then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login())));
+      userCredential=await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userData["Email"], password: userData["Password"] ).then((value) {
+        if(saveUserData(userData)) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => Login()));
+        }
+        else{
+          return uiHelper.customAlertBox((){},context, "User SignUp Failed");
+        }
+        return null;
+      }
+      );
     }
     on FirebaseAuthException catch(ex){
       return uiHelper.customAlertBox((){},context, ex.code.toString());

@@ -20,6 +20,33 @@ class _trackingPetState extends State<trackingPet> {
     'Item 4',
     'Item 5',
   ];
+  var values={
+    "Item 1":{
+      "Name":"Fuzail1",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 2":{
+      "Name":"Fuzail2",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 3":{
+      "Name":"Fuzail3",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 4":{
+      "Name":"Fuzail4",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 5":{
+      "Name":"Fuzail5",
+      "Email":"fuzailraza161@gmail.com"
+    }
+  };
+
+  printValues(key){
+    print("Name : ${values[key]?["Name"]} Email ${values[key]?["Name"]}");
+
+  }
 
 
   @override
@@ -44,13 +71,13 @@ class _trackingPetState extends State<trackingPet> {
                   borderRadius: BorderRadius.circular(10)
               ),
               child: Padding(
-                padding: const EdgeInsets.all(28.0),
+                padding: const EdgeInsets.all(8.0),
                 child: DropdownButton(
 
                   dropdownColor: Colors.grey,
-                  
+
                   borderRadius: BorderRadius.circular(10),
-                  
+
                   isExpanded: true,
 
 
@@ -73,6 +100,7 @@ class _trackingPetState extends State<trackingPet> {
                         splashColor: Colors.yellow,
                         // trailing: Icon(Icons.keyboard_arrow_down_rounded),
                       ),
+
                     );
                   }).toList(),
                   // After selecting the desired option,it will
@@ -81,6 +109,8 @@ class _trackingPetState extends State<trackingPet> {
                     setState(() {
                       dropdownvalue = newValue!;
                     });
+                    printValues(newValue);
+
                   },
                 ),
               ),
