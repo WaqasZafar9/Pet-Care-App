@@ -188,6 +188,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "google_identity_services_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_identity_services_web-0.3.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "google_maps",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_maps-7.1.0",
       "packageUri": "lib/",
@@ -230,10 +236,46 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "google_sign_in",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-6.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_android",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.23",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_ios",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.7.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "google_sign_in_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.12.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "html",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/html-0.15.4",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "http_parser",
@@ -392,7 +434,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-28T09:45:17.587022Z",
+  "generated": "2024-04-29T20:49:40.630198Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

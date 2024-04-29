@@ -24,7 +24,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
   @override
   void initState() {
     super.initState();
-    // sendCode();
+    sendCode();
   }
 
 

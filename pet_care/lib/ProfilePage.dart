@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/phoneAuthentication.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -96,7 +98,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   )),
               Divider(),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () async{
+                    await FirebaseAuth.instance.signOut();
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                  },
                   child: Text(
                     "LogOut",
                     style: TextStyle(
