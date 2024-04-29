@@ -58,6 +58,7 @@ class uiHelper {
         child: TextField(
           controller: controller,
           obscureText: toHide,
+          enabled: false,
 
           decoration: InputDecoration(
               label: Text(text),

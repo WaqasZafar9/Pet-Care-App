@@ -20,6 +20,33 @@ class _trackingPetState extends State<trackingPet> {
     'Item 4',
     'Item 5',
   ];
+  var values={
+    "Item 1":{
+      "Name":"Fuzail1",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 2":{
+      "Name":"Fuzail2",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 3":{
+      "Name":"Fuzail3",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 4":{
+      "Name":"Fuzail4",
+      "Email":"fuzailraza161@gmail.com"
+    },
+    "Item 5":{
+      "Name":"Fuzail5",
+      "Email":"fuzailraza161@gmail.com"
+    }
+  };
+
+  printValues(key){
+    print("Name : ${values[key]?["Name"]} Email ${values[key]?["Name"]}");
+
+  }
 
 
   @override
@@ -37,27 +64,43 @@ class _trackingPetState extends State<trackingPet> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              width: 400,
+              // width: 400,
               height: 100,
               decoration: BoxDecoration(
-                  color: Colors.purple,
+                  color: Colors.grey,
                   borderRadius: BorderRadius.circular(10)
               ),
-              child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: DropdownButton(
-                  alignment: AlignmentDirectional.center,
+
+                  dropdownColor: Colors.grey,
+
+                  borderRadius: BorderRadius.circular(10),
+
+                  isExpanded: true,
+
 
                   // Initial Value
                   value: dropdownvalue,
 
                   // Down Arrow Icon
-                  icon: const Icon(Icons.keyboard_arrow_down),
+                  icon: const Icon(Icons.keyboard_arrow_down_rounded),
 
                   // Array list of items
                   items: items.map((String items) {
                     return DropdownMenuItem(
                       value: items,
-                      child: Text(items),
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          child: Image.asset("assets/images/petPic.png"),
+                        ),
+                        title: Text(items),
+                        subtitle: Text("Subs"),
+                        splashColor: Colors.yellow,
+                        // trailing: Icon(Icons.keyboard_arrow_down_rounded),
+                      ),
+
                     );
                   }).toList(),
                   // After selecting the desired option,it will
@@ -66,6 +109,8 @@ class _trackingPetState extends State<trackingPet> {
                     setState(() {
                       dropdownvalue = newValue!;
                     });
+                    printValues(newValue);
+
                   },
                 ),
               ),
