@@ -6,15 +6,15 @@ import 'package:flutter/rendering.dart';
 import 'package:pet_care/uihelper.dart';
 
 class petScreen extends StatefulWidget {
-  const petScreen({super.key});
+  Map<String,dynamic> userData;
+  petScreen({super.key,required this.userData});
 
   @override
   State<petScreen> createState() => _petScreenState();
 }
 
 class _petScreenState extends State<petScreen> {
-
-  var list=[];
+  var list = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,79 +31,84 @@ class _petScreenState extends State<petScreen> {
         decoration: BoxDecoration(
           color: Colors.white70,
         ),
-
-
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          decoration: BoxDecoration(
-            color: Colors.transparent
-          ),
-          child : StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("PetData").doc("fuzailraza11@gmail.com").snapshots(),
-            builder: (context, snapshot) {
-              if(snapshot.connectionState==ConnectionState.active){
-                if(!snapshot.requireData.exists){
-                  return Center(
-                    child: Container(
-                      width: RenderErrorBox.minimumWidth,
-                      height: RenderErrorBox.minimumWidth/1.5,
-                      decoration: BoxDecoration(
-                        color: Colors.blueGrey,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.pinkAccent.shade200)
-                        
-                      ),
-                      child: Center(child: Text("Error ${snapshot.error.toString()}",style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                      ),)),
-                    ),
-                  );
-                }
-                else if(snapshot.hasData){
-                  print("Snap Data : ${snapshot.data.toString()}");
-                  list=snapshot.data!["petIds"];
-                  return ListView.builder(itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: InkWell(
-                        onTap: () {
-                          print("Clicked");
-
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.pinkAccent.shade100,
-                              borderRadius: BorderRadius.circular(13)
-                          ),
-                          child: ListTile(
-                            style: ListTileStyle.drawer,
-                            leading: CircleAvatar(
-                                child: snapshot.data![list[index]]["isCat"]==true ? Image.asset("assets/images/petPic.png"):Image.asset("assets/images/catDog.png")
-                            ),
-                            contentPadding: EdgeInsets.all(30),
-                            title: Text("${snapshot.data![list[index]]["Name"]} + $index"),
-                            subtitle: Text("${snapshot.data![list[index]]["PetName"]} "),
-                            trailing: Icon(Icons.ads_click,
-                              color: Colors.pinkAccent.shade700,),
-                          ),
-                        ),
+          decoration: BoxDecoration(color: Colors.transparent),
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("PetData")
+                  .doc(widget.userData["Email"])
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.active) {
+                  if (!snapshot.requireData.exists) {
+                    return Center(
+                      child: Container(
+                        width: RenderErrorBox.minimumWidth,
+                        height: RenderErrorBox.minimumWidth / 1.5,
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadius.circular(10),
+                            border:
+                                Border.all(color: Colors.pinkAccent.shade200)),
+                        child: Center(
+                            child: Text(
+                          "Error ${snapshot.error.toString()}",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        )),
                       ),
                     );
-                  },
-                    itemCount: list.length,
-                  );
-
+                  } else if (snapshot.hasData) {
+                    print("Snap Data : ${snapshot.data.toString()}");
+                    list = snapshot.data!["petIds"];
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: InkWell(
+                            onTap: () {
+                              print("Clicked");
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.pinkAccent.shade100,
+                                  borderRadius: BorderRadius.circular(13)),
+                              child: ListTile(
+                                style: ListTileStyle.drawer,
+                                leading: CircleAvatar(
+                                    child: snapshot.data![list[index]]
+                                                ["isCat"] ==
+                                            true
+                                        ? Image.asset(
+                                            "assets/images/petPic.png")
+                                        : Image.asset(
+                                            "assets/images/catDog.png")),
+                                contentPadding: EdgeInsets.all(30),
+                                title: Text(
+                                    "${snapshot.data![list[index]]["Name"]} + $index"),
+                                subtitle: Text(
+                                    "${snapshot.data![list[index]]["PetName"]} "),
+                                trailing: Icon(
+                                  Icons.ads_click,
+                                  color: Colors.pinkAccent.shade700,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: list.length,
+                    );
+                  }
                 }
 
-
-              }
-
-                return Center(child: CircularProgressIndicator(),);
-              }
-          ),
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }),
         ),
       )
     ]);

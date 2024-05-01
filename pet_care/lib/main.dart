@@ -24,12 +24,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-    Map<String,dynamic> userData={
-      "Name":"Jerry",
-      "Email":"fuzailraza161@gmail.com",
-      "isVerified":false,
-      "PhoneNo":"+923014384681"
+    Map<String, dynamic> userData = {
+      "Name": "Jerry",
+      "Email": "fuzailraza161@gmail.com",
+      "isVerified": false,
+      "PhoneNo": "+923014384681"
     };
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -68,13 +67,13 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        '/': (context) =>Tests(userData: userData,),
+        '/': (context) => SplashScreen(),
         // '/': (context) =>PhoneAuthentication(userData: userData),
-        'Google Nav Bar': (context) => Tests(userData: {
-          "Name":"Test Call"
-        }),
+        'Google Nav Bar': (context) => Tests(userData: {"Name": "Test Call"}),
         'Forgot Screen': (context) => ResetPassword(),
-        'PhoneAuthenticate': (context) => PhoneAuthentication(userData: userData,),
+        'PhoneAuthenticate': (context) => PhoneAuthentication(
+              userData: userData,
+            ),
         'Signup Page': (context) => SignUpForm(),
       },
       // home: const checkFiles(),

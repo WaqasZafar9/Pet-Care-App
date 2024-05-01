@@ -71,6 +71,7 @@ class _LoginState extends State<Login> {
       idToken: googleAuth?.idToken,
     );
 
+    print(credential.toString());
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
