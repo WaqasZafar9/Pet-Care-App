@@ -6,6 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:pet_care/CommunityScreen.dart';
 import 'package:pet_care/ProfilePage.dart';
 import 'package:pet_care/TrackingPet.dart';
+import 'package:pet_care/petScreen.dart';
 
 class Tests extends StatefulWidget {
   Map<String,dynamic> userData;
@@ -16,26 +17,30 @@ class Tests extends StatefulWidget {
 }
 
 class _TestsState extends State<Tests> {
+  String Name="";
 
   int index=0;
 
   List<Widget> _screens=<Widget>[
-    Container(color: Colors.lime,),
+    petScreen(),
     Container(color: Colors.blue,),
     trackingPet(),
     ProfilePage(userData: {
-      "Name":"Jerry",
-      "Email":"Jerry161@gamil.com",
-      "isVerified":false
     }),
-    communityScreen(),
+    communityScreen(email: "fuzailraza161@gmail.com",),
   ];
 
   @override
   void initState() {
+    Name=widget.userData["Name"].toString();
+    if(Name.length>11) {
+    Name=Name.substring(0,11);
+    }
     super.initState();
     _screens[3]=ProfilePage(userData: widget.userData);
+    _screens[4]=communityScreen(email: widget.userData["Email"]);
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +57,16 @@ class _TestsState extends State<Tests> {
             //   child: Image.asset("assets/images/petPic.png"),
             //   backgroundColor: Colors.white70,
             // ),
-            title: Text("Welcome "+widget.userData["Name"],style: TextStyle(
-              fontSize: 20,
+            title: Text("Welcome ${Name}",style: TextStyle(
+              fontSize: 18,
               fontWeight: FontWeight.w500,
-            ),),
+            ),
+            ),
             trailing: IconButton(onPressed: (){
               setState(() {
+                // Todo uncomment accrodingly
                 index=4;
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => communityScreen(email: widget.userData["Email"]),));
               });
             }, icon: FaIcon(FontAwesomeIcons.amazon)),
 

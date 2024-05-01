@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/uihelper.dart';
@@ -13,6 +19,55 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  File? pickedImage;
+
+  showAlertBox() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Pic Image From"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  pickImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                leading: Icon(Icons.camera_alt),
+                title: Text("Camera"),
+              ),
+              ListTile(
+                onTap: () {
+                  pickImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                leading: Icon(Icons.image),
+                title: Text("Gallery"),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  pickImage(ImageSource imageSource) async {
+    try {
+      final photo = await ImagePicker().pickImage(source: imageSource);
+      if (photo == null) {
+        return;
+      }
+      final tempImage = File(photo.path);
+      setState(() {
+        pickedImage = tempImage;
+      });
+    } catch (ex) {
+      print("Error ${ex.toString()}");
+    }
+  }
+
   signUP(userData) async {
     UserCredential? userCredential;
 
@@ -21,7 +76,19 @@ class _SignUpFormState extends State<SignUpForm> {
           .createUserWithEmailAndPassword(
               email: userData["Email"], password: userData["Password"])
           .then((value) async {
+        uiHelper.customAlertBox(() {}, context, "Uploading");
+        var url = await DataBase.uploadImage(
+            userData["Email"], "ProfilePics", pickedImage);
+        uiHelper.customAlertBox(() {}, context, "Uploading...");
+        if (url == null) {
+          return uiHelper.customAlertBox(
+              () {}, context, "Pic Upload Unsuccessfully");
+        }
+        uiHelper.customAlertBox(() {}, context, "Uploaded");
+        userData["Pic"] = url;
+
         if (await DataBase.saveUserData("UserData", userData)) {
+          uiHelper.customAlertBox(() {}, context, "Saved");
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => Login()));
         } else {
@@ -30,7 +97,30 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       });
     } on FirebaseAuthException catch (ex) {
+      // if(ex.toString()!="email-already-in-use"){
+      //   return uiHelper.customAlertBox(() {}, context, "Email already Exists");
+      // }
+      // print("Printed Error ${ex.toString()}");
       return uiHelper.customAlertBox(() {}, context, ex.code.toString());
+    }
+  }
+
+  uploadImage(email, collection, pickedImage) async {
+    try {
+      print("Upload 1");
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref(collection)
+          .child(email)
+          .putFile(pickedImage!);
+      print("Upload 2 :- ${uploadTask.toString()}");
+      TaskSnapshot taskSnapshot = await uploadTask;
+      print("Upload 3");
+      String url = await taskSnapshot.ref.getDownloadURL();
+      print("Upload 4");
+      return url;
+    } on FirebaseException catch (ex) {
+      print("Error ${ex.toString()}");
+      return null;
     }
   }
 
@@ -47,7 +137,7 @@ class _SignUpFormState extends State<SignUpForm> {
         "City": CityController.value.text,
         "DateOfBirth": DateOfBirthController,
         "Pic": null,
-        "isVerified":false
+        "isVerified": false
       };
 
       signUP(userData);
@@ -58,8 +148,8 @@ class _SignUpFormState extends State<SignUpForm> {
       // DataBase.updateUserData(
       //     "UserData", "fuzailraza161@gmail.com", updateData);
       // uiHelper.customAlertBox(() {}, context, "Form Valid");
-    // } else {
-    //   uiHelper.customAlertBox(() {}, context, "Form Not Valid");
+      // } else {
+      //   uiHelper.customAlertBox(() {}, context, "Form Not Valid");
     }
     uiHelper.customAlertBox(() {}, context, "Remaining Call");
     String email = EmailController.value.text;
@@ -101,8 +191,18 @@ class _SignUpFormState extends State<SignUpForm> {
     } else if (City.contains(NameRejex)) {
       uiHelper.customAlertBox(
           () {}, context, "City Not Valid.Must Not Contains Numbers!");
+    } else if (pickedImage == null) {
+      uiHelper.customAlertBox(() {}, context, "Please Pick Your Image");
     } else {
       uiHelper.customAlertBox(() {}, context, "SignUp SuccessFully");
+    }
+  }
+
+  checkImagePicked() {
+    if (pickedImage == null) {
+      return "PLease Pick your Image";
+    } else {
+      return null;
     }
   }
 
@@ -171,10 +271,11 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   String? dateOfBirthValidator(value) {
-    if (DateOfBirthController=="") {
+    if (DateOfBirthController == "") {
       return ("PLease Enter Date of  birth");
     }
-    return null;
+
+    return checkImagePicked();
   }
 
   var NameController = TextEditingController();
@@ -207,13 +308,60 @@ class _SignUpFormState extends State<SignUpForm> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Opacity(
-                            opacity: 0.6,
-                            child: Image(
-                              image: AssetImage("assets/images/petPic.png"),
-                              width: 60,
-                              height: 50,
-                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Opacity(
+                              opacity: 0.6,
+                              child: InkWell(
+                                  onTap: () => showAlertBox(),
+                                  child: pickedImage != null
+                                      ? CircleAvatar(
+                                          radius: 40,
+                                          backgroundImage:
+                                              FileImage(pickedImage!),
+                                        )
+                                      : CircleAvatar(
+                                          radius: 41,
+                                          child: Stack(children: [
+                                            Positioned(
+                                              top: 15,
+                                              left: 20,
+                                              child: Icon(
+                                                Icons.person,
+                                                size: 40,
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 53,
+                                              left: 30,
+                                              child: Icon(
+                                                Icons.add,
+                                                size: 20,
+                                              ),
+                                            ),
+                                            Positioned(
+                                              top: 52,
+                                              child: Opacity(
+                                                opacity: 0.3,
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.blueGrey,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(40),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          40))),
+                                                  width: 80,
+                                                  height: 30,
+                                                ),
+                                              ),
+                                            )
+                                          ]),
+                                        ))),
+                        ),
                         Text(
                           "SignUp",
                           style: TextStyle(
@@ -224,7 +372,6 @@ class _SignUpFormState extends State<SignUpForm> {
                         ),
                       ],
                     )),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -239,7 +386,6 @@ class _SignUpFormState extends State<SignUpForm> {
                     validator: (value) => nameValidator(value),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -311,23 +457,19 @@ class _SignUpFormState extends State<SignUpForm> {
                     validator: (value) => cityValidator(value),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     child: TextFormField(
                       enabled: false,
-
                       decoration: InputDecoration(
-                          label: Text( "Date of Birth : $DateOfBirthController"),
+                          label: Text("Date of Birth : $DateOfBirthController"),
                           prefixIcon: Icon(Icons.date_range_outlined),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25)
-                          )
-                      ),
-                      validator:  (value) => dateOfBirthValidator(value),
+                              borderRadius: BorderRadius.circular(25))),
+                      validator: (value) => dateOfBirthValidator(value),
                     ),
-                    onTap:() async {
+                    onTap: () async {
                       DateTime? datePicked = await showDatePicker(
                           context: context,
                           // initialDate: DateTime.now(),
@@ -337,7 +479,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         setState(() {
                           date = datePicked;
                           DateOfBirthController =
-                          "${date.day}/${date.month}/${date.year}";
+                              "${date.day}/${date.month}/${date.year}";
                           print("Time : $datePicked");
                         });
                       }
@@ -376,7 +518,9 @@ class _SignUpFormState extends State<SignUpForm> {
                         ))
                   ],
                 ),
-                SizedBox(height: 30,)
+                SizedBox(
+                  height: 30,
+                )
               ],
             ),
           ),

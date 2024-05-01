@@ -82,21 +82,6 @@ class _SignUpState extends State<SignUp> {
               ),
             )
             ,
-              // Row(
-              //   children: [
-              //     ElevatedButton(onPressed: () async {
-              //       DateTime? datePicked= await showDatePicker(
-              //           context: context,
-              //           // initialDate: DateTime.now(),
-              //           firstDate: DateTime(2020),
-              //           lastDate: DateTime(2024));
-              //       if (datePicked!=null){
-              //         print("Time : $datePicked");
-              //       }
-              //     }, child:  Text("Select "),
-              //     ),
-              //   ],
-              // ),
               uiHelper.customDateField(() {DatePickerDialog(firstDate: DateTime(1947), lastDate: DateTime.now()); }, DateOfBirthController, "Date of Birth", Icons.date_range_outlined, false),
               Padding(
                 padding: const EdgeInsets.all(8.0),

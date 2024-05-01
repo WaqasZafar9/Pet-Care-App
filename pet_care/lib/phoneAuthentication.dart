@@ -58,9 +58,12 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
           .then((value) {
          DataBase.updateUserData("UserData", widget.userData["Email"] , {
           "isVerified": true
-        }
+         }
         );
-            uiHelper.customAlertBox(() { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Tests(userData: widget.userData),));}, context, "Verification Successfull");
+         widget.userData["isVerified"]= true;
+            uiHelper.customAlertBox(() {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Tests(userData: widget.userData),));
+              }, context, "Verification Successfull");
           },).onError((error, stackTrace) => uiHelper.customAlertBox(
               () {}, context, error.toString() + "Verification Error"));
     } catch (ex) {

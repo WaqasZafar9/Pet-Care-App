@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        '/': (context) =>Login(),
+        '/': (context) =>Tests(userData: userData,),
         // '/': (context) =>PhoneAuthentication(userData: userData),
         'Google Nav Bar': (context) => Tests(userData: {
           "Name":"Test Call"

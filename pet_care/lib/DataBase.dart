@@ -1,4 +1,5 @@
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,7 +44,21 @@ class DataBase {
     try {
       var db = FirebaseFirestore.instance;
 
-      db.collection(collection).doc(userData["Email"]).set(userData,SetOptions(merge: false)).then((value) => print("Written Successfully")).onError((e, _) => print("Error writing document: $e"));
+      await db.collection(collection).doc(userData["Email"]).set(userData,SetOptions(merge: false)).then((value) => print("Written Successfully")).onError((e, _) => print("Error writing document: $e"));
+
+      return true;
+    }
+    on FirebaseAuthException catch(ex){
+      return  ex.code.toString();
+    }
+  }
+
+  static Future<dynamic> saveMessageData(collection,userData) async{
+
+    try {
+      var db = FirebaseFirestore.instance;
+
+      await db.collection(collection).doc().set(userData,SetOptions(merge: false)).then((value) => print("Written Successfully")).onError((e, _) => print("Error writing document: $e"));
 
       return true;
     }
@@ -103,6 +118,26 @@ class DataBase {
 
 
   }
+
+  static Future<dynamic>? uploadImage(email,collection,pickedImage)async{
+
+    try {
+      print("Upload 1");
+      UploadTask uploadTask = FirebaseStorage.instance.ref(collection).child(
+          email).putFile(pickedImage!);
+      print("Upload 2 :- ${uploadTask.toString()}");
+      TaskSnapshot taskSnapshot = await uploadTask;
+      print("Upload 3");
+      String url = await taskSnapshot.ref.getDownloadURL();
+      print("Upload 4");
+      return url;
+    }
+    on FirebaseException catch(ex){
+      print("Error : - ${ex.toString()} endedddd");
+      return null;
+    }
+  }
+
 
 
 }

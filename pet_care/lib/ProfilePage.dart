@@ -42,11 +42,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () {
                     print("Clicked");
                   },
-                  leading: CircleAvatar(
+
+                  //Todo : Remove else if as Pic never be null
+                  leading: widget.userData["Pic"]!=null ? CircleAvatar(
                     radius: 30,
-                    child: Image.asset("assets/images/petPic.png"),
+                    backgroundImage:  NetworkImage(widget.userData["Pic"]),
                     backgroundColor: Colors.white70,
-                  ),
+                  ) :
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage:  AssetImage("assets/images/petPic.png"),
+                    backgroundColor: Colors.white70,
+                  )
+                  ,
                   title: Text(
                     widget.userData["Name"],
                     style: TextStyle(
@@ -57,10 +65,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   subtitle: Text(widget.userData["Email"]),
                   trailing: IconButton(
+                    disabledColor: Colors.blueGrey.shade600,
                     icon: widget.userData["isVerified"] == true ? Icon(Icons.verified_user) : Icon(Icons.add),
-                    onPressed: (){
+                    onPressed: widget.userData["isVerified"]==false ? (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) =>PhoneAuthentication(userData: widget.userData,) ,));
-                  },),
+                   } : null
+                  ,),
                 ),
               ),
               Divider(
@@ -100,7 +110,7 @@ class _ProfilePageState extends State<ProfilePage> {
               TextButton(
                   onPressed: () async{
                     await FirebaseAuth.instance.signOut();
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
                   },
                   child: Text(
                     "LogOut",

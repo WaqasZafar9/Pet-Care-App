@@ -28,8 +28,8 @@ class _LoginState extends State<Login> {
       userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async{
 
         Map<String,dynamic> userData=await DataBase.readData("UserData",EmailController.value.text);
-        uiHelper.customAlertBox((){},context, "LoginIn + $userData");
-        Navigator.pushReplacement(
+        await uiHelper.customAlertBox((){},context, "LoginIn + $userData");
+        await Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Tests( userData: userData,)));
       });
 
