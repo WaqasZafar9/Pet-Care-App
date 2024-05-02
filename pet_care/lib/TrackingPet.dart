@@ -61,8 +61,8 @@ class _trackingPetState extends State<trackingPet> {
             // height: 720,
             color: Colors.blue,
             child: GoogleMap(
-              myLocationButtonEnabled: true,
               myLocationEnabled: true,
+              myLocationButtonEnabled: true,
               mapType: MapType.hybrid ,
               onMapCreated: _onMapCreated,
                 initialCameraPosition:
@@ -74,8 +74,7 @@ class _trackingPetState extends State<trackingPet> {
                   infoWindow: InfoWindow(
                     title: "First Map API",
                     snippet: "Snipped of API",
-                  ),
-
+                  )
                 )
               },
             ),
