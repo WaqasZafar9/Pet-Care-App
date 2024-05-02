@@ -28,9 +28,10 @@ class _TestsState extends State<Tests> {
     ),
     trackingPet(),
     ProfilePage(userData: {}),
-    communityScreen(
-
-      email: "fuzailraza161@gmail.com",
+    CommunityScreen(userData: {
+      "Email": "fuzailraza161@gmail.com",
+      "Pic":"https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d"
+    }
     ),
   ];
 
@@ -43,7 +44,11 @@ class _TestsState extends State<Tests> {
     super.initState();
     _screens[0]=petScreen(userData: widget.userData);
     _screens[3] = ProfilePage(userData: widget.userData);
-    _screens[4] = CommunityScreen(email: widget.userData["Email"]);
+    _screens[4] = CommunityScreen(
+      userData: {
+        "Email": widget.userData["Email"],
+        "Pic":widget.userData["Pic"]
+      },);
   }
 
   @override

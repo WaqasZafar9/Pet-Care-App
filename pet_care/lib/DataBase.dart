@@ -131,4 +131,22 @@ class DataBase {
       return null;
     }
   }
+
+  static Future<dynamic>? sendImage(collection, pickedImage) async {
+    try {
+      print("Upload 1");
+      UploadTask uploadTask = FirebaseStorage.instance
+          .ref(collection)
+          .putFile(pickedImage!);
+      print("Upload 2 :- ${uploadTask.toString()}");
+      TaskSnapshot taskSnapshot = await uploadTask;
+      print("Upload 3");
+      String url = await taskSnapshot.ref.getDownloadURL();
+      print("Upload 4");
+      return url;
+    } on FirebaseException catch (ex) {
+      print("Error : - ${ex.toString()} endedddd");
+      return null;
+    }
+  }
 }

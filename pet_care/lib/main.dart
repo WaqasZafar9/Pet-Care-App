@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
       "Name": "Jerry",
       "Email": "fuzailraza161@gmail.com",
       "isVerified": false,
-      "PhoneNo": "+923014384681"
+      "PhoneNo": "+923014384681",
+      "Pic":"https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d"
     };
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        '/': (context) => SplashScreen(),
+        '/': (context) => Tests(userData: userData,),
         // '/': (context) =>PhoneAuthentication(userData: userData),
         'Google Nav Bar': (context) => Tests(userData: {"Name": "Test Call"}),
         'Forgot Screen': (context) => ResetPassword(),

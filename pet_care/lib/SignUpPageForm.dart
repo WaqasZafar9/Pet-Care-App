@@ -71,6 +71,8 @@ class _SignUpFormState extends State<SignUpForm> {
   signUP(userData) async {
     UserCredential? userCredential;
 
+    // Todo check if user saved in data base or not if not then authentication must be roll back
+
     try {
       userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
