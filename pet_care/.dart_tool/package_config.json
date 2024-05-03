@@ -170,18 +170,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "firebase_dynamic_links",
-      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_dynamic_links-5.5.2",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
-      "name": "firebase_dynamic_links_platform_interface",
-      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_dynamic_links_platform_interface-0.2.6+30",
-      "packageUri": "lib/",
-      "languageVersion": "2.18"
-    },
-    {
       "name": "firebase_storage",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage-11.7.4",
       "packageUri": "lib/",
@@ -416,6 +404,24 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "location",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/location-6.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "location_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/location_platform_interface-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "location_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/location_web-5.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1",
       "packageUri": "lib/",
@@ -536,7 +542,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-02T19:57:22.314741Z",
+  "generated": "2024-05-02T22:55:31.642719Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }
