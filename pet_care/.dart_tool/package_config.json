@@ -206,6 +206,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "flutter_polyline_points",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_polyline_points-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///S:/Softwares/flutter_windows_3.19.3-stable/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -542,7 +548,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-02T22:55:31.642719Z",
+  "generated": "2024-05-03T19:45:23.117299Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

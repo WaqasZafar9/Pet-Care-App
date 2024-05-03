@@ -1,6 +1,2 @@
 
-
-class apiKey{
-
-   static var APIKEY="AIzaSyCyLoI6l54wFJ9rAReSzRPh_-nx03j8gdg";
-}
+var APIKEY="AIzaSyDP78JULz_B4YGI-k7A5S9tgcOyoK-juFU";

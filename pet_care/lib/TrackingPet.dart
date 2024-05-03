@@ -1,16 +1,14 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:pet_care/apiKey.dart';
 import 'package:pet_care/uihelper.dart';
-
 
 class trackingPet extends StatefulWidget {
   const trackingPet({super.key});
@@ -24,35 +22,26 @@ class _trackingPetState extends State<trackingPet> {
   void initState() {
     super.initState();
     getLocationUpdates();
-    customMarker(LatLng(31.5607552, 74.378948));
+    // customMarker(LatLng(31.5607552, 74.378948));
+    customMarkerImages();
+    customMarkerBytes();
+    getPolyPoints();
   }
 
-
-  init() {
-    getLocationUpdates();
-  }
 
   Location _locationController = Location();
+  String title = "";
 
-  LatLng? _current = null;
+  LatLng? _current;
+  LatLng pos = LatLng(31.5607552, 74.378948);
 
   final Completer<GoogleMapController> _MapController =
       Completer<GoogleMapController>();
   String dropdownvalue = 'Item 1';
-  LatLng _pGooglPlex = LatLng(-33.86, 151.20);
-  late GoogleMapController mapController;
-  // Future<void> newCoordinates(index) async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   await controller.animateCamera(CameraUpdate.newCameraPosition(cordinatesList[index]));
-  // }
 
-  var cordinatesList = [
-    CameraPosition(
-        bearing: 192.8334901395799,
-        target: LatLng(37.43296265331129, -122.08832357078792),
-        tilt: 59.440717697143555,
-        zoom: 19.151926040649414)
-  ];
+  bool isRouting=false;
+
+
 
   // List of items in our dropdown menu
   var items = [
@@ -66,73 +55,78 @@ class _trackingPetState extends State<trackingPet> {
     "Item 1": {
       "Name": "Fuzail1",
       "Email": "fuzailraza161@gmail.com",
-      "Lat": -33.86,
-      "Long": 151.20
+      "Lat": 31.5107662,
+      "Long": 74.378948
     },
     "Item 2": {
       "Name": "Fuzail2",
       "Email": "fuzailraza161@gmail.com",
-      "Lat": -33.86,
-      "Long": 151.20
+      "Lat": 31.5309572,
+      "Long": 74.378948
     },
     "Item 3": {
       "Name": "Fuzail3",
       "Email": "fuzailraza161@gmail.com",
-      "Lat": -33.86,
-      "Long": 151.20
+      "Lat": 31.5607482,
+      "Long": 74.378948
     },
     "Item 4": {
       "Name": "Fuzail4",
       "Email": "fuzailraza161@gmail.com",
-      "Lat": -33.86,
-      "Long": 151.20
+      "Lat": 31.5901342,
+      "Long": 74.378948
     },
     "Item 5": {
       "Name": "Fuzail5",
       "Email": "fuzailraza161@gmail.com",
-      "Lat": -33.86,
-      "Long": 151.20
+      "Lat": 31.5803752,
+      "Long": 74.378948
     }
   };
 
-  List<Marker> _marker=<Marker>[];
+  List<LatLng> polylineCoordinates = [];
 
-  String picPath="assets/images/petPic.png";
 
-  Uint8List? makrerImage;
+  List<Marker> _marker = <Marker>[];
 
-  Future<Uint8List> getBytesFromAssets(String path,int width) async{
+  String picPath = "assets/images/petPic.png";
 
-    ByteData data=await rootBundle.load(path);
-    ui.Codec codec=await ui.instantiateImageCodec(data.buffer.asUint8List(),targetHeight: width);
-    ui.FrameInfo frameInfo=await codec.getNextFrame();
-    return (await frameInfo.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+  Uint8List? markerImage;
 
+  Future<Uint8List> getBytesFromAssets(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetHeight: width);
+    ui.FrameInfo frameInfo = await codec.getNextFrame();
+    return (await frameInfo.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
-
-  printValues(key) {
-    print("Name : ${values[key]?["Name"]} Email ${values[key]?["Name"]}");
-  }
-
-   void customMarker (LatLng pos) async{
-
-    final Uint8List markerIcon=await getBytesFromAssets(picPath, 100);
-    _marker.add( Marker(
+  void customMarkerBytes() async {
+    final Uint8List markerIcon = await getBytesFromAssets(picPath, 100);
+    _marker.add(Marker(
         markerId: MarkerId('01'),
         position: (pos),
         infoWindow: InfoWindow(
           title: "First Map API",
           snippet: "Snipped of API",
         ),
-      icon: BitmapDescriptor.fromBytes(markerIcon)
-    ));
+        icon: BitmapDescriptor.fromBytes(markerIcon)));
+  }
+  late BitmapDescriptor markerIcon;
+
+  void customMarkerImages() async{
+
+    markerIcon=BitmapDescriptor.defaultMarker;
+    await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty, "assets/images/petPic.ico").then((icon) {
+
+      markerIcon=icon;
+
+
+    },);
 
   }
-
-  // void _onMapCreated(GoogleMapController controller) {
-  //   mapController = controller;
-  // }
 
   Future<void> getLocationUpdates() async {
     bool _serviceEnabled;
@@ -157,8 +151,7 @@ class _trackingPetState extends State<trackingPet> {
       if (_permissionGuranted != PermissionStatus.granted) {
         return;
       }
-    }
-    else{
+    } else {
       _locationController.onLocationChanged
           .listen((LocationData currentLocation) {
         if (currentLocation.latitude != null &&
@@ -166,13 +159,18 @@ class _trackingPetState extends State<trackingPet> {
           setState(() {
             _current =
                 LatLng(currentLocation.latitude!, currentLocation.longitude!);
+            // pos=LatLng(pos.latitude  +  0.0000052, pos.longitude +  0.000058) ;
             print("Location : $_current");
-            uiHelper.customAlertBox(() { }, context, "Located");
+            print("Location : $pos");
+            print(polylineCoordinates);
+            if(isRouting) {
+              reFocus(_current!);
+            }
+            // uiHelper.customAlertBox(() { }, context, "Located");
           });
         }
       });
     }
-
   }
 
   Future<void> reFocus(LatLng position) async {
@@ -183,6 +181,31 @@ class _trackingPetState extends State<trackingPet> {
         .animateCamera(CameraUpdate.newCameraPosition(newCameraPostion));
   }
 
+
+  void getPolyPoints() async {
+    polylineCoordinates = [];
+    PolylinePoints polylinePoints = PolylinePoints();
+    try {
+      PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+          APIKEY,
+          PointLatLng(_current!.latitude, _current!.longitude),
+          PointLatLng(pos.latitude, pos.longitude));
+      if (result.points.isNotEmpty) {
+        for (var point in result.points) {
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+        }
+      }
+    }catch (ex){
+      uiHelper.customAlertBox(() { }, context, ex.toString());
+    }
+
+
+
+    setState(() {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,6 +214,24 @@ class _trackingPetState extends State<trackingPet> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: IconButton(
+                onPressed: () {
+                  getPolyPoints();
+                  isRouting=true;
+                },
+                icon: Icon(
+                  Icons.route,
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromRGBO(10, 111, 112, 0.3)),
+                ),
+              ),
+            ),
+
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: IconButton(
@@ -201,14 +242,15 @@ class _trackingPetState extends State<trackingPet> {
                   Icons.person,
                 ),
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Color.fromRGBO(10, 111, 112, 0.3)),
+                  backgroundColor: MaterialStateProperty.all(
+                      Color.fromRGBO(10, 111, 112, 0.3)),
                 ),
               ),
             ),
+
             IconButton(
               onPressed: () {
-                reFocus(const LatLng(31.5607552, 74.378948));
+                reFocus(pos);
                 // init();
               },
               icon: FaIcon(FontAwesomeIcons.amazonPay),
@@ -220,16 +262,17 @@ class _trackingPetState extends State<trackingPet> {
         ),
       ),
       body: Container(
+        // Todo Add Dynamic Data from Database
         child: Stack(children: [
           Container(
               // height: 720,
-         color: Colors.blue,
+              color: Colors.blue,
               child: _current == null
                   ? Center(
                       child: CircularProgressIndicator(),
                     )
                   : GoogleMap(
-          myLocationEnabled: true,
+                      myLocationEnabled: true,
                       // myLocationButtonEnabled: true,
                       mapType: MapType.normal,
                       onMapCreated: (GoogleMapController controller) {
@@ -237,8 +280,34 @@ class _trackingPetState extends State<trackingPet> {
                       },
                       initialCameraPosition:
                           CameraPosition(target: _current!, zoom: 13),
+                      polylines: {
+                        Polyline(
+                            polylineId: PolylineId("Route"),
+                            points: polylineCoordinates,
+                            color: Colors.blue,
+                            width: 6,
+                          jointType: JointType.bevel
+                        ),
+                      },
                       markers: {
-                        _marker[0]
+                        Marker(
+                          markerId: MarkerId("Id1"),
+                          icon:markerIcon,
+                          position: (pos),
+                          infoWindow: InfoWindow(
+                            title: title,
+                            snippet: "Snipped of API",
+                          ),
+                        ),
+                        Marker(
+                          markerId: MarkerId("Id2"),
+                          position: LatLng(pos.latitude+0.03,pos.longitude),
+                          infoWindow: InfoWindow(
+                            title: title,
+                            snippet: "Snipped of API",
+                          ),
+                        ),
+                        // _marker[0]
                       },
                     )),
           Padding(
@@ -283,9 +352,12 @@ class _trackingPetState extends State<trackingPet> {
                   onChanged: (String? newValue) {
                     setState(() {
                       dropdownvalue = newValue!;
+                      title = values[dropdownvalue]!["Name"].toString();
+                      pos = LatLng(values[dropdownvalue]!["Lat"] as double,
+                          values[dropdownvalue]!["Long"] as double);
+                      isRouting=false;
                     });
-                    printValues(newValue);
-                    print("Map Controller Values ${mapController.mapId}");
+
                   },
                 ),
               ),
