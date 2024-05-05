@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:pet_care/petDetails.dart';
 import 'package:pet_care/uihelper.dart';
 
 class petScreen extends StatefulWidget {
@@ -70,7 +71,7 @@ class _petScreenState extends State<petScreen> {
                           padding: const EdgeInsets.all(20.0),
                           child: InkWell(
                             onTap: () {
-                              print("Clicked");
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => petDetails(),));
                             },
                             child: Container(
                               decoration: BoxDecoration(

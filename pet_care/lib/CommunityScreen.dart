@@ -124,35 +124,30 @@ class _communityScreenState extends State<communityScreen> {
                               if (snapshot.hasData) {
                                 return ListView.builder(
                                   itemBuilder: (context, index) {
-                                    Stack(children: [
-                                      Container(
-                                        ////Messgae likha hus show krna wala
-                                        margin: EdgeInsets.only(top: 10),
-                                        padding: EdgeInsets.only(bottom: 8),
-                                        width: RenderErrorBox.minimumWidth,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                              snapshot.data
-                                                  ?.docs[index]["message"]),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          ////Messgae likha hus show krna wala
+                                          margin: EdgeInsets.only(top: 10),
+                                          padding: EdgeInsets.only(bottom: 8),
+                                          width: RenderErrorBox.minimumWidth,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(
+                                                snapshot.data
+                                                    ?.docs[index]["message"]),
+                                          ),
+                                          decoration: BoxDecoration(
+                                              color: messageColor,
+                                              border:
+                                              Border.all(color: messageBorderColor),
+                                              borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(10),
+                                                  topLeft: Radius.circular(10),
+                                                  bottomLeft: Radius.circular(10))),
                                         ),
-                                        decoration: BoxDecoration(
-                                            color: messageColor,
-                                            border:
-                                            Border.all(color: messageBorderColor),
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(10),
-                                                topLeft: Radius.circular(10),
-                                                bottomLeft: Radius.circular(10))),
-                                      ),
-                                      // Positioned(
-                                      //     top: 100,
-                                      //     left: 152,
-                                      //     child: Text(
-                                      //       snapshot.data?.docs[index]["Time"],
-                                      //       style: TextStyle(fontSize: 10),
-                                      //     ))
-                                    ]);
+                                      ],
+                                    );
                                   },
                                   itemCount: snapshot.data?.docs.length,
                                 );

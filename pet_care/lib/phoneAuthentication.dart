@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,30 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
         timeout: Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException ex) {
-          uiHelper.customAlertBox(
-              () {}, context, ex.code.toString() + " Code Error");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Sent!',
+              message: '${ex.code.toString()} + " Code Error"',
+              contentType: ContentType.failure,
+            ),
+          ));
         },
         codeSent: (String verificationID, int? resentToken) {
           OTP = verificationID;
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text("Code Sent")));
+          final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Sent!',
+              message: 'Code Sent!',
+              contentType: ContentType.success,
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
         codeAutoRetrievalTimeout: (String VerificationID) {},
         phoneNumber: widget.userData["PhoneNo"]);

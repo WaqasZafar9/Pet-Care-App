@@ -49,6 +49,7 @@ dependencies:
   firebase_storage: ^11.7.4
   location: ^6.0.1
   flutter_polyline_points: ^2.0.0
+  awesome_snackbar_content: ^0.1.3
 
 dev_dependencies:
   flutter_test:
