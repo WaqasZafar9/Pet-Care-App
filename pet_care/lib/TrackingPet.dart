@@ -355,6 +355,7 @@ class _trackingPetState extends State<trackingPet> {
                       title = values[dropdownvalue]!["Name"].toString();
                       pos = LatLng(values[dropdownvalue]!["Lat"] as double,
                           values[dropdownvalue]!["Long"] as double);
+                      polylineCoordinates=[];
                       isRouting=false;
                     });
 

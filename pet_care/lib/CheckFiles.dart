@@ -14,14 +14,9 @@ import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/TrackingPet.dart';
 import 'package:pet_care/phoneAuthentication.dart';
 
-class checkFiles extends StatefulWidget {
+class checkFiles extends StatelessWidget {
   const checkFiles({super.key});
 
-  @override
-  State<checkFiles> createState() => _checkFilesState();
-}
-
-class _checkFilesState extends State<checkFiles> {
   @override
   Widget build(BuildContext context) {
 

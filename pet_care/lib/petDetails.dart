@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/PetDetailsWidget.dart';
+import 'package:pet_care/showTaskDetailsContainer.dart';
 
 class petDetails extends StatefulWidget {
   const petDetails({super.key});
@@ -16,6 +17,13 @@ class _petDetailsState extends State<petDetails> {
       appBar: AppBar(
         title: Text("Welcome Fuzail"),
         backgroundColor: Colors.grey.shade500,
+      ),
+
+      /// ToDO Remove Drawer Property
+
+      endDrawer: Drawer(
+        child: ListView(
+            children: [ showTaskDetailsContainer()]),
       ),
       body: Container(
         color: primaryColorBackground,

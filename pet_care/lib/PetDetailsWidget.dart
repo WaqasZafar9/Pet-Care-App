@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/addTaskContainer.dart';
 import 'package:pet_care/petReminderDetailsWidget.dart';
+import 'package:pet_care/showTaskDetailsContainer.dart';
 import 'package:pet_care/uihelper.dart';
 
 class PetDetailsWidget extends StatefulWidget {
@@ -78,8 +79,11 @@ class _PetDetailsWidgetState extends State<PetDetailsWidget> {
                       flex: 9,
                       child: InkWell(
                           onTap: () {},
-                          child: SingleChildScrollView(
-                              child: petReminderDetails())),
+
+                          /// TODO fix scrolling issue
+
+                          child: ListView(children: [petReminderDetails()])
+                      ),
                     )
                   : Expanded(
                       child: InkWell(

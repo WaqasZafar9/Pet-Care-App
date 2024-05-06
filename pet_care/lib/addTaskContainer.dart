@@ -34,7 +34,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700,
+      height: 714,
       decoration: BoxDecoration(
           color: Colors.grey.shade300, borderRadius: BorderRadius.circular(4)),
       child: Column(
@@ -74,6 +74,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
                           ),
                         ),
                         TextFormField(
+                          maxLength: 16,
                           controller: titleController,
                           autovalidateMode:
                           AutovalidateMode.onUserInteraction,

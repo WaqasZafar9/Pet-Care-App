@@ -2,6 +2,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_care/petReminderDeatilsData.dart';
+import 'package:pet_care/showTaskDetailsContainer.dart';
+import 'package:pet_care/uihelper.dart';
 
 class petReminderDetails extends StatefulWidget {
   const petReminderDetails({Key? key}) : super(key: key);
@@ -11,7 +13,12 @@ class petReminderDetails extends StatefulWidget {
 }
 
 class _petReminderDetailsState extends State<petReminderDetails> {
+
+
+
   var data = perReminderDetailsData().ReminderData;
+
+  bool isTaskDetail=false;
 
   @override
   Widget build(BuildContext context) {
@@ -84,79 +91,89 @@ class _petReminderDetailsState extends State<petReminderDetails> {
                   // color: Colors.greenAccent,
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: Text(
-                        data[index]["title"] as String,
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Center(
+                child: InkWell(
+
+                  ///TODO fixe Remainder Details Contianer Rendering
+
+                  onTap: (){
+                    isTaskDetail=true;
+                    Scaffold.of(context).openEndDrawer(
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        flex: 5,
                         child: Text(
-                          data[index]["Time"] as String,
-                          style: TextStyle(fontSize: 16),
+                          data[index]["title"] as String,
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w500),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Center(
-                        child: Text(
-                          data[index]["Date"] as String,
-                          style: TextStyle(fontSize: 16),
+                      Expanded(
+                        flex: 2,
+                        child: Center(
+                          child: Text(
+                            data[index]["Time"] as String,
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          data[index]["isSilent"] =
-                              !(data[index]["isSilent"] as bool);
-                        });
-
-                        final snackBar = SnackBar(
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            title: 'Ring!',
-                            message: 'Notifications Turned ON!',
-                            contentType: ContentType.success,
+                      Expanded(
+                        flex: 3,
+                        child: Center(
+                          child: Text(
+                            data[index]["Date"] as String,
+                            style: TextStyle(fontSize: 16),
                           ),
-                        );
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            data[index]["isSilent"] =
+                                !(data[index]["isSilent"] as bool);
+                          });
 
-                        final snackBarSilent = SnackBar(
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            title: 'Silent!',
-                            message: 'Notifications Turned OFF!',
-                            contentType: ContentType.warning,
-                            color: Colors.blueGrey,
-                          ),
-                        );
+                          final snackBar = SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                              title: 'Ring!',
+                              message: 'Notifications Turned ON!',
+                              contentType: ContentType.success,
+                            ),
+                          );
 
-                        data[index]["isSilent"] == true
-                            ? ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBarSilent)
-                            : ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                      },
-                      child: data[index]["isSilent"] == true
-                          ? FaIcon(
-                              FontAwesomeIcons.clock,
-                              size: 20,
-                            )
-                          : FaIcon(FontAwesomeIcons.userClock,size: 20,),
-                    ),
-                  ],
+                          final snackBarSilent = SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                              title: 'Silent!',
+                              message: 'Notifications Turned OFF!',
+                              contentType: ContentType.warning,
+                              color: Colors.blueGrey,
+                            ),
+                          );
+
+                          data[index]["isSilent"] == true
+                              ? ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBarSilent)
+                              : ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                        },
+                        child: data[index]["isSilent"] == true
+                            ? FaIcon(
+                                FontAwesomeIcons.clock,
+                                size: 20,
+                              )
+                            : FaIcon(FontAwesomeIcons.userClock,size: 20,),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

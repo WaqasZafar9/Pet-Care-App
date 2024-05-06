@@ -4,17 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/phoneAuthentication.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
 
   Map<String,dynamic> userData;
 
   ProfilePage({super.key,required this.userData});
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -44,9 +39,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
 
                   //Todo : Remove else if as Pic never be null
-                  leading: widget.userData["Pic"]!=null ? CircleAvatar(
+                  leading: userData["Pic"]!=null ? CircleAvatar(
                     radius: 30,
-                    backgroundImage:  NetworkImage(widget.userData["Pic"]),
+                    backgroundImage:  NetworkImage(userData["Pic"]),
                     backgroundColor: Colors.white70,
                   ) :
                   CircleAvatar(
@@ -56,19 +51,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                   ,
                   title: Text(
-                    widget.userData["Name"],
+                    userData["Name"],
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                  subtitle: Text(widget.userData["Email"]),
+                  subtitle: Text(userData["Email"]),
                   trailing: IconButton(
                     disabledColor: Colors.blueGrey.shade600,
-                    icon: widget.userData["isVerified"] == true ? Icon(Icons.verified_user) : Icon(Icons.add),
-                    onPressed: widget.userData["isVerified"]==false ? (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>PhoneAuthentication(userData: widget.userData,) ,));
+                    icon: userData["isVerified"] == true ? Icon(Icons.verified_user) : Icon(Icons.add),
+                    onPressed: userData["isVerified"]==false ? (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>PhoneAuthentication(userData: userData,) ,));
                    } : null
                   ,),
                 ),

@@ -4,15 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   Map<String,dynamic> userData;
    HomePage({super.key,required this.userData});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
@@ -21,7 +16,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
 
         appBar: AppBar(
-          title: Text("Welcome ${widget.userData["Name"]}" ),
+          title: Text("Welcome ${userData["Name"]}" ),
           // centerTitle: true,
           bottom:  const TabBar(tabs: [
             Tab(
