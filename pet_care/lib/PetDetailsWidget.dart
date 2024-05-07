@@ -8,7 +8,9 @@ import 'package:pet_care/showTaskDetailsContainer.dart';
 import 'package:pet_care/uihelper.dart';
 
 class PetDetailsWidget extends StatefulWidget {
-  const PetDetailsWidget({super.key});
+  Map<String,dynamic> ?petData;
+
+  PetDetailsWidget({super.key,required this.petData});
 
   @override
   State<PetDetailsWidget> createState() => _PetDetailsWidgetState();
@@ -41,7 +43,7 @@ class _PetDetailsWidgetState extends State<PetDetailsWidget> {
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/images/petPic.png"),
+                                    NetworkImage(widget.petData!["Photo"]),
                                 radius: 78,
                               ),
                             ),
@@ -52,7 +54,7 @@ class _PetDetailsWidgetState extends State<PetDetailsWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Jerry",
+                                    widget.petData!["Name"],
                                     style: TextStyle(
                                         fontSize: headingFont-3,
                                         fontWeight: FontWeight.w400),
@@ -60,7 +62,7 @@ class _PetDetailsWidgetState extends State<PetDetailsWidget> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 3),
                                     child: Text(
-                                      "My Lovely Pet ! ",
+                                      widget.petData!["Breed"],
                                       style: TextStyle(
                                           fontSize: subHeadingFont-3,
                                           fontWeight: FontWeight.w300),

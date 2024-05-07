@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -85,6 +86,15 @@ class _CommunityScreenState extends State<CommunityScreen> {
     );
   }
 
+  // Todo Fix The Naming of File
+
+  String randomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
+  }
+
   pickImage(ImageSource imageSource) async {
     try {
       final photo = await ImagePicker().pickImage(source: imageSource);
@@ -92,7 +102,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
         return;
       }
       final tempImage = File(photo.path);
-      var url = await DataBase.sendImage("CommunityMessagesPics", tempImage);
+      var url = await DataBase.uploadImage(randomString(12),"CommunityMessagesPics", tempImage);
 
       // Todo try to remove url exrtra space
 

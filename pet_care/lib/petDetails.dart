@@ -4,7 +4,11 @@ import 'package:pet_care/PetDetailsWidget.dart';
 import 'package:pet_care/showTaskDetailsContainer.dart';
 
 class petDetails extends StatefulWidget {
-  const petDetails({super.key});
+
+  // Todo recheck null check operator logic
+
+  Map<String,dynamic> ?petData;
+  petDetails({super.key,required this.petData});
 
   @override
   State<petDetails> createState() => _petDetailsState();
@@ -29,7 +33,7 @@ class _petDetailsState extends State<petDetails> {
         color: primaryColorBackground,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: PetDetailsWidget(),
+          child: PetDetailsWidget(petData:widget.petData),
         ),
       ),
 

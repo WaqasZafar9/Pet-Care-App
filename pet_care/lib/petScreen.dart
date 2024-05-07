@@ -71,7 +71,7 @@ class _petScreenState extends State<petScreen> {
                           padding: const EdgeInsets.all(20.0),
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => petDetails(),));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => petDetails(petData: snapshot.data!.data(),),));
                             },
                             child: Container(
                               decoration: BoxDecoration(
