@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-    Map<String,dynamic> userData={
-      "Name":"Jerry",
-      "Email":"fuzailraza161@gmail.com",
-      "isVerified":false,
-      "PhoneNo":"+923014384681"
+    Map<String, dynamic> userData = {
+      "Name": "Jerry",
+      "Email": "fuzailraza161@gmail.com",
+      "isVerified": false,
+      "PhoneNo": "+923014384681",
+      "Pic":"https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d"
     };
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -68,13 +68,13 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        '/': (context) =>Login(),
+        '/': (context) => Tests(userData: userData,),
         // '/': (context) =>PhoneAuthentication(userData: userData),
-        'Google Nav Bar': (context) => Tests(userData: {
-          "Name":"Test Call"
-        }),
+        'Google Nav Bar': (context) => Tests(userData: {"Name": "Test Call"}),
         'Forgot Screen': (context) => ResetPassword(),
-        'PhoneAuthenticate': (context) => PhoneAuthentication(userData: userData,),
+        'PhoneAuthenticate': (context) => PhoneAuthentication(
+              userData: userData,
+            ),
         'Signup Page': (context) => SignUpForm(),
       },
       // home: const checkFiles(),

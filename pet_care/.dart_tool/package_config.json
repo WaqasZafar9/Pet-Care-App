@@ -8,10 +8,22 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "args",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/args-2.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "async",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "awesome_snackbar_content",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/awesome_snackbar_content-0.1.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "boolean_selector",
@@ -56,6 +68,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "cross_file",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/cross_file-0.3.4+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "csslib",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/csslib-1.0.0",
       "packageUri": "lib/",
@@ -72,6 +90,30 @@
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/fake_async-1.3.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "file_selector_linux",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_linux-0.9.2+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "file_selector_macos",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_macos-0.9.3+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "file_selector_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_platform_interface-2.6.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "file_selector_windows",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/file_selector_windows-0.9.3+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "firebase_analytics",
@@ -140,16 +182,22 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "firebase_dynamic_links",
-      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_dynamic_links-5.5.2",
+      "name": "firebase_storage",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage-11.7.4",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
-      "name": "firebase_dynamic_links_platform_interface",
-      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_dynamic_links_platform_interface-0.2.6+30",
+      "name": "firebase_storage_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_platform_interface-5.1.19",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_storage_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_storage_web-3.9.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "flutter",
@@ -164,10 +212,28 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///S:/Softwares/flutter_windows_3.19.3-stable/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.19",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "flutter_polyline_points",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_polyline_points-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_svg",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-2.0.10+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter_test",
@@ -186,6 +252,12 @@
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "google_identity_services_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_identity_services_web-0.3.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "google_maps",
@@ -230,14 +302,104 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "google_sign_in",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in-6.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_android",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_android-6.1.23",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_ios",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_ios-5.7.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "google_sign_in_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_sign_in_web-0.12.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "html",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/html-0.15.4",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
     {
+      "name": "http",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "http_parser",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "image_picker",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_android",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_android-0.8.11",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_for_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_for_web-3.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_ios",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_ios-0.8.10+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_linux",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_linux-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "image_picker_macos",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_macos-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "image_picker_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_platform_interface-2.10.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "image_picker_windows",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/image_picker_windows-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -278,6 +440,24 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "location",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/location-6.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "location_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/location_platform_interface-4.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "location_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/location_web-5.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.16+1",
       "packageUri": "lib/",
@@ -296,10 +476,28 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mime",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/mime-1.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "path",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/path-1.9.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "path_parsing",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/path_parsing-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "petitparser",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "plugin_platform_interface",
@@ -368,6 +566,24 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "vector_graphics",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics-1.1.11+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "vector_graphics_codec",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_codec-1.1.11+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "vector_graphics_compiler",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/vector_graphics_compiler-1.1.11+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -386,13 +602,19 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "xml",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
       "name": "pet_care",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-04-28T09:45:17.587022Z",
+  "generated": "2024-05-05T15:53:56.207244Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }

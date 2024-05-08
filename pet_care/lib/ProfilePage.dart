@@ -1,18 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/LoginPage.dart';
 import 'package:pet_care/phoneAuthentication.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
 
   Map<String,dynamic> userData;
 
   ProfilePage({super.key,required this.userData});
 
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -40,25 +37,35 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: () {
                     print("Clicked");
                   },
-                  leading: CircleAvatar(
+
+                  //Todo : Remove else if as Pic never be null
+                  leading: userData["Pic"]!=null ? CircleAvatar(
                     radius: 30,
-                    child: Image.asset("assets/images/petPic.png"),
+                    backgroundImage:  NetworkImage(userData["Pic"]),
                     backgroundColor: Colors.white70,
-                  ),
+                  ) :
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage:  AssetImage("assets/images/petPic.png"),
+                    backgroundColor: Colors.white70,
+                  )
+                  ,
                   title: Text(
-                    widget.userData["Name"],
+                    userData["Name"],
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                  subtitle: Text(widget.userData["Email"]),
+                  subtitle: Text(userData["Email"]),
                   trailing: IconButton(
-                    icon: widget.userData["isVerified"] == true ? Icon(Icons.verified_user) : Icon(Icons.add),
-                    onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>PhoneAuthentication(userData: widget.userData,) ,));
-                  },),
+                    disabledColor: Colors.blueGrey.shade600,
+                    icon: userData["isVerified"] == true ? Icon(Icons.verified_user) : Icon(Icons.add),
+                    onPressed: userData["isVerified"]==false ? (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>PhoneAuthentication(userData: userData,) ,));
+                   } : null
+                  ,),
                 ),
               ),
               Divider(
@@ -96,7 +103,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   )),
               Divider(),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () async{
+                    await FirebaseAuth.instance.signOut();
+                    await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                  },
                   child: Text(
                     "LogOut",
                     style: TextStyle(

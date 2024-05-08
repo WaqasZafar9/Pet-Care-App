@@ -14,14 +14,9 @@ import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/TrackingPet.dart';
 import 'package:pet_care/phoneAuthentication.dart';
 
-class checkFiles extends StatefulWidget {
+class checkFiles extends StatelessWidget {
   const checkFiles({super.key});
 
-  @override
-  State<checkFiles> createState() => _checkFilesState();
-}
-
-class _checkFilesState extends State<checkFiles> {
   @override
   Widget build(BuildContext context) {
 
@@ -54,7 +49,7 @@ class _checkFilesState extends State<checkFiles> {
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen(),)), child: Text("Splash Screen")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp(),)), child: Text("SignUp Page")),
             ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => trackingPet(),)), child: Text("Pet Track")),
-            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => communityScreen(),)), child: Text("Community Screen")),
+            ElevatedButton(onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context) => communityScreen(email: userData["Email"],),)), child: Text("Community Screen")),
             ElevatedButton(onPressed: ()=> ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Paid Successfully"))), child: Text("Click")),
 
 

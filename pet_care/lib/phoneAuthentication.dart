@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,38 +13,53 @@ import 'package:pet_care/HomePage.dart';
 import 'package:pet_care/uihelper.dart';
 
 class PhoneAuthentication extends StatefulWidget {
-  Map<String,dynamic> userData;
-  PhoneAuthentication({super.key,required this.userData});
+  Map<String, dynamic> userData;
+  PhoneAuthentication({super.key, required this.userData});
 
   @override
   State<PhoneAuthentication> createState() => _PhoneAuthenticationState();
 }
 
 class _PhoneAuthenticationState extends State<PhoneAuthentication> {
-
   @override
   void initState() {
     super.initState();
-    // sendCode();
+    sendCode();
   }
 
-
-
   late String OTP;
-  bool isResendButtonVisible=false;
-  var phoneController=TextEditingController();
+  bool isResendButtonVisible = false;
+  var phoneController = TextEditingController();
 
   sendCode() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
         timeout: Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException ex) {
-          uiHelper.customAlertBox(
-              () {}, context, ex.code.toString() + " Code Error");
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Sent!',
+              message: '${ex.code.toString()} + " Code Error"',
+              contentType: ContentType.failure,
+            ),
+          ));
         },
         codeSent: (String verificationID, int? resentToken) {
           OTP = verificationID;
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Code Sent")));
+          final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Sent!',
+              message: 'Code Sent!',
+              contentType: ContentType.success,
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
         codeAutoRetrievalTimeout: (String VerificationID) {},
         phoneNumber: widget.userData["PhoneNo"]);
@@ -53,20 +69,24 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
     try {
       PhoneAuthCredential credential = await PhoneAuthProvider.credential(
           verificationId: OTP, smsCode: otp.text.toString());
-       FirebaseAuth.instance
-          .signInWithCredential(credential)
-          .then((value) {
-         DataBase.updateUserData("UserData", widget.userData["Email"] , {
-          "isVerified": true
-        }
-        );
-            uiHelper.customAlertBox(() { Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Tests(userData: widget.userData),));}, context, "Verification Successfull");
-          },).onError((error, stackTrace) => uiHelper.customAlertBox(
-              () {}, context, error.toString() + "Verification Error"));
+      FirebaseAuth.instance.signInWithCredential(credential).then(
+        (value) {
+          DataBase.updateUserData(
+              "UserData", widget.userData["Email"], {"isVerified": true});
+          widget.userData["isVerified"] = true;
+          uiHelper.customAlertBox(() {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Tests(userData: widget.userData),
+                ));
+          }, context, "Verification Successfull");
+        },
+      ).onError((error, stackTrace) => uiHelper.customAlertBox(
+          () {}, context, error.toString() + "Verification Error"));
     } catch (ex) {
       uiHelper.customAlertBox(() {}, context, ex.toString());
     }
-
   }
 
   otpValidate(value) {
@@ -103,12 +123,12 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
                       visible: isResendButtonVisible,
                       child: TextButton(
                         onPressed: () {},
-                        child: Text("Resend",style: TextStyle(
-                          fontSize: 10
-                        ),),
-                        style:ButtonStyle(
-                          visualDensity: VisualDensity.comfortable
+                        child: Text(
+                          "Resend",
+                          style: TextStyle(fontSize: 10),
                         ),
+                        style: ButtonStyle(
+                            visualDensity: VisualDensity.comfortable),
                       ),
                     )),
               ),
