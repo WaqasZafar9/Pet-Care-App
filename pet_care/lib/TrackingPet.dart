@@ -142,19 +142,13 @@ class _trackingPetState extends State<trackingPet> {
 
     _permissionGuranted = await _locationController.hasPermission();
 
-    // Todo Solve this error
-    uiHelper.customAlertBox(() {}, context, "Located2 $_permissionGuranted");
     if (_permissionGuranted == PermissionStatus.denied) {
-      uiHelper.customAlertBox(() {}, context, "Located2 Inner 1 $_permissionGuranted");
 
       _permissionGuranted = await _locationController.requestPermission();
-      await uiHelper.customAlertBox(() {}, context, "Located2 Inner 2 $_permissionGuranted");
       if (_permissionGuranted != PermissionStatus.granted) {
-        await uiHelper.customAlertBox(() {}, context, "Located2 Inner Blocked Block $_permissionGuranted");
         return;
       }
       else {
-        uiHelper.customAlertBox(() {}, context, "Located2 Final Block");
         _locationController.onLocationChanged
             .listen((LocationData currentLocation) {
           if (currentLocation.latitude != null &&
@@ -174,6 +168,8 @@ class _trackingPetState extends State<trackingPet> {
         });
       }
     }
+
+
   }
 
   Future<void> reFocus(LatLng position) async {

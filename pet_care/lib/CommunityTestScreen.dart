@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/uihelper.dart';
 
@@ -19,6 +20,9 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
+
+  bool showSpinner=false;
+
   var titleColor = Colors.blue.shade100,
       bottomColor =  Colors.blue.shade200,
       centerBodyColor = Colors.blue.shade300,
@@ -102,6 +106,11 @@ class _CommunityScreenState extends State<CommunityScreen> {
         return;
       }
       final tempImage = File(photo.path);
+
+      setState(() {
+        showSpinner=true;
+      });
+
       var url = await DataBase.uploadImage(randomString(12),"CommunityMessagesPics", tempImage);
 
       // Todo try to remove url exrtra space
@@ -117,12 +126,25 @@ class _CommunityScreenState extends State<CommunityScreen> {
       var response =
           await DataBase.saveMessageData("CommunityMessages", messageData);
 
+      setState(() {
+        showSpinner=false;
+      });
+
       if (response == true) {
+        setState(() {
+          showSpinner=false;
+        });
         return uiHelper.customAlertBox(() {}, context, "Send");
       } else {
+        setState(() {
+          showSpinner=false;
+        });
         return uiHelper.customAlertBox(() {}, context, response.toString());
       }
     } catch (ex) {
+      setState(() {
+        showSpinner=false;
+      });
       print("Error ${ex.toString()}");
     }
   }
@@ -133,181 +155,185 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 630),
-                child: Container(
-                  height: 65,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    color: bottomColor,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
-                    border: Border.all(color: bottomBorderColor),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: ListTile(
-                      title: TextField(
-                        controller: messageController,
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                              ),
-                              borderSide: BorderSide(color: inputBorderColor),
-                            ),
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  sendImage();
-                                },
-                                icon: Icon(Icons.add))),
+    return ModalProgressHUD(
+      inAsyncCall: showSpinner,
+      blur: 1,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 630),
+                  child: Container(
+                    height: 65,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: bottomColor,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
                       ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          sendMessage();
-                          // sendImage();
-                          setState(() {
-                            messageController.text = "";
-                          });
-                        },
-                        icon: Icon(
-                          Icons.send,
-                          size: 30,
+                      border: Border.all(color: bottomBorderColor),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 12.0),
+                      child: ListTile(
+                        title: TextField(
+                          controller: messageController,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                  bottomLeft: Radius.circular(10),
+                                ),
+                                borderSide: BorderSide(color: inputBorderColor),
+                              ),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    sendImage();
+                                  },
+                                  icon: Icon(Icons.add))),
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            sendMessage();
+                            // sendImage();
+                            setState(() {
+                              messageController.text = "";
+                            });
+                          },
+                          icon: Icon(
+                            Icons.send,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 50),
-                child: Container(
-                  height: 580,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    color: centerBodyColor,
-                    border: Border.all(color: centerBodyBorderColor),
-                  ),
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 10, right: 10, top: 10),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("CommunityMessages")
-                                .snapshots(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.active) {
-                                if (snapshot.hasData) {
-                                  return ListView.builder(
-                                    // Todo Fix Url Option
-                                    itemBuilder: (context, index) {
-                                      var time =
-                                          snapshot.data?.docs[index]["Time"];
-                                      // String url=getURL(snapshot.data?.docs[index]["Email"]);
-                                      String url=snapshot.data?.docs[index]["url"];
-                                      // String url = "https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d";
-                                      String email =
-                                          snapshot.data?.docs[index]["Email"];
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Container(
+                    height: 580,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: centerBodyColor,
+                      border: Border.all(color: centerBodyBorderColor),
+                    ),
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 10),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection("CommunityMessages")
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.active) {
+                                  if (snapshot.hasData) {
+                                    return ListView.builder(
+                                      // Todo Fix Url Option
+                                      itemBuilder: (context, index) {
+                                        var time =
+                                            snapshot.data?.docs[index]["Time"];
+                                        // String url=getURL(snapshot.data?.docs[index]["Email"]);
+                                        String url=snapshot.data?.docs[index]["url"];
+                                        // String url = "https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d";
+                                        String email =
+                                            snapshot.data?.docs[index]["Email"];
 
-                                      return Container(
-                                        margin: EdgeInsets.only(bottom: 8),
-                                        padding: EdgeInsets.only(bottom: 8),
-                                        // width: RenderErrorBox.minimumWidth,
-                                        child: ListTile(
-                                          leading: url != null
-                                              ? CircleAvatar(
-                                                  radius: 20,
-                                                  backgroundImage:
-                                                      NetworkImage(url),
-                                                  backgroundColor:
-                                                      Colors.white70,
-                                                )
-                                              : CircleAvatar(
-                                                  radius: 30,
-                                                  child: Icon(Icons.person),
-                                                  backgroundColor:
-                                                      Colors.white70,
-                                                ),
-                                          title: snapshot.data?.docs[index]
-                                                      ["isImage"] ==
-                                                  false
-                                              ? Text(snapshot.data?.docs[index]
-                                                  ["message"],
-                                          )
-                                              : Image(
-                                                  image: NetworkImage(
-                                                      snapshot.data?.docs[index]
-                                                          ["message"])),
-                                          // subtitle: Text(snapshot.data?.docs[index]["message"]),
-                                          trailing: Icon(Icons.add),
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: messageColor,
-                                          border: Border.all(
-                                              color: messageBorderColor),
-                                          borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(10),
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
+                                        return Container(
+                                          margin: EdgeInsets.only(bottom: 8),
+                                          padding: EdgeInsets.only(bottom: 8),
+                                          // width: RenderErrorBox.minimumWidth,
+                                          child: ListTile(
+                                            leading: url != null
+                                                ? CircleAvatar(
+                                                    radius: 20,
+                                                    backgroundImage:
+                                                        NetworkImage(url),
+                                                    backgroundColor:
+                                                        Colors.white70,
+                                                  )
+                                                : CircleAvatar(
+                                                    radius: 30,
+                                                    child: Icon(Icons.person),
+                                                    backgroundColor:
+                                                        Colors.white70,
+                                                  ),
+                                            title: snapshot.data?.docs[index]
+                                                        ["isImage"] ==
+                                                    false
+                                                ? Text(snapshot.data?.docs[index]
+                                                    ["message"],
+                                            )
+                                                : Image(
+                                                    image: NetworkImage(
+                                                        snapshot.data?.docs[index]
+                                                            ["message"])),
+                                            // subtitle: Text(snapshot.data?.docs[index]["message"]),
+                                            trailing: Icon(Icons.add),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                    itemCount: snapshot.data?.docs.length,
-                                  );
+                                          decoration: BoxDecoration(
+                                            color: messageColor,
+                                            border: Border.all(
+                                                color: messageBorderColor),
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              topLeft: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: snapshot.data?.docs.length,
+                                    );
+                                  } else {
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                  }
                                 } else {
                                   return Center(
                                       child: CircularProgressIndicator());
                                 }
-                              } else {
-                                return Center(
-                                    child: CircularProgressIndicator());
-                              }
-                            },
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: titleColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: titleColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                    ),
+                    border: Border.all(color: titleBorderColor),
                   ),
-                  border: Border.all(color: titleBorderColor),
-                ),
-                child: Center(
-                  child: Text(
-                    "Welcome to Community",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Center(
+                    child: Text(
+                      "Welcome to Community",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -9,6 +9,7 @@ import 'package:pet_care/TrackingPet.dart';
 import 'package:pet_care/addPetDyanamic.dart';
 import 'package:pet_care/addPetForm.dart';
 import 'package:pet_care/petScreen.dart';
+import 'package:pet_care/trackingPetDynamic.dart';
 
 class Tests extends StatefulWidget {
   Map<String, dynamic> userData;
@@ -26,9 +27,10 @@ class _TestsState extends State<Tests> {
   List<Widget> _screens = <Widget>[
     petScreen(userData: {},),
     // addPetForm(userData: {},),
-    Container(
-      color: Colors.blue,
-    ),
+    addPetForm(userData: {}),
+    // Container(
+    //   color: Colors.blue,
+    // ),
     trackingPet(),
     ProfilePage(userData: {}),
     CommunityScreen(userData: {
@@ -48,12 +50,14 @@ class _TestsState extends State<Tests> {
     // _screens[0]=petScreen(userData: widget.userData);
     _screens[0]=petScreenDynamic(userData: widget.userData);
     // _screens[0] = addPetForm(userData: widget.userData,);
+    _screens[2]=trackingPetDynamic(email:widget.userData["Email"]);
     _screens[3] = ProfilePage(userData: widget.userData);
     _screens[4] = CommunityScreen(
       userData: {
         "Email": widget.userData["Email"],
         "Pic":widget.userData["Pic"]
       },);
+    _screens[1] = addPetForm(userData: widget.userData);
   }
 
   @override
