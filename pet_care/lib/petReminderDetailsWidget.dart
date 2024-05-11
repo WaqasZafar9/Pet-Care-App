@@ -93,12 +93,16 @@ class _petReminderDetailsState extends State<petReminderDetails> {
                 ),
                 child: InkWell(
 
-                  ///TODO fixe Remainder Details Contianer Rendering
-
                   onTap: (){
                     isTaskDetail=true;
-                    Scaffold.of(context).openEndDrawer(
-                    );
+
+                    showBottomSheet(context: context, builder: (BuildContext context) {
+
+
+                      return showTaskDetailsContainer();
+
+                    },);
+
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

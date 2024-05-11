@@ -23,12 +23,7 @@ class _petDetailsState extends State<petDetails> {
         backgroundColor: Colors.grey.shade500,
       ),
 
-      /// ToDO Remove Drawer Property
 
-      endDrawer: Drawer(
-        child: ListView(
-            children: [ showTaskDetailsContainer()]),
-      ),
       body: Container(
         color: primaryColorBackground,
         child: Padding(
