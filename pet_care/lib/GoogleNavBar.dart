@@ -10,6 +10,7 @@ import 'package:pet_care/addPetDyanamic.dart';
 import 'package:pet_care/addPetForm.dart';
 import 'package:pet_care/petScreen.dart';
 import 'package:pet_care/trackingPetDynamic.dart';
+import 'package:pet_care/trackingPetFinal.dart';
 
 class Tests extends StatefulWidget {
   Map<String, dynamic> userData;
@@ -51,6 +52,7 @@ class _TestsState extends State<Tests> {
     _screens[0]=petScreenDynamic(userData: widget.userData);
     // _screens[0] = addPetForm(userData: widget.userData,);
     _screens[2]=trackingPetDynamic(email:widget.userData["Email"]);
+    // _screens[2]=TrackingPet(y);
     _screens[3] = ProfilePage(userData: widget.userData);
     _screens[4] = CommunityScreen(
       userData: {

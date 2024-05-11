@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:file_picker/file_picker.dart';
@@ -205,6 +206,14 @@ class _addPetFormState extends State<addPetForm> {
     uiHelper.customAlertBox(() {}, context, "Location Not Accessible2");
   }
 
+
+  String randomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
+  }
+
   submitForm() async{
 
     setState(() {
@@ -217,11 +226,13 @@ class _addPetFormState extends State<addPetForm> {
       if (allValuesFilled()) {
         if (petForm.currentState!.validate()) {
           // Todo Fix Database Logic how to Store and Retrieve Data
+          // Todo Rename Email to ID
+
 
 
           Map<String, dynamic> petData = {
 
-            "Email": widget.userData["Email"] + "1",
+            "Email": randomString(12),
             "Name": petNameController.value.text,
             "oneLine": oneLineController.value.text,
             "Category": selectedCategory,
@@ -233,6 +244,7 @@ class _addPetFormState extends State<addPetForm> {
             "LONG": _current?.longitude
           };
 
+
           var url = await DataBase.uploadImage(
               widget.userData["Email"], "PetPics", pickedImage);
 
@@ -243,7 +255,7 @@ class _addPetFormState extends State<addPetForm> {
           petData["Photo"] = url;
           petData["MedicalFile"] = "fileUrl";
 
-          if (await DataBase.saveUserData("PetData", petData)) {
+          if (await DataBase.saveUserData(widget.userData["Email"], petData)) {
             setState(() {
               showSpinner = false;
             });
