@@ -21,9 +21,9 @@ class _CategoryState extends State<Category> {
           child: Row(
             children: [
               SizedBox(width: 10), // Add initial padding
-              buildCategoryItem('Cat', 'cat', 'lib/images/cat1.png'),
+              buildCategoryItem('Cat', 'cat', 'assets/images/cat1.png'),
               SizedBox(width: 10), // Add space between items
-              buildCategoryItem('Dog', 'dog', 'lib/images/dog1.png'),
+              buildCategoryItem('Dog', 'dog', 'assets/images/dog1.png'),
               SizedBox(width: 10), // Add space at the end
             ],
           ),
