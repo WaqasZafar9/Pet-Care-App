@@ -25,31 +25,31 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   List<Product> productList = [
     Product(
-      image: 'lib/images/catproduct1.jpg',
+      image: 'assets/images/catproduct1.jpg',
       title: 'Fluffy Product',
       description: 'New Fluffy Material For Cats',
       price: 10.0,
     ),
     Product(
-      image: 'lib/images/catproduct1.jpg',
+      image: 'assets/images/catproduct1.jpg',
       title: 'Fluffy Product',
       description: 'New Fluffy Material For Cats',
       price: 10.0,
     ),
     Product(
-      image: 'lib/images/catproduct1.jpg',
+      image: 'assets/images/catproduct1.jpg',
       title: 'Fluffy Product',
       description: 'New Fluffy Material For Cats',
       price: 10.0,
     ),
     Product(
-      image: 'lib/images/catproduct1.jpg',
+      image: 'assets/images/catproduct1.jpg',
       title: 'Fluffy Product',
       description: 'New Fluffy Material For Cats',
       price: 10.0,
     ),
     Product(
-      image: 'lib/images/catproduct1.jpg',
+      image: 'assets/images/catproduct1.jpg',
       title: 'Fluffy Product',
       description: 'New Fluffy Material For Cats',
       price: 10.0,
