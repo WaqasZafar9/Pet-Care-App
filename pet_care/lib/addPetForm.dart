@@ -244,9 +244,8 @@ class _addPetFormState extends State<addPetForm> {
             "LONG": _current?.longitude
           };
 
-
           var url = await DataBase.uploadImage(
-              widget.userData["Email"], "PetPics", pickedImage);
+              petData["Email"], "PetPics", pickedImage);
 
           // var fileUrl=uploadFile();
 
