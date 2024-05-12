@@ -22,35 +22,35 @@ class _newitemState extends State<newitem> {
               // Product 1
               buildProductItem(
                 productName: 'Bakers Complete Adult Dog with Chicken & Veg 5kg',
-                productImage: 'lib/images/product5.jpg',
+                productImage: 'assets/images/product5.jpg',
                 productPrice: 10,
               ),
               SizedBox(height: 8),
               // Product 2
               buildProductItem(
                 productName: 'Bakers Complete Adult Dog with Chicken & Veg 5kg',
-                productImage: 'lib/images/product1.png',
+                productImage: 'assets/images/product1.png',
                 productPrice: 10,
               ),
               SizedBox(height: 8),
               // Product 3
               buildProductItem(
                 productName: 'Bakers Complete Adult Dog with Chicken & Veg 5kg',
-                productImage: 'lib/images/product2.jpg',
+                productImage: 'assets/images/product2.jpg',
                 productPrice: 10,
               ),
               SizedBox(height: 8),
               // Product 4
               buildProductItem(
                 productName: 'Bakers Complete Adult Dog with Chicken & Veg 5kg',
-                productImage: 'lib/images/product3.jpg',
+                productImage: 'assets/images/product3.jpg',
                 productPrice: 10,
               ),
               SizedBox(height: 8),
               // Product 5
               buildProductItem(
                 productName: 'Bakers Complete Adult Dog with Chicken & Veg 5kg',
-                productImage: 'lib/images/product4.jpg',
+                productImage: 'assets/images/product4.jpg',
                 productPrice: 10,
               ),
               SizedBox(height: 8),
