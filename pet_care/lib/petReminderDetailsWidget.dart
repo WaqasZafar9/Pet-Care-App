@@ -120,7 +120,7 @@ class _petReminderDetailsState extends State<petReminderDetails> {
                     showBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return showTaskDetailsContainer();
+                        return showTaskDetailsContainer(remainderDetail:data[index]);
                       },
                     );
                   },

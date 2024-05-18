@@ -256,9 +256,10 @@ class _addPetFormState extends State<addPetForm> {
             ),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          // todo Fix pop as when pet added automatically pop back to home screen
+          Navigator.pop(context);
         } else {
           setState(() {
-
             // todo Fix Spinner Issue on Upload Failed
             showSpinner = false;
           });
