@@ -6,6 +6,7 @@ import 'package:pet_care/CommunityScreen.dart';
 import 'package:pet_care/CommunityTestScreen.dart';
 import 'package:pet_care/ProfilePage.dart';
 import 'package:pet_care/TrackingPet.dart';
+import 'package:pet_care/gptScreen.dart';
 import 'package:pet_care/perScreenDynamicFinal.dart';
 import 'package:pet_care/addPetForm.dart';
 import 'package:pet_care/petScreen.dart';
@@ -27,9 +28,10 @@ class _TestsState extends State<Tests> {
 
   List<Widget> _screens = <Widget>[
     petScreen(userData: {},),
-    Container(
-      color: Colors.blue,
-    ),
+    // Container(
+    //   color: Colors.blue,
+    // ),
+    gptScreen(),
     trackingPet(),
     ProfilePage(userData: {}),
     CommunityScreen(userData: {
