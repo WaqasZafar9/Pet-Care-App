@@ -2,7 +2,7 @@
 
 class perReminderDetailsData{
 
-  var ReminderData=[
+  var ReminderDataa=[
     {
       "title":"Doctor Appointment Doctor Appointment Doctor Appointment ",
       "Details":"Doctor Appointment Scheduling",

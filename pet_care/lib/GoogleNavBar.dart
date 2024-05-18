@@ -27,11 +27,9 @@ class _TestsState extends State<Tests> {
 
   List<Widget> _screens = <Widget>[
     petScreen(userData: {},),
-    // addPetForm(userData: {},),
-    addPetForm(userData: {}),
-    // Container(
-    //   color: Colors.blue,
-    // ),
+    Container(
+      color: Colors.blue,
+    ),
     trackingPet(),
     ProfilePage(userData: {}),
     CommunityScreen(userData: {
@@ -59,7 +57,6 @@ class _TestsState extends State<Tests> {
         "Email": widget.userData["Email"],
         "Pic":widget.userData["Pic"]
       },);
-    _screens[1] = addPetForm(userData: widget.userData);
   }
 
   @override

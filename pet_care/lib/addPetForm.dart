@@ -16,17 +16,15 @@ import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/uihelper.dart';
 
 class addPetForm extends StatefulWidget {
-  Map<String,dynamic> userData;
-  addPetForm({super.key,required this.userData});
+  Map<String, dynamic> userData;
+  addPetForm({super.key, required this.userData});
 
   @override
   State<addPetForm> createState() => _addPetFormState();
 }
 
 class _addPetFormState extends State<addPetForm> {
-
-  bool showSpinner =false;
-
+  bool showSpinner = false;
 
   LatLng? _current;
 
@@ -117,12 +115,12 @@ class _addPetFormState extends State<addPetForm> {
     return true;
   }
 
-  selectFile() async{
-
-
+  selectFile() async {
     try {
       var extension = ['pdf', 'jpg'];
-      var result = await FilePicker.platform.pickFiles( dialogTitle: 'Please select an output file:',allowedExtensions: extension);
+      var result = await FilePicker.platform.pickFiles(
+          dialogTitle: 'Please select an output file:',
+          allowedExtensions: extension);
       if (result != null && result.files.isNotEmpty) {
         setState(() {
           isMedicalFileUploaded = true;
@@ -136,20 +134,16 @@ class _addPetFormState extends State<addPetForm> {
       // Handle errors
       print('Error picking file: $e');
     }
-
-
   }
 
-  uploadFile(){
-    var file= File(pickedFile!.path!);
+  uploadFile() {
+    var file = File(pickedFile!.path!);
 
-    var fileUrl=DataBase.uploadImage(pickedFile!.name,"Medical Files", file);
+    var fileUrl = DataBase.uploadImage(pickedFile!.name, "Medical Files", file);
     return fileUrl;
-
   }
 
   Future<void> getLocationUpdates() async {
-
     Location _locationController = Location();
 
     bool _serviceEnabled;
@@ -165,47 +159,43 @@ class _addPetFormState extends State<addPetForm> {
 
     _permissionGuranted = await _locationController.hasPermission();
 
-    if (_permissionGuranted == PermissionStatus.denied ) {
-
+    if (_permissionGuranted == PermissionStatus.denied) {
       _permissionGuranted = await _locationController.requestPermission();
       if (_permissionGuranted != PermissionStatus.granted) {
-
-        uiHelper.customAlertBox(() { }, context, "Location Not Accessible1");
+        uiHelper.customAlertBox(() {}, context, "Location Not Accessible1");
 
         return;
-      }
-      else {
+      } else {
         _locationController.onLocationChanged
             .listen((LocationData currentLocation) {
           if (currentLocation.latitude != null &&
               currentLocation.longitude != null) {
             setState(() {
-              _current = LatLng(currentLocation.latitude!, currentLocation.longitude!);
-              uiHelper.customAlertBox(() { }, context, _current.toString());
+              _current =
+                  LatLng(currentLocation.latitude!, currentLocation.longitude!);
+              // uiHelper.customAlertBox(() {}, context, _current.toString());
               print("Location : $_current");
             });
           }
         });
       }
-    }
-    else if(_permissionGuranted == PermissionStatus.granted){
-
+    } else if (_permissionGuranted == PermissionStatus.granted) {
       _locationController.onLocationChanged
           .listen((LocationData currentLocation) {
         if (currentLocation.latitude != null &&
             currentLocation.longitude != null) {
           setState(() {
-            _current = LatLng(currentLocation.latitude!, currentLocation.longitude!);
-            uiHelper.customAlertBox(() { }, context, _current.toString());
+            _current =
+                LatLng(currentLocation.latitude!, currentLocation.longitude!);
+            // uiHelper.customAlertBox(() {}, context, _current.toString());
             print("Location : $_current");
           });
         }
       });
-      return ;
+      return;
     }
     uiHelper.customAlertBox(() {}, context, "Location Not Accessible2");
   }
-
 
   String randomString(int length) {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -214,13 +204,10 @@ class _addPetFormState extends State<addPetForm> {
         length, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
   }
 
-  submitForm() async{
-
+  submitForm() async {
     setState(() {
-      showSpinner=true;
+      showSpinner = true;
     });
-
-
 
     try {
       if (allValuesFilled()) {
@@ -228,10 +215,7 @@ class _addPetFormState extends State<addPetForm> {
           // Todo Fix Database Logic how to Store and Retrieve Data
           // Todo Rename Email to ID
 
-
-
           Map<String, dynamic> petData = {
-
             "Email": randomString(12),
             "Name": petNameController.value.text,
             "oneLine": oneLineController.value.text,
@@ -261,7 +245,6 @@ class _addPetFormState extends State<addPetForm> {
             uiHelper.customAlertBox(() {}, context, "Saved");
           }
 
-
           final snackBar = SnackBar(
             elevation: 0,
             behavior: SnackBarBehavior.floating,
@@ -275,6 +258,8 @@ class _addPetFormState extends State<addPetForm> {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         } else {
           setState(() {
+
+            // todo Fix Spinner Issue on Upload Failed
             showSpinner = false;
           });
           final snackBar = SnackBar(
@@ -293,10 +278,9 @@ class _addPetFormState extends State<addPetForm> {
       setState(() {
         showSpinner = false;
       });
-    }
-    catch (ex){
+    } catch (ex) {
       setState(() {
-        showSpinner=false;
+        showSpinner = false;
       });
       print(ex.toString());
     }
@@ -385,279 +369,307 @@ class _addPetFormState extends State<addPetForm> {
 
   @override
   Widget build(BuildContext context) {
-    return _current == null
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Add Your Pet"),
+        centerTitle: true,
+      ),
+
+        body : _current == null
         ? Center(
-      child: CircularProgressIndicator(),
-    )
-        :  ModalProgressHUD(
-          inAsyncCall: showSpinner,
-          child: Container(
-                color: Colors.tealAccent,
-                child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            color: Colors.blueGrey.shade50,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    color: Colors.blue,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Opacity(
-                          opacity: 0.6,
-                          child: InkWell(
-                              onTap: () => showAlertBox(),
-                              child: pickedImage != null
-                                  ? CircleAvatar(
-                                      radius: 40,
-                                      backgroundImage: FileImage(pickedImage!),
-                                    )
-                                  : CircleAvatar(
-                                      radius: 41,
-                                      child: Stack(children: [
-                                        Positioned(
-                                          top: 15,
-                                          left: 20,
-                                          child: Icon(
-                                            Icons.person,
-                                            size: 40,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: 53,
-                                          left: 30,
-                                          child: Icon(
-                                            Icons.add,
-                                            size: 20,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          top: 52,
-                                          child: Opacity(
-                                            opacity: 0.3,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.blueGrey,
-                                                  borderRadius: BorderRadius.only(
-                                                      bottomLeft:
-                                                          Radius.circular(40),
-                                                      bottomRight:
-                                                          Radius.circular(40))),
-                                              width: 80,
-                                              height: 30,
-                                            ),
-                                          ),
-                                        )
-                                      ]),
-                                    ))),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 7,
-                  child: Form(
-                    key: petForm,
-                    child: Container(
-                      color: Colors.tealAccent,
-                      child: ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(12),
-                        children: [
-                          Text(
-                            "Name",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500),
+            child: CircularProgressIndicator(),
+          )
+        : ModalProgressHUD(
+            inAsyncCall: showSpinner,
+            child: Container(
+              color: Colors.tealAccent,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Colors.blueGrey.shade50,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          color: Colors.blue,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Opacity(
+                                opacity: 0.6,
+                                child: InkWell(
+                                    onTap: () => showAlertBox(),
+                                    child: pickedImage != null
+                                        ? CircleAvatar(
+                                            radius: 40,
+                                            backgroundImage:
+                                                FileImage(pickedImage!),
+                                          )
+                                        : CircleAvatar(
+                                            radius: 41,
+                                            child: Stack(children: [
+                                              Positioned(
+                                                top: 15,
+                                                left: 20,
+                                                child: Icon(
+                                                  Icons.person,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 53,
+                                                left: 30,
+                                                child: Icon(
+                                                  Icons.add,
+                                                  size: 20,
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 52,
+                                                child: Opacity(
+                                                  opacity: 0.3,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.blueGrey,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        40),
+                                                                bottomRight: Radius
+                                                                    .circular(
+                                                                        40))),
+                                                    width: 80,
+                                                    height: 30,
+                                                  ),
+                                                ),
+                                              )
+                                            ]),
+                                          ))),
                           ),
-                          TextFormField(
-                            maxLength: 12,
-                            controller: petNameController,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            decoration: InputDecoration(
-                                hintText: ("Pet Name"),
-                                prefixIcon: Icon(Icons.pets),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25))),
-                            validator: (value) => isNameFilled(value),
-                          ),
-                          Text("One Line",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500)),
-                          TextFormField(
-                            maxLength: 16,
-                            controller: oneLineController,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            decoration: InputDecoration(
-                                hintText: ("One Line"),
-                                prefixIcon: Icon(Icons.pets),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(25))),
-                            validator: (value) => isOneLineFilled(value),
-                          ),
-                          Text("Category",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500)),
-                          RadioListTile(
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            title: Text('Dog',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                            value: 'Dog',
-                            groupValue: selectedCategory,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedCategory = value!;
-                                dropdownvalue = "Dog";
-                              });
-                            },
-                          ),
-                          RadioListTile(
-                            controlAffinity: ListTileControlAffinity.trailing,
-                            title: Text('Cat',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
-                            value: 'Cat',
-                            groupValue: selectedCategory,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedCategory = value!;
-                                dropdownvalue = "Cat";
-                              });
-                            },
-                          ),
-                          Text("Breed",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500)),
-                          DropdownButton(
-                            dropdownColor: Colors.grey,
-
-                            borderRadius: BorderRadius.circular(10),
-
-                            isExpanded: true,
-
-                            // Initial Value
-                            value: dropdownvalue,
-
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down_rounded),
-
-                            // Array list of items
-                            items: selectedCategory == "Cat"
-                                ? catValue.map((String items) {
-                                    return DropdownMenuItem(
-                                        value: items, child: Text(items));
-                                  }).toList()
-                                : dogValue.map((String items) {
-                                    return DropdownMenuItem(
-                                        value: items, child: Text(items));
-                                  }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                              });
-                            },
-                          ),
-                          Text("Date of  Birth",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500)),
-                          ElevatedButton(
-                            onPressed: () async {
-                              DateTime? datePicked = await showDatePicker(
-                                context: context,
-                                firstDate: DateTime(1990),
-                                lastDate: DateTime.now(),
-                              );
-                              if (datePicked != null) {
-                                setState(() {
-                                  date = datePicked;
-                                  dateOfBirthController =
-                                      "${date.day}/${date.month}/${date.year}";
-                                  print("Time : $datePicked");
-                                  isDateOfBirthSelected = true;
-                                });
-                              }
-                            },
-                            child: Text(dateOfBirthController),
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(6)))),
-                            ),
-                          ),
-                          Text("Medical File",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w500)),
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-
-                                  selectFile();
-
-                                },
-                                child: Text("Upload File"),
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(6)))),
-                                ),
-                              ),
-
-                                pickedFile !=null ? Text(pickedFile!.name.toString()):SizedBox(width: 0,)
-
-                            ],
-                          ),
-                          Visibility(
-                            visible: isErrorVissible,
-                            child: Center(
-                              child: Text(errorMessage,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 7,
+                        child: Form(
+                          key: petForm,
+                          child: Container(
+                            color: Colors.tealAccent,
+                            child: ListView(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.all(12),
+                              children: [
+                                Text(
+                                  "Name",
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.redAccent.shade700)),
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                TextFormField(
+                                  maxLength: 12,
+                                  controller: petNameController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  decoration: InputDecoration(
+                                      hintText: ("Pet Name"),
+                                      prefixIcon: Icon(Icons.pets),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25))),
+                                  validator: (value) => isNameFilled(value),
+                                ),
+                                Text("One Line",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                TextFormField(
+                                  maxLength: 16,
+                                  controller: oneLineController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  decoration: InputDecoration(
+                                      hintText: ("One Line"),
+                                      prefixIcon: Icon(Icons.pets),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25))),
+                                  validator: (value) => isOneLineFilled(value),
+                                ),
+                                Text("Category",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                RadioListTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                  title: Text('Dog',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                  value: 'Dog',
+                                  groupValue: selectedCategory,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedCategory = value!;
+                                      dropdownvalue = "Dog";
+                                    });
+                                  },
+                                ),
+                                RadioListTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.trailing,
+                                  title: Text('Cat',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)),
+                                  value: 'Cat',
+                                  groupValue: selectedCategory,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedCategory = value!;
+                                      dropdownvalue = "Cat";
+                                    });
+                                  },
+                                ),
+                                Text("Breed",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                DropdownButton(
+                                  dropdownColor: Colors.grey,
+
+                                  borderRadius: BorderRadius.circular(10),
+
+                                  isExpanded: true,
+
+                                  // Initial Value
+                                  value: dropdownvalue,
+
+                                  // Down Arrow Icon
+                                  icon: const Icon(
+                                      Icons.keyboard_arrow_down_rounded),
+
+                                  // Array list of items
+                                  items: selectedCategory == "Cat"
+                                      ? catValue.map((String items) {
+                                          return DropdownMenuItem(
+                                              value: items, child: Text(items));
+                                        }).toList()
+                                      : dogValue.map((String items) {
+                                          return DropdownMenuItem(
+                                              value: items, child: Text(items));
+                                        }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownvalue = newValue!;
+                                    });
+                                  },
+                                ),
+                                Text("Date of  Birth",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    DateTime? datePicked = await showDatePicker(
+                                      context: context,
+                                      firstDate: DateTime(1990),
+                                      lastDate: DateTime.now(),
+                                    );
+                                    if (datePicked != null) {
+                                      setState(() {
+                                        date = datePicked;
+                                        dateOfBirthController =
+                                            "${date.day}/${date.month}/${date.year}";
+                                        print("Time : $datePicked");
+                                        isDateOfBirthSelected = true;
+                                      });
+                                    }
+                                  },
+                                  child: Text(dateOfBirthController),
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(6)))),
+                                  ),
+                                ),
+                                Text("Medical File",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                Row(
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        selectFile();
+                                      },
+                                      child: Text("Upload File"),
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(6)))),
+                                      ),
+                                    ),
+                                    pickedFile != null
+                                        ? Text(pickedFile!.name.toString())
+                                        : SizedBox(
+                                            width: 0,
+                                          )
+                                  ],
+                                ),
+                                Visibility(
+                                  visible: isErrorVissible,
+                                  child: Center(
+                                    child: Text(errorMessage,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.redAccent.shade700)),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Colors.purple,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        submitForm();
-                      },
-                      child: Text(
-                        "Add Pet",
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => Color.fromRGBO(208, 187, 187, 1),
                         ),
-                        minimumSize: MaterialStateProperty.all(Size.infinite),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(7.0),
-                          bottomRight: Radius.circular(7.0),
-                        ))),
                       ),
-                    ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          color: Colors.transparent,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              submitForm();
+                            },
+                            child: Text(
+                              "Add Pet",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateColor.resolveWith(
+                                (states) => Color.fromRGBO(208, 187, 187, 0.2),
+                              ),
+                              minimumSize:
+                                  MaterialStateProperty.all(Size.infinite),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(7.0),
+                                bottomRight: Radius.circular(7.0),
+                              ))),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
-          ),
                 ),
               ),
-        );
+            ),
+        )
+          );
   }
 }

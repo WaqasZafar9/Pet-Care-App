@@ -84,14 +84,14 @@ class _PetDetailsWidgetState extends State<PetDetailsWidget> {
 
                           /// TODO fix scrolling issue
 
-                          child: ListView(children: [petReminderDetails()])
+                          child: ListView(children: [petReminderDetails(petID:widget.petData!["Email"])])
                       ),
                     )
                   : Expanded(
                       child: InkWell(
                           onTap: () {},
                           child:
-                              SingleChildScrollView(child: addTaskContainer())),
+                              SingleChildScrollView(child: addTaskContainer(petId: widget.petData!["Email"],))),
                     ),
               isAddTask != true
                   ? Expanded(

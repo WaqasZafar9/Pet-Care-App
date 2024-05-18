@@ -2,9 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_care/DataBase.dart';
+import 'package:pet_care/uihelper.dart';
 
 class addTaskContainer extends StatefulWidget {
-  const addTaskContainer({super.key});
+  String petId="";
+  addTaskContainer({super.key,required this.petId});
 
   @override
   State<addTaskContainer> createState() => _addTaskContainerState();
@@ -12,7 +15,7 @@ class addTaskContainer extends StatefulWidget {
 
 class _addTaskContainerState extends State<addTaskContainer> {
 
-  DateTime date = DateTime(2024);
+  DateTime date = DateTime.now();
   TimeOfDay timeOfDay = TimeOfDay(hour: 12, minute: 1);
 
   GlobalKey<FormState> taskFormKey = GlobalKey<FormState>();
@@ -28,6 +31,50 @@ class _addTaskContainerState extends State<addTaskContainer> {
     timeController=  "${(timeOfDay.hour % 12 == 0 ? 12 : timeOfDay.hour % 12).toString().padLeft(2, '0')}:${timeOfDay.minute.toString().padLeft(2, '0')} ${timeOfDay.hour < 12 ? 'AM' : 'PM'}";
 
     super.initState();
+  }
+
+  saveData() async{
+    if(taskFormKey.currentState!.validate()){
+
+      Map<String,dynamic> taskData={
+        "title":titleController.text,
+        "Details":descriptionController.text,
+        "Time":timeController,
+        "Date":dateController,
+        "isSilent":isSilent,
+        //Todo Uncomment Field Accordingly
+        // "isCompleted":false
+      };
+
+      var response = await DataBase.saveMessageData(widget.petId, taskData);
+
+      if(response == true){
+        uiHelper.customAlertBox(() { }, context, "Task Added Successfully");
+      }else{
+        uiHelper.customAlertBox(() { }, context, response.toString());
+      }
+
+    }
+    else{
+      uiHelper.customAlertBox(() { }, context, "Please Fill Out all Details");
+    }
+  }
+
+  titleValidator(value){
+
+    if(value==""){
+      return "Please Enter Task Title";
+    }
+    return null;
+
+  }
+  descriptionValidator(value){
+
+    if(value==""){
+      return "Please Enter Task Description";
+    }
+    return null;
+
   }
 
 
@@ -85,6 +132,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
                               border: OutlineInputBorder(
                                   borderRadius:
                                   BorderRadius.circular(25))),
+                          validator: (value) => titleValidator(value),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -114,6 +162,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
                                   BorderRadius.circular(25),
                                 ),
                               ),
+                              validator: (value) => descriptionValidator(value),
                             ),
                           ),
                         ),
@@ -253,7 +302,9 @@ class _addTaskContainerState extends State<addTaskContainer> {
           Expanded(
               flex: 1,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  saveData();
+                },
                 child: Text(
                   "Add Task",
                   style: TextStyle(

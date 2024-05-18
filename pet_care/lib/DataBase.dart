@@ -35,6 +35,25 @@ class DataBase {
     });
   }
 
+  static readRemainderData(petId) async {
+    var db = FirebaseFirestore.instance;
+    print("Data Read");
+    var data=[];
+    await db.collection(petId).get().then((event) {
+      for (var doc in event.docs) {
+        print("${doc.id} => ${doc.data()["Email"]}");
+        data.add({
+          "title":doc.data()["title"],
+          "Details":doc.data()["Details"],
+          "Time":doc.data()["Time"],
+          "Date":doc.data()["Date"],
+          "isSilent":doc.data()["isSilent"],
+        });
+      }
+    });
+    return data;
+  }
+
   static Future<dynamic> saveUserData(collection, userData) async {
     try {
       var db = FirebaseFirestore.instance;
