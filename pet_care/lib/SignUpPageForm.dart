@@ -19,6 +19,7 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  double borderRadius = 15;
   File? pickedImage;
 
   showAlertBox() {
@@ -299,97 +300,61 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           color: Color.fromRGBO(10, 101, 10, 0.2),
           child: Form(
             key: _SignupFormKey,
             child: Column(
               children: [
-                Container(
-                    // color: Colors.grey,
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Opacity(
-                              opacity: 0.6,
-                              child: InkWell(
-                                  onTap: () => showAlertBox(),
-                                  child: pickedImage != null
-                                      ? CircleAvatar(
-                                          radius: 40,
-                                          backgroundImage:
-                                              FileImage(pickedImage!),
-                                        )
-                                      : CircleAvatar(
-                                          radius: 41,
-                                          child: Stack(children: [
-                                            Positioned(
-                                              top: 15,
-                                              left: 20,
-                                              child: Icon(
-                                                Icons.person,
-                                                size: 40,
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: 53,
-                                              left: 30,
-                                              child: Icon(
-                                                Icons.add,
-                                                size: 20,
-                                              ),
-                                            ),
-                                            Positioned(
-                                              top: 52,
-                                              child: Opacity(
-                                                opacity: 0.3,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.blueGrey,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              bottomLeft: Radius
-                                                                  .circular(40),
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          40))),
-                                                  width: 80,
-                                                  height: 30,
-                                                ),
-                                              ),
-                                            )
-                                          ]),
-                                        ))),
-                        ),
-                        Text(
-                          "SignUp",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 48,
-                            color: Colors.teal,
-                          ),
-                        ),
-                      ],
-                    )),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      // color: Colors.grey,
+                      width: double.infinity,
+                      child: GestureDetector(
+                        onTap: showAlertBox,
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundColor: Colors.grey[200],
+                          backgroundImage: pickedImage != null
+                              ? FileImage(pickedImage!)
+                              : AssetImage('assets/profile_placeholder.png')
+                                  as ImageProvider,
+                          child: pickedImage == null
+                              ? Icon(
+                                  Icons.add_a_photo,
+                                  size: 50,
+                                  color: Colors.grey[700],
+                                )
+                              : null,
+                        ),
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: NameController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         label: Text("Name"),
-                        prefixIcon: Icon(Icons.drive_file_rename_outline),
+                        prefixIcon: Icon(Icons.person),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                            borderRadius: BorderRadius.circular(borderRadius))),
                     validator: (value) => nameValidator(value),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: PhoneNoController,
@@ -397,27 +362,43 @@ class _SignUpFormState extends State<SignUpForm> {
                     decoration: InputDecoration(
                         label: Text("PhoneNo"),
                         prefixIcon: Icon(Icons.phone_rounded),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                            borderRadius: BorderRadius.circular(borderRadius))),
                     validator: (value) => phoneNoValidator(value),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: EmailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         label: Text("Email"),
-                        prefixIcon: Icon(Icons.email_outlined),
+                        prefixIcon: Icon(Icons.email),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                            borderRadius: BorderRadius.circular(borderRadius))),
                     validator: (value) => emailValidator(value),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: PasswordController,
@@ -425,13 +406,21 @@ class _SignUpFormState extends State<SignUpForm> {
                     decoration: InputDecoration(
                         label: Text("Password"),
                         prefixIcon: Icon(Icons.password_rounded),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                            borderRadius: BorderRadius.circular(borderRadius))),
                     validator: (value) => passwordValidator(value),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: ConfirmPasswordController,
@@ -439,14 +428,22 @@ class _SignUpFormState extends State<SignUpForm> {
                     decoration: InputDecoration(
                         label: Text("Confirm Password"),
                         prefixIcon: Icon(Icons.password_rounded),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                            borderRadius: BorderRadius.circular(borderRadius))),
                     validator: (value) => confirmPasswordValidator(
                         value, PasswordController.text),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: TextFormField(
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     controller: CityController,
@@ -454,13 +451,21 @@ class _SignUpFormState extends State<SignUpForm> {
                     decoration: InputDecoration(
                         label: Text("City"),
                         prefixIcon: Icon(Icons.location_city_outlined),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(borderRadius),
+                          borderSide: BorderSide(color: Colors.red),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(25))),
+                            borderRadius: BorderRadius.circular(borderRadius))),
                     validator: (value) => cityValidator(value),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: InkWell(
                     child: TextFormField(
                       enabled: false,
@@ -468,7 +473,8 @@ class _SignUpFormState extends State<SignUpForm> {
                           label: Text("Date of Birth : $DateOfBirthController"),
                           prefixIcon: Icon(Icons.date_range_outlined),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25))),
+                              borderRadius:
+                                  BorderRadius.circular(borderRadius))),
                       validator: (value) => dateOfBirthValidator(value),
                     ),
                     onTap: () async {
@@ -489,15 +495,20 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(left: 10,right: 10,bottom: 8),
                   child: ElevatedButton(
                     onPressed: () {
                       submitForm();
                     },
-                    child: Text("SignUp"),
-                    style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(180, 50)),
-                        elevation: MaterialStateProperty.all(5)),
+                    child: Text("SignUp", style: TextStyle(fontSize: 18)),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 5,
+                    ),
                   ),
                 ),
                 Row(
@@ -520,9 +531,6 @@ class _SignUpFormState extends State<SignUpForm> {
                         ))
                   ],
                 ),
-                SizedBox(
-                  height: 30,
-                )
               ],
             ),
           ),
