@@ -4,15 +4,12 @@ import 'dart:math';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:pet_care/DataBase.dart';
-import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/uihelper.dart';
 
 class addPetForm extends StatefulWidget {
@@ -25,11 +22,10 @@ class addPetForm extends StatefulWidget {
 
 class _addPetFormState extends State<addPetForm> {
   bool showSpinner = false;
-
   LatLng? _current;
 
   PlatformFile? pickedFile;
-  DateTime date = DateTime(2024);
+  DateTime date = DateTime.now();
 
   GlobalKey<FormState> petForm = GlobalKey<FormState>();
   TextEditingController petNameController = TextEditingController();
@@ -97,15 +93,6 @@ class _addPetFormState extends State<addPetForm> {
 
       return false;
     }
-
-    // if (isMedicalFileUploaded == false) {
-    //   setState(() {
-    //     errorMessage = "Please Upload Pet Medical File";
-    //     isErrorVissible = true;
-    //   });
-    //
-    //   return false;
-    // }
 
     setState(() {
       errorMessage = "";
@@ -302,375 +289,239 @@ class _addPetFormState extends State<addPetForm> {
   }
 
   showAlertBox() {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Pic Image From"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                onTap: () {
-                  pickImage(ImageSource.camera);
-                  Navigator.pop(context);
-                },
-                leading: Icon(Icons.camera_alt),
-                title: Text("Camera"),
-              ),
-              ListTile(
-                onTap: () {
-                  pickImage(ImageSource.gallery);
-                  Navigator.pop(context);
-                },
-                leading: Icon(Icons.image),
-                title: Text("Gallery"),
-              )
-            ],
-          ),
-        );
-      },
+    return AlertDialog(
+      title: Text("Error"),
+      content: Text(errorMessage),
+      actions: <Widget>[
+        TextButton(
+          child: Text("OK"),
+          onPressed: () {
+            setState(() {
+              isErrorVissible = false;
+            });
+          },
+        )
+      ],
     );
-  }
-
-  pickImage(ImageSource imageSource) async {
-    try {
-      final photo = await ImagePicker().pickImage(source: imageSource);
-      if (photo == null) {
-        return;
-      }
-      final tempImage = File(photo.path);
-      setState(() {
-        isImageUpload = true;
-        pickedImage = tempImage;
-      });
-    } catch (ex) {
-      print("Error ${ex.toString()}");
-    }
-  }
-
-  uploadImage(email, collection, pickedImage) async {
-    try {
-      print("Upload 1");
-      UploadTask uploadTask = FirebaseStorage.instance
-          .ref(collection)
-          .child(email)
-          .putFile(pickedImage!);
-      print("Upload 2 :- ${uploadTask.toString()}");
-      TaskSnapshot taskSnapshot = await uploadTask;
-      print("Upload 3");
-      String url = await taskSnapshot.ref.getDownloadURL();
-      print("Upload 4");
-      return url;
-    } on FirebaseException catch (ex) {
-      print("Error ${ex.toString()}");
-      return null;
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Your Pet"),
+        title: Text(
+          "Add Pet",
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         centerTitle: true,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.purple],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
-
-        body : _current == null
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
-        : ModalProgressHUD(
-            inAsyncCall: showSpinner,
-            child: Container(
-              color: Colors.tealAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  color: Colors.blueGrey.shade50,
-                  child: Column(
+      body: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Form(
+            key: petForm,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      var imagePicker = ImagePicker();
+                      var image = await imagePicker.pickImage(
+                          source: ImageSource.gallery);
+                      if (image != null) {
+                        setState(() {
+                          pickedImage = File(image.path);
+                          isImageUpload = true;
+                        });
+                      }
+                    },
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage:
+                      pickedImage != null ? FileImage(pickedImage!) : null,
+                      child: pickedImage == null
+                          ? Icon(
+                        Icons.camera_alt,
+                        size: 60,
+                        color: Colors.grey,
+                      )
+                          : null,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: Colors.blue,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Opacity(
-                                opacity: 0.6,
-                                child: InkWell(
-                                    onTap: () => showAlertBox(),
-                                    child: pickedImage != null
-                                        ? CircleAvatar(
-                                            radius: 40,
-                                            backgroundImage:
-                                                FileImage(pickedImage!),
-                                          )
-                                        : CircleAvatar(
-                                            radius: 41,
-                                            child: Stack(children: [
-                                              Positioned(
-                                                top: 15,
-                                                left: 20,
-                                                child: Icon(
-                                                  Icons.person,
-                                                  size: 40,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                top: 53,
-                                                left: 30,
-                                                child: Icon(
-                                                  Icons.add,
-                                                  size: 20,
-                                                ),
-                                              ),
-                                              Positioned(
-                                                top: 52,
-                                                child: Opacity(
-                                                  opacity: 0.3,
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.blueGrey,
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        40),
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                        40))),
-                                                    width: 80,
-                                                    height: 30,
-                                                  ),
-                                                ),
-                                              )
-                                            ]),
-                                          ))),
-                          ),
+                        child: RadioListTile<String>(
+                          title: Text("Cat"),
+                          value: "Cat",
+                          groupValue: selectedCategory,
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedCategory = value!;
+                              dropdownvalue = catValue.first;
+                            });
+                          },
                         ),
                       ),
                       Expanded(
-                        flex: 7,
-                        child: Form(
-                          key: petForm,
-                          child: Container(
-                            color: Colors.tealAccent,
-                            child: ListView(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(12),
-                              children: [
-                                Text(
-                                  "Name",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                TextFormField(
-                                  maxLength: 12,
-                                  controller: petNameController,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  decoration: InputDecoration(
-                                      hintText: ("Pet Name"),
-                                      prefixIcon: Icon(Icons.pets),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25))),
-                                  validator: (value) => isNameFilled(value),
-                                ),
-                                Text("One Line",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500)),
-                                TextFormField(
-                                  maxLength: 16,
-                                  controller: oneLineController,
-                                  autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
-                                  decoration: InputDecoration(
-                                      hintText: ("One Line"),
-                                      prefixIcon: Icon(Icons.pets),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25))),
-                                  validator: (value) => isOneLineFilled(value),
-                                ),
-                                Text("Category",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500)),
-                                RadioListTile(
-                                  controlAffinity:
-                                      ListTileControlAffinity.trailing,
-                                  title: Text('Dog',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500)),
-                                  value: 'Dog',
-                                  groupValue: selectedCategory,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedCategory = value!;
-                                      dropdownvalue = "Dog";
-                                    });
-                                  },
-                                ),
-                                RadioListTile(
-                                  controlAffinity:
-                                      ListTileControlAffinity.trailing,
-                                  title: Text('Cat',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500)),
-                                  value: 'Cat',
-                                  groupValue: selectedCategory,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedCategory = value!;
-                                      dropdownvalue = "Cat";
-                                    });
-                                  },
-                                ),
-                                Text("Breed",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500)),
-                                DropdownButton(
-                                  dropdownColor: Colors.grey,
-
-                                  borderRadius: BorderRadius.circular(10),
-
-                                  isExpanded: true,
-
-                                  // Initial Value
-                                  value: dropdownvalue,
-
-                                  // Down Arrow Icon
-                                  icon: const Icon(
-                                      Icons.keyboard_arrow_down_rounded),
-
-                                  // Array list of items
-                                  items: selectedCategory == "Cat"
-                                      ? catValue.map((String items) {
-                                          return DropdownMenuItem(
-                                              value: items, child: Text(items));
-                                        }).toList()
-                                      : dogValue.map((String items) {
-                                          return DropdownMenuItem(
-                                              value: items, child: Text(items));
-                                        }).toList(),
-                                  // After selecting the desired option,it will
-                                  // change button value to selected value
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      dropdownvalue = newValue!;
-                                    });
-                                  },
-                                ),
-                                Text("Date of  Birth",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500)),
-                                ElevatedButton(
-                                  onPressed: () async {
-                                    DateTime? datePicked = await showDatePicker(
-                                      context: context,
-                                      firstDate: DateTime(1990),
-                                      lastDate: DateTime.now(),
-                                    );
-                                    if (datePicked != null) {
-                                      setState(() {
-                                        date = datePicked;
-                                        dateOfBirthController =
-                                            "${date.day}/${date.month}/${date.year}";
-                                        print("Time : $datePicked");
-                                        isDateOfBirthSelected = true;
-                                      });
-                                    }
-                                  },
-                                  child: Text(dateOfBirthController),
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(6)))),
-                                  ),
-                                ),
-                                Text("Medical File",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500)),
-                                Row(
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        selectFile();
-                                      },
-                                      child: Text("Upload File"),
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(6)))),
-                                      ),
-                                    ),
-                                    pickedFile != null
-                                        ? Text(pickedFile!.name.toString())
-                                        : SizedBox(
-                                            width: 0,
-                                          )
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: isErrorVissible,
-                                  child: Center(
-                                    child: Text(errorMessage,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.redAccent.shade700)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        child: RadioListTile<String>(
+                          title: Text("Dog"),
+                          value: "Dog",
+                          groupValue: selectedCategory,
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedCategory = value!;
+                              dropdownvalue = dogValue.first;
+                            });
+                          },
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          color: Colors.transparent,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              submitForm();
-                            },
-                            child: Text(
-                              "Add Pet",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => Color.fromRGBO(208, 187, 187, 0.2),
-                              ),
-                              minimumSize:
-                                  MaterialStateProperty.all(Size.infinite),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(7.0),
-                                bottomRight: Radius.circular(7.0),
-                              ))),
-                            ),
-                          ),
-                        ),
-                      )
                     ],
                   ),
-                ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: petNameController,
+                    validator: (value) => isNameFilled(value),
+                    decoration: InputDecoration(
+                      labelText: "Pet Name",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: oneLineController,
+                    validator: (value) => isOneLineFilled(value),
+                    decoration: InputDecoration(
+                      labelText: "One Line",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  DropdownButtonFormField(
+                    value: dropdownvalue,
+                    onChanged: (newValue) {
+                      setState(() {
+                        dropdownvalue = newValue as String;
+                      });
+                    },
+                    items: (selectedCategory == "Cat" ? catValue : dogValue)
+                        .map((String item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(item),
+                      );
+                    }).toList(),
+                    decoration: InputDecoration(
+                      labelText: "Breed",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () async {
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: date,
+                        firstDate: DateTime(1990),
+                        lastDate: DateTime.now(),
+                      );
+                      if (pickedDate != null) {
+                        setState(() {
+                          date = pickedDate;
+                          isDateOfBirthSelected = true;
+                          dateOfBirthController =
+                          "${date.day}/${date.month}/${date.year}";
+                        });
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      disabledBackgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      dateOfBirthController.isEmpty
+                          ? "Select Date of Birth"
+                          : dateOfBirthController,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: selectFile,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      "Upload Medical File",
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: submitForm,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      "Add Pet",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  if (isErrorVissible)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: showAlertBox(),
+                    ),
+                ],
               ),
             ),
-        )
-          );
+          ),
+        ),
+      ),
+    );
   }
+
 }

@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_gemini/google_gemini.dart';
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/apiKey.dart';
-import 'package:pet_care/uihelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class gptScreen extends StatefulWidget {
@@ -14,77 +17,140 @@ class gptScreen extends StatefulWidget {
 }
 
 class _GptScreenState extends State<gptScreen> {
-
-
-
   List<Map<dynamic, dynamic>> messageList = [
-    {"IsUser": false, "message": "Hi.I am your AI Doctor.\nHow can i Assist you ??"}
+    {
+      "IsUser": false,
+      "message": "Hi. I am your AI Doctor.\nHow can I assist you?",
+    }
   ];
 
   TextEditingController messageController = TextEditingController();
-  bool isLoading = false;
+  bool isLoading = false, isImageSelected = false;
+  late File selectedImage;
 
+  @override
+  void initState() {
+    super.initState();
+    getSaveMessages();
+  }
 
-  geminiModel(message)async{
+  showAlertBox() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Pick Image From"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  pickImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                leading: Icon(Icons.camera_alt),
+                title: Text("Camera"),
+              ),
+              ListTile(
+                onTap: () {
+                  pickImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                leading: Icon(Icons.image),
+                title: Text("Gallery"),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
+  pickImage(ImageSource imageSource) async {
+    try {
+      final photo = await ImagePicker().pickImage(source: imageSource);
+      if (photo == null) {
+        return;
+      }
+      final tempImage = File(photo.path);
+      setState(() {
+        selectedImage = tempImage;
+        isImageSelected = true;
+        messageList.add({
+          "IsUser": true,
+          "message": "",
+          "image": selectedImage.path,
+        });
+      });
+    } catch (ex) {
+      setState(() {
+        selectedImage = File("");
+        isImageSelected = false;
+      });
+      print("Error ${ex.toString()}");
+    }
+  }
+
+  geminiModelProVision(message) async {
     String apiResponse = message;
 
     final gemini = GoogleGemini(
       apiKey: GEMINIAPI,
     );
 
-    await gemini.generateFromText(message).then((value) {
+    await gemini
+        .generateFromTextAndImages(query: message, image: selectedImage)
+        .then((value) {
       apiResponse = value.text;
     }).catchError((e) => print(e));
 
+    setState(() {
+      isImageSelected = false;
+      selectedImage = File("");
+    });
     return apiResponse;
   }
 
-  gptModel(){
-
-
-
+  geminiModelPro(message) async {
+    final model = GenerativeModel(
+      model: 'gemini-pro',
+      apiKey: GEMINIAPI,
+    );
+    final content = [Content.text(message)];
+    final response = await model.generateContent(content);
+    return response.text;
   }
 
-
   getResponse(String text) async {
-
     setState(() {
       isLoading = true;
       messageList.add({"IsUser": false, "message": "Loading..."});
     });
 
-    String response= await geminiModel(text);
+    String response = "";
+    if (isImageSelected) {
+      response = await geminiModelProVision(text);
+    } else {
+      response = await geminiModelPro(text);
+    }
 
     setState(() {
       isLoading = false;
-      messageList.removeLast();  // Remove the loading message
+      messageList.removeLast(); // Remove the loading message
       messageList.add({"IsUser": false, "message": response});
       saveMessages(messageList);
     });
   }
 
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getSaveMessages();
-  }
-
-  getSaveMessages() async{
+  getSaveMessages() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (!prefs.containsKey('messageList')) {
-    }else {
-      // messageList.removeLast();
+    if (prefs.containsKey('messageList')) {
       String jsonString = prefs.getString('messageList') ?? '[]';
       List<dynamic> jsonList = json.decode(jsonString);
-      print("Json List ${jsonList.toString()}");
       setState(() {
         messageList =
             jsonList.map((item) => item as Map<dynamic, dynamic>).toList();
       });
-
     }
   }
 
@@ -143,21 +209,33 @@ class _GptScreenState extends State<gptScreen> {
                               ),
                             ],
                           ),
-                          child:
-                          // Todo Make animation more beautiful
-                          message['message'] == "Loading..."
-                              ? CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.blueGrey),
-                          )
-                              :
-                          Text(
-                            message['message'],
-                            style: TextStyle(
-                              color: message['IsUser']
-                                  ? Colors.white
-                                  : Colors.black87,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (message['message'] == "Loading...")
+                                CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.blueGrey),
+                                )
+                              else
+                                Text(
+                                  message['message'],
+                                  style: TextStyle(
+                                    color: message['IsUser']
+                                        ? Colors.white
+                                        : Colors.black87,
+                                  ),
+                                ),
+                              if (message.containsKey('image'))
+                                SizedBox(
+                                  height: 200,
+                                  width: 200,
+                                  child: Image.file(
+                                    File(message['image']),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
                       ),
@@ -194,8 +272,14 @@ class _GptScreenState extends State<gptScreen> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    contentPadding: EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        showAlertBox();
+                      },
+                      icon: Icon(Icons.add),
+                    ),
                   ),
                   style: TextStyle(
                     fontSize: 16,

@@ -19,13 +19,10 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
     return Scaffold(
       body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.pinkAccent.shade100,
-                borderRadius: BorderRadius.circular(10),
-              ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.blueGrey.shade300,
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
           Container(
@@ -72,12 +69,14 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
                   var petData = snapshot.data!.docs;
 
                   return ListView.builder(
-                    itemCount: petData.length , // Add one more item for "Add Pet"
+                    itemCount:
+                        petData.length, // Add one more item for "Add Pet"
                     itemBuilder: (context, index) {
                       var pet = petData[index].data() as Map<String, dynamic>;
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Card(
+                          color: Colors.blueGrey.shade100,
                           child: ListTile(
                             leading: CircleAvatar(
                               backgroundImage: NetworkImage(pet["Photo"]),
@@ -89,7 +88,8 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => petDetails(petData: pet),
+                                  builder: (context) =>
+                                      petDetails(petData: pet),
                                 ),
                               );
                             },
@@ -108,12 +108,14 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
             right: MediaQuery.of(context).size.width * 0.02,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromRGBO(170, 120, 120, 0.8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(10),bottomLeft: Radius.circular(10)),
-                ),
-                minimumSize: Size(10, 70)
-              ),
+                  // backgroundColor: Color.fromRGBO(128, 213, 196, 0.6),
+                  backgroundColor: Color.fromRGBO(0, 150, 136, 0.6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
+                  ),
+                  minimumSize: Size(10, 70)),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -126,7 +128,10 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
                 padding: const EdgeInsets.all(15.0),
                 child: Text(
                   'Add Pet',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
               ),
             ),

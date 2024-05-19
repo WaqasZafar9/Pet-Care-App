@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           )),
           useMaterial3: true,
           appBarTheme: AppBarTheme(
-            backgroundColor: Colors.greenAccent,
+            backgroundColor: Colors.teal,
           ),
           bottomNavigationBarTheme: BottomNavigationBarThemeData(
             backgroundColor: Colors.blue,
