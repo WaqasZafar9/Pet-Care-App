@@ -363,38 +363,6 @@ class _addPetFormState extends State<addPetForm> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: RadioListTile<String>(
-                          title: Text("Cat"),
-                          value: "Cat",
-                          groupValue: selectedCategory,
-                          onChanged: (String? value) {
-                            setState(() {
-                              selectedCategory = value!;
-                              dropdownvalue = catValue.first;
-                            });
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: RadioListTile<String>(
-                          title: Text("Dog"),
-                          value: "Dog",
-                          groupValue: selectedCategory,
-                          onChanged: (String? value) {
-                            setState(() {
-                              selectedCategory = value!;
-                              dropdownvalue = dogValue.first;
-                            });
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
                   TextFormField(
                     controller: petNameController,
                     validator: (value) => isNameFilled(value),
@@ -445,52 +413,135 @@ class _addPetFormState extends State<addPetForm> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: date,
-                        firstDate: DateTime(1990),
-                        lastDate: DateTime.now(),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          date = pickedDate;
-                          isDateOfBirthSelected = true;
-                          dateOfBirthController =
-                          "${date.day}/${date.month}/${date.year}";
-                        });
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      disabledBackgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.all(Radius.circular(6))
                     ),
-                    child: Text(
-                      dateOfBirthController.isEmpty
-                          ? "Select Date of Birth"
-                          : dateOfBirthController,
-                      style: TextStyle(
-                        fontSize: 16,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: RadioListTile<String>(
+                              title: Text("Cat",style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500
+                              ),),
+                              value: "Cat",
+                              groupValue: selectedCategory,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedCategory = value!;
+                                  dropdownvalue = catValue.first;
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile<String>(
+                              title: Text("Dog",style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500
+                              )),
+                              value: "Dog",
+                              groupValue: selectedCategory,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedCategory = value!;
+                                  dropdownvalue = dogValue.first;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: selectFile,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.all(Radius.circular(6))
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text("Date of Birth :",style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16
+                          ),),
+                          ElevatedButton(
+                            onPressed: () async {
+                              DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: date,
+                                firstDate: DateTime(1990),
+                                lastDate: DateTime.now(),
+                              );
+                              if (pickedDate != null) {
+                                setState(() {
+                                  date = pickedDate;
+                                  isDateOfBirthSelected = true;
+                                  dateOfBirthController =
+                                  "${date.day}/${date.month}/${date.year}";
+                                });
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              disabledBackgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              dateOfBirthController.isEmpty
+                                  ? "Select Date of Birth"
+                                  : dateOfBirthController,
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Text(
-                      "Upload Medical File",
-                      style: TextStyle(
-                        fontSize: 16,
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.all(Radius.circular(6))
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text("Medical File:",style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),),
+                          ElevatedButton(
+                            onPressed: selectFile,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              "Upload ",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
