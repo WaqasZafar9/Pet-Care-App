@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:pet_care/ColorsScheme.dart';
 
 class showTaskDetailsContainer extends StatefulWidget {
-  const showTaskDetailsContainer({super.key});
+
+  Map<String,dynamic> remainderDetail;
+  showTaskDetailsContainer({super.key,required this.remainderDetail});
 
   @override
   State<showTaskDetailsContainer> createState() =>
@@ -15,15 +17,24 @@ class showTaskDetailsContainer extends StatefulWidget {
 class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
   bool isSilent=false;
   double headingFont = 20, subHeadingFont = 16;
-  String title = "Doctor Appointment",
+  String title = "No Data",
       description =
-          "Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Doctors appointment is scheduuled Last Line";
+          "No Data No DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo DataNo Data";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    title=widget.remainderDetail["title"];
+    description=widget.remainderDetail["Details"];
+    isSilent=widget.remainderDetail["isSilent"];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 550,
-      width: MediaQuery.of(context).size.width/1.04,
+      // width: MediaQuery.of(context).size.width/1.04,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.shade500,width: 2),
           color: Colors.grey.shade300, borderRadius: BorderRadius.circular(10 )),
@@ -73,6 +84,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8.0,right: 8.0,bottom: 6),
                             child: Container(
+                              width: double.maxFinite,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadiusDirectional.only(bottomStart: Radius.circular(6),bottomEnd: Radius.circular(6)),
                                 color: Color.fromRGBO(203, 182, 182, 0.5),
@@ -115,7 +127,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                                     fontSize: headingFont,
                                     fontWeight: FontWeight.bold),
                               ),
-                              Text("12:00 PM",
+                              Text(widget.remainderDetail["Time"],
                                   style: TextStyle(
                                       fontSize: subHeadingFont,
                                       fontWeight: FontWeight.w600))
@@ -128,7 +140,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                                   style: TextStyle(
                                       fontSize: headingFont,
                                       fontWeight: FontWeight.bold)),
-                              Text("12-MAY-2023",
+                              Text(widget.remainderDetail["Date"],
                                   style: TextStyle(
                                       fontSize: subHeadingFont,
                                       fontWeight: FontWeight.w600))
@@ -150,6 +162,8 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                                         icon: Icon(Icons.do_not_disturb_on_total_silence,size:isSilent==true ? 30 : 25, color: isSilent==true ? Colors.teal: Colors.black,),
                                         onPressed: () {
                                           setState(() {
+                                            // Todo Fix Silent Update in DataBase Also . check all stack call for silent update
+
                                             isSilent=true;
                                           });
                                         },

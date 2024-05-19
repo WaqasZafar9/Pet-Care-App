@@ -98,6 +98,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "file",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/file-7.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "file_picker",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/file_picker-8.0.3",
       "packageUri": "lib/",
@@ -264,6 +270,12 @@
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.7.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "google_gemini",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/google_gemini-0.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
     },
     {
       "name": "google_identity_services_web",
@@ -512,10 +524,34 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "path_provider_linux",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_linux-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "path_provider_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_platform_interface-2.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "path_provider_windows",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "petitparser",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/petitparser-6.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.2"
+    },
+    {
+      "name": "platform",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "plugin_platform_interface",
@@ -528,6 +564,48 @@
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/sanitize_html-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "shared_preferences",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences-2.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
+      "name": "shared_preferences_android",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "shared_preferences_foundation",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_foundation-2.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "shared_preferences_linux",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_linux-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "shared_preferences_platform_interface",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_platform_interface-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "shared_preferences_web",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_web-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "shared_preferences_windows",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_windows-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "sky_engine",
@@ -626,6 +704,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "xdg_directories",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "xml",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/xml-6.5.0",
       "packageUri": "lib/",
@@ -638,7 +722,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-08T20:00:14.494046Z",
+  "generated": "2024-05-18T22:27:29.081616Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }
