@@ -16,7 +16,7 @@ class addTaskContainer extends StatefulWidget {
 class _addTaskContainerState extends State<addTaskContainer> {
 
   DateTime date = DateTime.now();
-  TimeOfDay timeOfDay = TimeOfDay(hour: 12, minute: 1);
+  TimeOfDay timeOfDay = TimeOfDay.now();
 
   GlobalKey<FormState> taskFormKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
@@ -131,7 +131,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
                                   Icons.drive_file_rename_outline),
                               border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.circular(25))),
+                                  BorderRadius.circular(15))),
                           validator: (value) => titleValidator(value),
                         ),
                         Padding(
@@ -159,7 +159,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
                                 Icon(Icons.note_alt_outlined),
                                 border: OutlineInputBorder(
                                   borderRadius:
-                                  BorderRadius.circular(25),
+                                  BorderRadius.circular(15),
                                 ),
                               ),
                               validator: (value) => descriptionValidator(value),

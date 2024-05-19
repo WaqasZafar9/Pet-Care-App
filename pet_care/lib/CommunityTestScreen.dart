@@ -23,15 +23,24 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   bool showSpinner=false;
 
-  var titleColor = Colors.blue.shade100,
-      bottomColor =  Colors.blue.shade200,
-      centerBodyColor = Colors.blue.shade300,
-      messageColor = Colors.greenAccent.shade100,
-      messageBorderColor = Colors.grey.shade700,
+  // var titleColor = Colors.blue.shade100,
+  //     bottomColor =  Colors.blue.shade200,
+  //     centerBodyColor = Colors.blue.shade300,
+  //     messageColor = Colors.greenAccent.shade100,
+  //     messageBorderColor = Colors.grey.shade700,
+  //     titleBorderColor = Colors.black,
+  //     bottomBorderColor = Colors.black,
+  //     centerBodyBorderColor = Colors.black,
+  //     inputBorderColor = Colors.purple;
+  var titleColor = Colors.teal.shade300,
+      bottomColor =  Colors.teal.shade200,
+      centerBodyColor = Colors.teal.shade100,
+      messageColor = Colors.blueGrey.shade100,
+      messageBorderColor = Colors.teal,
       titleBorderColor = Colors.black,
       bottomBorderColor = Colors.black,
       centerBodyBorderColor = Colors.black,
-      inputBorderColor = Colors.purple;
+      inputBorderColor = Colors.teal;
   TextEditingController messageController = TextEditingController();
 
   // Todo try to remove url exrtra space
@@ -161,13 +170,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 630),
                   child: Container(
-                    height: 65,
+                    height: 75,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       color: bottomColor,
@@ -181,6 +190,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: ListTile(
                         title: TextField(
+                          maxLines: null,
                           controller: messageController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -278,12 +288,16 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                                 ? Text(snapshot.data?.docs[index]
                                                     ["message"],
                                             )
-                                                : Image(
-                                                    image: NetworkImage(
-                                                        snapshot.data?.docs[index]
-                                                            ["message"])),
+                                                : SizedBox(
+                                              height: 200,
+                                                  width: 100,
+                                                  child: Image(
+                                                    fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                          snapshot.data?.docs[index]
+                                                              ["message"])),
+                                                ),
                                             // subtitle: Text(snapshot.data?.docs[index]["message"]),
-                                            trailing: Icon(Icons.add),
                                           ),
                                           decoration: BoxDecoration(
                                             color: messageColor,

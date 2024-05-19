@@ -114,9 +114,12 @@ class _PetReminderDetailsState extends State<petReminderDetails> {
                       children: [
                         Expanded(
                           flex: 5,
-                          child: Text(
-                            data[index]["title"] as String,
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black87),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              data[index]["title"] as String,
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black87),
+                            ),
                           ),
                         ),
                         Expanded(
@@ -124,7 +127,7 @@ class _PetReminderDetailsState extends State<petReminderDetails> {
                           child: Center(
                             child: Text(
                               data[index]["Time"] as String,
-                              style: TextStyle(fontSize: 16, color: Colors.black54),
+                              style: TextStyle(fontSize: 16, color: Colors.black54,fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),
@@ -133,7 +136,7 @@ class _PetReminderDetailsState extends State<petReminderDetails> {
                           child: Center(
                             child: Text(
                               data[index]["Date"] as String,
-                              style: TextStyle(fontSize: 16, color: Colors.black54),
+                              style: TextStyle(fontSize: 16, color: Colors.black54,fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),

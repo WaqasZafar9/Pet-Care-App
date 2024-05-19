@@ -123,11 +123,52 @@ class _addPetFormState extends State<addPetForm> {
     }
   }
 
-  uploadFile() {
-    var file = File(pickedFile!.path!);
+  showAlertBoxs() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Pic Image From"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () {
+                  pickImage(ImageSource.camera);
+                  Navigator.pop(context);
+                },
+                leading: Icon(Icons.camera_alt),
+                title: Text("Camera"),
+              ),
+              ListTile(
+                onTap: () {
+                  pickImage(ImageSource.gallery);
+                  Navigator.pop(context);
+                },
+                leading: Icon(Icons.image),
+                title: Text("Gallery"),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
 
-    var fileUrl = DataBase.uploadImage(pickedFile!.name, "Medical Files", file);
-    return fileUrl;
+  pickImage(ImageSource imageSource) async {
+    try {
+      final photo = await ImagePicker().pickImage(source: imageSource);
+      if (photo == null) {
+        return;
+      }
+      final tempImage = File(photo.path);
+      setState(() {
+        isImageUpload = true;
+        pickedImage = tempImage;
+      });
+    } catch (ex) {
+      print("Error ${ex.toString()}");
+    }
   }
 
   Future<void> getLocationUpdates() async {
@@ -339,26 +380,27 @@ class _addPetFormState extends State<addPetForm> {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      var imagePicker = ImagePicker();
-                      var image = await imagePicker.pickImage(
-                          source: ImageSource.gallery);
-                      if (image != null) {
-                        setState(() {
-                          pickedImage = File(image.path);
-                          isImageUpload = true;
-                        });
-                      }
+                      // var imagePicker = ImagePicker();
+                      // var image = await imagePicker.pickImage(
+                      //     source: ImageSource.gallery);
+                      // if (image != null) {
+                      //   setState(() {
+                      //     pickedImage = File(image.path);
+                      //     isImageUpload = true;
+                      //   });
+                      // }
+                      showAlertBoxs();
                     },
                     child: CircleAvatar(
                       radius: 60,
                       backgroundImage:
-                      pickedImage != null ? FileImage(pickedImage!) : null,
+                          pickedImage != null ? FileImage(pickedImage!) : null,
                       child: pickedImage == null
                           ? Icon(
-                        Icons.camera_alt,
-                        size: 60,
-                        color: Colors.grey,
-                      )
+                              Icons.camera_alt,
+                              size: 60,
+                              color: Colors.grey,
+                            )
                           : null,
                     ),
                   ),
@@ -389,6 +431,53 @@ class _addPetFormState extends State<addPetForm> {
                     ),
                   ),
                   SizedBox(height: 20),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade300,
+                        borderRadius: BorderRadius.all(Radius.circular(6))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: RadioListTile<String>(
+                              title: Text(
+                                "Cat",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500),
+                              ),
+                              value: "Cat",
+                              groupValue: selectedCategory,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedCategory = value!;
+                                  dropdownvalue = catValue.first;
+                                });
+                              },
+                            ),
+                          ),
+                          Expanded(
+                            child: RadioListTile<String>(
+                              title: Text("Dog",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500)),
+                              value: "Dog",
+                              groupValue: selectedCategory,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedCategory = value!;
+                                  dropdownvalue = dogValue.first;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   DropdownButtonFormField(
                     value: dropdownvalue,
                     onChanged: (newValue) {
@@ -416,64 +505,17 @@ class _addPetFormState extends State<addPetForm> {
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.all(Radius.circular(6))
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: RadioListTile<String>(
-                              title: Text("Cat",style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500
-                              ),),
-                              value: "Cat",
-                              groupValue: selectedCategory,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedCategory = value!;
-                                  dropdownvalue = catValue.first;
-                                });
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: RadioListTile<String>(
-                              title: Text("Dog",style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500
-                              )),
-                              value: "Dog",
-                              groupValue: selectedCategory,
-                              onChanged: (String? value) {
-                                setState(() {
-                                  selectedCategory = value!;
-                                  dropdownvalue = dogValue.first;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.all(Radius.circular(6))
-                    ),
+                        borderRadius: BorderRadius.all(Radius.circular(6))),
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("Date of Birth :",style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16
-                          ),),
+                          Text(
+                            "Date of Birth :",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 16),
+                          ),
                           ElevatedButton(
                             onPressed: () async {
                               DateTime? pickedDate = await showDatePicker(
@@ -487,7 +529,7 @@ class _addPetFormState extends State<addPetForm> {
                                   date = pickedDate;
                                   isDateOfBirthSelected = true;
                                   dateOfBirthController =
-                                  "${date.day}/${date.month}/${date.year}";
+                                      "${date.day}/${date.month}/${date.year}";
                                 });
                               }
                             },
@@ -515,17 +557,17 @@ class _addPetFormState extends State<addPetForm> {
                   Container(
                     decoration: BoxDecoration(
                         color: Colors.grey.shade300,
-                        borderRadius: BorderRadius.all(Radius.circular(6))
-                    ),
+                        borderRadius: BorderRadius.all(Radius.circular(6))),
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text("Medical File:",style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
-                          ),),
+                          Text(
+                            "Medical File:",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 16),
+                          ),
                           ElevatedButton(
                             onPressed: selectFile,
                             style: ElevatedButton.styleFrom(
@@ -574,5 +616,4 @@ class _addPetFormState extends State<addPetForm> {
       ),
     );
   }
-
 }
