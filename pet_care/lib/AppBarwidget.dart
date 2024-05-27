@@ -1,7 +1,7 @@
 // Updated AppBarwidget
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_page_practice/pages/cartpage.dart';
+import 'package:pet_care/cartpage.dart';
 
 class AppBarwidget extends StatelessWidget {
   const AppBarwidget({Key? key}) : super(key: key);

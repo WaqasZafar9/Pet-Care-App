@@ -8,6 +8,7 @@ import 'package:pet_care/TrackingPet.dart';
 import 'package:pet_care/TrackingPetGPT.dart';
 import 'package:pet_care/gptScreen.dart';
 import 'package:pet_care/perScreenDynamicFinal.dart';
+import 'package:pet_care/shopping.dart';
 import 'package:pet_care/trackingPetDynamic.dart';
 import 'package:pet_care/trackingPetFinal.dart';
 
@@ -27,7 +28,7 @@ class _TestsState extends State<Tests> {
     petScreenDynamic(userData: {}),
     gptScreen(),
     trackingPetDynamic(email: ""),
-    ProfilePage(userData: {}),
+    shopping(),
     CommunityScreen(userData: {
       "Email": "fuzailraza161@gmail.com",
       "Pic": "https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d"
@@ -44,7 +45,7 @@ class _TestsState extends State<Tests> {
     _screens[0] = petScreenDynamic(userData: widget.userData);
     // _screens[2] = trackingPetDynamic(email: widget.userData["Email"]);
     _screens[2] = TrackingPetGPT(email: widget.userData["Email"]);
-    _screens[3] = ProfilePage(userData: widget.userData);
+    // _screens[3] = ProfilePage(userData: widget.userData);
     _screens[4] = CommunityScreen(
       userData: {
         "Email": widget.userData["Email"],

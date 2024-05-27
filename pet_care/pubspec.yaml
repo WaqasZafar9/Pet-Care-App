@@ -56,6 +56,8 @@ dependencies:
   shared_preferences: ^2.2.3
   google_generative_ai: ^0.4.0
   simple_shadow: ^0.3.1
+  carousel_slider: ^4.2.1
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:login_page_practice/pages/LoginPage.dart';
-import 'package:login_page_practice/pages/cartpage.dart';
-import 'package:login_page_practice/pages/shopping.dart';
+import 'package:pet_care/cartpage.dart';
+import 'package:pet_care/shopping.dart';
 
 void main() {
   runApp(const MyApp());

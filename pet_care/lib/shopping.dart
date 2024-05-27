@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_page_practice/pages/products.dart';
-import 'package:login_page_practice/pages/slider.dart';
+import 'package:pet_care/products.dart';
+import 'package:pet_care/slider.dart';
 
 import 'AppBarwidget.dart';
 import 'category.dart';
