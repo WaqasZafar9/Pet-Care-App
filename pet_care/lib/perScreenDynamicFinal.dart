@@ -156,11 +156,11 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
                                       fontSize: 16,
                                       color: Colors.black45
                                     ),
-                                    leading: CircleAvatar(
+                                    leading: CircleAvatar(radius: 30,
                                       backgroundImage: NetworkImage(pet["Photo"]),
                                     ),
                                     title: Text(pet["Name"]),
-                                    subtitle: Text(pet["Breed"]),
+                                    subtitle: Text(" "+pet["Breed"]),
                                     contentPadding: EdgeInsets.all(20),
                                     onTap: () {
                                       Navigator.push(
