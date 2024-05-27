@@ -614,6 +614,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "simple_shadow",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/simple_shadow-0.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///S:/Softwares/flutter_windows_3.19.3-stable/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -728,7 +734,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-05-19T00:45:40.024004Z",
+  "generated": "2024-05-27T02:03:22.136184Z",
   "generator": "pub",
   "generatorVersion": "3.3.3"
 }
