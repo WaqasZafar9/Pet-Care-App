@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_care/LoginPage.dart';
-import 'package:pet_care/phoneAuthentication.dart';
+import 'package:pet_care/CredentialsScreen/LoginPage.dart';
+import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
 
 class ProfilePage extends StatelessWidget {
 

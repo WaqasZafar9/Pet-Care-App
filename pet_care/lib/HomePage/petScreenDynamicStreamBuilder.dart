@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_care/petDetails.dart';
+import 'package:pet_care/HomePage/petDetails.dart';
 
 class petScreenDynamicStreamBuilder extends StatefulWidget {
   final Map<String, dynamic> userData;

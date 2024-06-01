@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:pet_care/addPetForm.dart';
-import 'package:pet_care/petDetails.dart';
-import 'package:pet_care/phoneAuthentication.dart';
+import 'package:pet_care/HomePage/addPetForm.dart';
+import 'package:pet_care/HomePage/petDetails.dart';
+import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
+import 'package:pet_care/Tracking/trackingSoloPet.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 class petScreenDynamic extends StatefulWidget {
@@ -161,6 +162,9 @@ class _petScreenDynamicState extends State<petScreenDynamic> {
                                     ),
                                     title: Text(pet["Name"]),
                                     subtitle: Text(" "+pet["Breed"]),
+                                    trailing: IconButton(onPressed: (){
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => trackingPetSolo(petData: pet, email: widget.userData["Email"]),));
+                                    }, icon: Icon(Icons.map)),
                                     contentPadding: EdgeInsets.all(20),
                                     onTap: () {
                                       Navigator.push(

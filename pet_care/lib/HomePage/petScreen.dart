@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pet_care/petDetails.dart';
+import 'package:pet_care/HomePage/petDetails.dart';
 import 'package:pet_care/uihelper.dart';
 
 class petScreen extends StatefulWidget {

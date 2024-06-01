@@ -11,9 +11,9 @@ class SliderWidget extends StatefulWidget {
 
 class _SliderWidgetState extends State<SliderWidget> {
   final List<String> imagePaths = [
-    'lib/images/slider1.jpg',
-    'lib/images/slider2.jpg',
-    'lib/images/slider3.jpg',
+    'assets/images/slider1.jpg',
+    'assets/images/slider2.jpg',
+    'assets/images/slider3.jpg',
   ];
 
   @override

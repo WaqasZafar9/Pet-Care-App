@@ -1,18 +1,17 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:pet_care/CommunityScreen.dart';
-import 'package:pet_care/ForgotPassword.dart';
+import 'package:pet_care/Community/CommunityScreen.dart';
+import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
+import 'package:pet_care/CredentialsScreen/SignUpPage.dart';
 import 'package:pet_care/GoogleNavBar.dart';
-import 'package:pet_care/HomePage.dart';
-import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/CredentialsScreen/LoginPage.dart';
+import 'package:pet_care/HomePage/HomePage.dart';
 import 'package:pet_care/PaymentForm.dart';
 import 'package:pet_care/ProfilePage.dart';
-import 'package:pet_care/SignUpPage.dart';
-import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/SplashScreen.dart';
-import 'package:pet_care/TrackingPet.dart';
-import 'package:pet_care/phoneAuthentication.dart';
+import 'package:pet_care/Tracking/TrackingPet.dart';
+import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
 
 class checkFiles extends StatelessWidget {
   const checkFiles({super.key});

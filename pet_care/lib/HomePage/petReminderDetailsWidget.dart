@@ -2,8 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_care/DataBase.dart';
-import 'package:pet_care/petReminderDeatilsData.dart';
-import 'package:pet_care/showTaskDetailsContainer.dart';
+import 'package:pet_care/HomePage/showTaskDetailsContainer.dart';
 import 'package:pet_care/uihelper.dart';
 
 class petReminderDetails extends StatefulWidget {

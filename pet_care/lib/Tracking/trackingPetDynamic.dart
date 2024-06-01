@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pet_care/petDetails.dart';
+import 'package:pet_care/HomePage/petDetails.dart';
 
-import 'apiKey.dart';
+import '../apiKey.dart';
 
 class trackingPetDynamic extends StatefulWidget {
   final String email;

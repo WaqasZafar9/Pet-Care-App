@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
 import 'package:pet_care/DataBase.dart';
-import 'package:pet_care/ForgotPassword.dart';
+import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
 import 'package:pet_care/GoogleNavBar.dart';
-import 'package:pet_care/SignUpPage.dart';
-import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/uihelper.dart';
 
-import 'HomePage.dart';
 
 class Login extends StatefulWidget{
   @override

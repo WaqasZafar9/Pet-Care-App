@@ -2,7 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/GoogleNavBar.dart';
-import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 
 class CheckUser extends StatefulWidget {
   const CheckUser({super.key});

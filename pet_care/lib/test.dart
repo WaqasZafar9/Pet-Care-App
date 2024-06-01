@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_care/DataBase.dart';
-import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/uihelper.dart';
 
 class SignUpForm extends StatefulWidget {

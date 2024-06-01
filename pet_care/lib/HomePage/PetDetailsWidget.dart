@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/ColorsScheme.dart';
-import 'package:pet_care/addTaskContainer.dart';
-import 'package:pet_care/petReminderDetailsWidget.dart';
+import 'package:pet_care/HomePage/addTaskContainer.dart';
+import 'package:pet_care/HomePage/petReminderDetailsWidget.dart';
 import 'package:pet_care/uihelper.dart';
 
 class PetDetailsWidget extends StatefulWidget {

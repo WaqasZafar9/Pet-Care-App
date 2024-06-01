@@ -6,7 +6,7 @@ import 'package:google_gemini/google_gemini.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_care/DataBase.dart';
-import 'package:pet_care/TypingIndicator.dart';
+import 'package:pet_care/AIScreen/TypingIndicator.dart';
 import 'package:pet_care/apiKey.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

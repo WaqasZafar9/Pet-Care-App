@@ -9,7 +9,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/GoogleNavBar.dart';
-import 'package:pet_care/HomePage.dart';
 import 'package:pet_care/uihelper.dart';
 
 class PhoneAuthentication extends StatefulWidget {

@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/CheckFiles.dart';
-import 'package:pet_care/CommunityScreen.dart';
-import 'package:pet_care/ForgotPassword.dart';
-import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/Community/CommunityScreen.dart';
+import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
+import 'package:pet_care/CredentialsScreen/LoginPage.dart';
+import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
 import 'package:pet_care/ProfilePage.dart';
-import 'package:pet_care/SignUpPageForm.dart';
 import 'package:pet_care/SplashScreen.dart';
-import 'package:pet_care/phoneAuthentication.dart';
+import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
 
 import 'GoogleNavBar.dart';
 

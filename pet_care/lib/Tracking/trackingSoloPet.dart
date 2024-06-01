@@ -206,130 +206,132 @@ class _trackingPetSoloState extends State<trackingPetSolo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 120),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
+    return SafeArea(
+      child: Scaffold(
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 120),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: IconButton(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: IconButton(
+                  onPressed: () {
+                    getPolyPoints();
+                    isRouting=true;
+                  },
+                  icon: Icon(
+                    Icons.route,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromRGBO(10, 111, 112, 0.3)),
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: IconButton(
+                  onPressed: () {
+                    reFocus(_current!);
+                  },
+                  icon: Icon(
+                    Icons.person,
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromRGBO(10, 111, 112, 0.3)),
+                  ),
+                ),
+              ),
+
+              IconButton(
                 onPressed: () {
-                  getPolyPoints();
-                  isRouting=true;
+                  reFocus(pos);
+                  // init();
                 },
-                icon: Icon(
-                  Icons.route,
-                ),
+                icon: FaIcon(FontAwesomeIcons.amazonPay),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromRGBO(10, 111, 112, 0.3)),
-                ),
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromRGBO(10, 111, 112, 0.3))),
               ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: IconButton(
-                onPressed: () {
-                  reFocus(_current!);
-                },
-                icon: Icon(
-                  Icons.person,
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromRGBO(10, 111, 112, 0.3)),
-                ),
-              ),
-            ),
-
-            IconButton(
-              onPressed: () {
-                reFocus(pos);
-                // init();
-              },
-              icon: FaIcon(FontAwesomeIcons.amazonPay),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                      Color.fromRGBO(10, 111, 112, 0.3))),
-            ),
-          ],
-        ),
-      ),
-      body: Container(
-        // Todo Add Dynamic Data from Database
-        child: Stack(children: [
-          Container(
-            // height: 720,
-              color: Colors.blue,
-              child: _current == null
-                  ? Center(
-                child: CircularProgressIndicator(),
-              )
-                  : GoogleMap(
-                myLocationEnabled: true,
-                // myLocationButtonEnabled: true,
-                mapType: MapType.normal,
-                onMapCreated: (GoogleMapController controller) {
-                  _MapController.complete(controller);
-                },
-                initialCameraPosition:
-                CameraPosition(target: _current!, zoom: 13),
-                polylines: {
-                  Polyline(
-                      polylineId: PolylineId("Route"),
-                      points: polylineCoordinates,
-                      color: Colors.blue,
-                      width: 6,
-                      jointType: JointType.bevel
-                  ),
-                },
-                markers: {
-                  Marker(
-                    markerId: MarkerId("Id1"),
-                    icon:markerIcon,
-                    position: (pos),
-                    infoWindow: InfoWindow(
-                      title: title,
-                      snippet: "Snipped of API",
-                    ),
-                  ),
-                  // Marker(
-                  //   markerId: MarkerId("Id2"),
-                  //   position: LatLng(pos.latitude+0.03,pos.longitude),
-                  //   infoWindow: InfoWindow(
-                  //     title: title,
-                  //     snippet: "Snipped of API2",
-                  //   ),
-                  // ),
-                  // _marker[0]
-                },
-              )),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              // width: 400,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  title: Text(title),
-                  subtitle: Text(subtitle),
-                  leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage:  NetworkImage(picPath),
-                    backgroundColor: Colors.white70,
-                  ),
-                )
-              ),
-            ),
+            ],
           ),
-        ]),
+        ),
+        body: Container(
+          // Todo Add Dynamic Data from Database
+          child: Stack(children: [
+            Container(
+              // height: 720,
+                color: Colors.blue,
+                child: _current == null
+                    ? Center(
+                  child: CircularProgressIndicator(),
+                )
+                    : GoogleMap(
+                  myLocationEnabled: true,
+                  // myLocationButtonEnabled: true,
+                  mapType: MapType.normal,
+                  onMapCreated: (GoogleMapController controller) {
+                    _MapController.complete(controller);
+                  },
+                  initialCameraPosition:
+                  CameraPosition(target: _current!, zoom: 13),
+                  polylines: {
+                    Polyline(
+                        polylineId: PolylineId("Route"),
+                        points: polylineCoordinates,
+                        color: Colors.blue,
+                        width: 6,
+                        jointType: JointType.bevel
+                    ),
+                  },
+                  markers: {
+                    Marker(
+                      markerId: MarkerId("Id1"),
+                      icon:markerIcon,
+                      position: (pos),
+                      infoWindow: InfoWindow(
+                        title: title,
+                        snippet: "Snipped of API",
+                      ),
+                    ),
+                    // Marker(
+                    //   markerId: MarkerId("Id2"),
+                    //   position: LatLng(pos.latitude+0.03,pos.longitude),
+                    //   infoWindow: InfoWindow(
+                    //     title: title,
+                    //     snippet: "Snipped of API2",
+                    //   ),
+                    // ),
+                    // _marker[0]
+                  },
+                )),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                // width: 400,
+                height: 100,
+                decoration: BoxDecoration(
+                    color: Colors.grey, borderRadius: BorderRadius.circular(10)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    title: Text(title),
+                    subtitle: Text(subtitle),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      backgroundImage:  NetworkImage(picPath),
+                      backgroundColor: Colors.white70,
+                    ),
+                  )
+                ),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

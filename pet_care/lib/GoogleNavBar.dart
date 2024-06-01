@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:pet_care/CommunityScreen.dart';
-import 'package:pet_care/CommunityTestScreen.dart';
+import 'package:pet_care/Community/CommunityScreen.dart';
+import 'package:pet_care/Community/CommunityTestScreen.dart';
+import 'package:pet_care/HomePage/perScreenDynamicFinal.dart';
 import 'package:pet_care/ProfilePage.dart';
-import 'package:pet_care/TrackingPet.dart';
-import 'package:pet_care/TrackingPetGPT.dart';
-import 'package:pet_care/gptScreen.dart';
-import 'package:pet_care/perScreenDynamicFinal.dart';
-import 'package:pet_care/shopping.dart';
-import 'package:pet_care/trackingPetDynamic.dart';
-import 'package:pet_care/trackingPetFinal.dart';
-import 'package:pet_care/trackingSoloPet.dart';
+import 'package:pet_care/Shoping/shopping.dart';
+import 'package:pet_care/Tracking/TrackingPet.dart';
+import 'package:pet_care/Tracking/TrackingPetGPT.dart';
+import 'package:pet_care/AIScreen/gptScreen.dart';
+import 'package:pet_care/Tracking/trackingPetDynamic.dart';
+import 'package:pet_care/Tracking/trackingPetFinal.dart';
+import 'package:pet_care/Tracking/trackingSoloPet.dart';
 
 class Tests extends StatefulWidget {
   Map<String, dynamic> userData;

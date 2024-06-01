@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_care/LoginPage.dart';
+import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/uihelper.dart';
 
 class ResetPassword extends StatefulWidget {

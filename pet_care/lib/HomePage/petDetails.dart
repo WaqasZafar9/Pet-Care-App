@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care/ColorsScheme.dart';
-import 'package:pet_care/PetDetailsWidget.dart';
+import 'package:pet_care/HomePage/PetDetailsWidget.dart';
 
 class petDetails extends StatefulWidget {
   Map<String, dynamic>? petData;

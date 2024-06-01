@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:pet_care/cartpage.dart';
-import 'package:pet_care/shopping.dart';
+import 'package:pet_care/Shoping/cartpage.dart';
+import 'package:pet_care/Shoping/shopping.dart';
 
 void main() {
   runApp(const MyApp());
