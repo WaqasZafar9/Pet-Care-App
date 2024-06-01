@@ -11,6 +11,7 @@ import 'package:pet_care/perScreenDynamicFinal.dart';
 import 'package:pet_care/shopping.dart';
 import 'package:pet_care/trackingPetDynamic.dart';
 import 'package:pet_care/trackingPetFinal.dart';
+import 'package:pet_care/trackingSoloPet.dart';
 
 class Tests extends StatefulWidget {
   Map<String, dynamic> userData;
@@ -44,7 +45,18 @@ class _TestsState extends State<Tests> {
     super.initState();
     _screens[0] = petScreenDynamic(userData: widget.userData);
     // _screens[2] = trackingPetDynamic(email: widget.userData["Email"]);
-    _screens[2] = TrackingPetGPT(email: widget.userData["Email"]);
+    // _screens[2] = TrackingPetGPT(email: widget.userData["Email"]);
+    _screens[2] = trackingPetSolo(
+      email: "fuzailraza161@gmail.com",
+      petData: {
+        "Email":"2ytt5qm8zpkl",
+        "Name":"Citoooo",
+        "oneLine":"Testing",
+        "Photo":"https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/PetPics%2F2ytt5qm8zpkl?alt=media&token=598ba9b9-36a9-448b-a690-e8f03508e8ac",
+        "LAT":31.555,
+        "LONG":74.377
+      },
+    );
     // _screens[3] = ProfilePage(userData: widget.userData);
     _screens[4] = CommunityScreen(
       userData: {

@@ -33,7 +33,7 @@
             android:value="2" />
 <!--&lt;!&ndash;        Todo Change API KEY VALUE Accordingly-->
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDzK29sG_v9lVWQlVVGHpT7i_bPBA4CL3s"/>
+            android:value="AIzaSyBYfemSzzZN4oJEj6Xuw04EbZOvCo0jCfA"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and
