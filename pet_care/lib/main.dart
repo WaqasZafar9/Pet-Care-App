@@ -5,6 +5,7 @@ import 'package:pet_care/Community/CommunityScreen.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
 import 'package:pet_care/ProfilePage.dart';
 import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
@@ -68,7 +69,8 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        '/': (context) => Tests(userData: userData,),
+        // '/': (context) => Tests(userData: userData,),
+        '/': (context) => petScreenDynamicDark(userData: userData,),
         // '/': (context) =>PhoneAuthentication(userData: userData),
         'Google Nav Bar': (context) => Tests(userData: {"Name": "Test Call"}),
         'Forgot Screen': (context) => ResetPassword(),

@@ -163,7 +163,13 @@ class _GptScreenState extends State<gptScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return
+    Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey.shade300,
+        title: Text("AI Doctor"),
+      ),
+      body : Container(
       color: Colors.blueGrey.shade100,
       child: Stack(
         children: [
@@ -311,6 +317,7 @@ class _GptScreenState extends State<gptScreen> {
           ),
         ],
       ),
+      )
     );
   }
 }

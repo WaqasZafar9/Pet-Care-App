@@ -55,7 +55,7 @@ class Dot extends StatelessWidget {
       width: 8,
       height: 8,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.white60,
         shape: BoxShape.circle,
       ),
     );

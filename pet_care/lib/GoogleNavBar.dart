@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:pet_care/Community/CommunityScreen.dart';
 import 'package:pet_care/Community/CommunityTestScreen.dart';
 import 'package:pet_care/HomePage/perScreenDynamicFinal.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
 import 'package:pet_care/ProfilePage.dart';
 import 'package:pet_care/Shoping/shopping.dart';
 import 'package:pet_care/Tracking/TrackingPet.dart';
@@ -43,7 +44,7 @@ class _TestsState extends State<Tests> {
       Name = Name.substring(0, 11);
     }
     super.initState();
-    _screens[0] = petScreenDynamic(userData: widget.userData);
+    _screens[0] = petScreenDynamicDark(userData: widget.userData);
     // _screens[2] = trackingPetDynamic(email: widget.userData["Email"]);
     // _screens[2] = TrackingPetGPT(email: widget.userData["Email"]);
     _screens[2] = trackingPetSolo(
