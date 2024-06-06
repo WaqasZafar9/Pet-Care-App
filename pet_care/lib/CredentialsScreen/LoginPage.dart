@@ -9,6 +9,7 @@ import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
 import 'package:pet_care/GoogleNavBar.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
 import 'package:pet_care/uihelper.dart';
 
 
@@ -28,7 +29,8 @@ class _LoginState extends State<Login> {
         Map<String,dynamic> userData=await DataBase.readData("UserData",EmailController.value.text);
         await uiHelper.customAlertBox((){},context, "LoginIn + $userData");
         await Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Tests( userData: userData,)));
+            // context, MaterialPageRoute(builder: (context) => Tests( userData: userData,)));
+            context, MaterialPageRoute(builder: (context) => petScreenDynamicDark( userData: userData,)));
       });
 
     }

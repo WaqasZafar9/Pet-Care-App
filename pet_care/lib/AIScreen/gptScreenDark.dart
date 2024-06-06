@@ -271,7 +271,7 @@ class _GptScreenState extends State<gptScreenDark> {
                       color: Colors.transparent,
                       boxShadow: [
                         BoxShadow(
-                          color: Color(0xff584A79),
+                          color: Color(0xff2A2438),
                           blurRadius: 12,
                           offset: Offset(0, -2),
                         ),
@@ -317,7 +317,7 @@ class _GptScreenState extends State<gptScreenDark> {
                         },
                         icon: Icon(
                           Icons.send,
-                          color: Colors.teal,
+                          color:Color.fromRGBO(92, 84, 112, 1),
                           size: 30,
                         ),
                       ),

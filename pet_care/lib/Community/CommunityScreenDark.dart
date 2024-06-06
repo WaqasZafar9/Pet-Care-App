@@ -1,13 +1,18 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/DataBase.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
 import 'package:pet_care/uihelper.dart';
 
 class CommunityScreenDark extends StatefulWidget {
@@ -164,108 +169,114 @@ class _CommunityScreenDarkState extends State<CommunityScreenDark> {
 
   @override
   Widget build(BuildContext context) {
-    return ModalProgressHUD(
-      inAsyncCall: showSpinner,
-      blur: 1,
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 630),
-                  child: Container(
-                    height: 75,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: bottomColor,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10),
-                        bottomRight: Radius.circular(10),
+    return SafeArea(
+      child: ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        blur: 1,
+        child: Scaffold(
+          body: Stack(
+            children:[
+              Container(
+                decoration: BoxDecoration(
+                  gradient: BackgroundOverlayColor,
+                ),
+                child: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      // height: 50,
+                      decoration: BoxDecoration(
+                        // color: titleColor,
+                        color: buttonColor,
+                        // borderRadius: BorderRadius.only(
+                        //   topLeft: Radius.circular(10),
+                        //   topRight: Radius.circular(10),
+                        // ),
+                        // border: Border.all(color: titleBorderColor),
                       ),
-                      border: Border.all(color: bottomBorderColor),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: ListTile(
-                        title: TextField(
-                          maxLines: null,
-                          controller: messageController,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          GestureDetector(
+                            onTap: ()=>{
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => petScreenDynamicDark(userData: widget.userData),))
+                    },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0,right: 16.0),
+                              child: Container(
+                                padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.015),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(MediaQuery.of(context).size.width * 0.05),
+                                  color: Colors.transparent,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      spreadRadius: 2,
+                                      blurRadius: 10,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Icon(
+                                  CupertinoIcons.back,
+                                  color: Colors.grey.shade300,
                                 ),
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                borderSide: BorderSide(color: inputBorderColor),
-                              ),
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    sendImage();
-                                  },
-                                  icon: Icon(Icons.add))),
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            sendMessage();
-                            // sendImage();
-                            setState(() {
-                              messageController.text = "";
-                            });
-                          },
-                          icon: Icon(
-                            Icons.send,
-                            size: 30,
+                            ),
                           ),
-                        ),
+                          Text(
+                            "Welcome to Pettify Community",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,color: Colors.grey.shade400),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50),
-                  child: Container(
-                    height: 580,
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: centerBodyColor,
-                      border: Border.all(color: centerBodyBorderColor),
-                    ),
-                    child: Padding(
-                      padding:
-                      const EdgeInsets.only(left: 10, right: 10, top: 10),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            child: StreamBuilder(
-                              stream: FirebaseFirestore.instance
-                                  .collection("CommunityMessages")
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.active) {
-                                  if (snapshot.hasData) {
-                                    return ListView.builder(
-                                      // Todo Fix Url Option
-                                      itemBuilder: (context, index) {
-                                        var time =
-                                        snapshot.data?.docs[index]["Time"];
-                                        // String url=getURL(snapshot.data?.docs[index]["Email"]);
-                                        String url=snapshot.data?.docs[index]["url"];
-                                        // String url = "https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d";
-                                        String email =
-                                        snapshot.data?.docs[index]["Email"];
+                  Expanded(
+                    flex: 10,
+                    child: Container(
+                      // height: 580,
+                      // width: double.maxFinite,
+                      color: Colors.transparent,
+                      child: Padding(
+                        padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                        child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection("CommunityMessages")
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.active) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                  // Todo Fix Url Option
+                                  itemBuilder: (context, index) {
+                                    var time =
+                                    snapshot.data?.docs[index]["Time"];
+                                    // String url=getURL(snapshot.data?.docs[index]["Email"]);
+                                    String url=snapshot.data?.docs[index]["url"];
+                                    // String url = "https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d";
+                                    String email =
+                                    snapshot.data?.docs[index]["Email"];
 
-                                        return Container(
+                                    return Padding(
+                                      padding: EdgeInsets.only(bottom: 8),
+                                      child: BlurryContainer(
+                                        color: buttonColor,
+                                        borderRadius:email!=widget.userData["Email"] ? BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          topLeft: Radius.circular(10),
+                                          bottomLeft: Radius.circular(10),
+                                        ) : BorderRadius.only(
+                                          topRight: Radius.circular(10),
+                                          topLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
+                                        ) ,
+                                        child: Container(
+
                                           margin: EdgeInsets.only(bottom: 8),
-                                          padding: EdgeInsets.only(bottom: 8),
                                           // width: RenderErrorBox.minimumWidth,
                                           child: ListTile(
                                             leading: url != null
@@ -300,54 +311,160 @@ class _CommunityScreenDarkState extends State<CommunityScreenDark> {
                                             // subtitle: Text(snapshot.data?.docs[index]["message"]),
                                           ),
                                           decoration: BoxDecoration(
-                                            color: messageColor,
-                                            border: Border.all(
-                                                color: messageBorderColor),
+                                            // color: messageColor,
+                                            color: Colors.transparent,
+                                            // gradient: cardColor,
+                                            // border: Border.all(
+                                            //     color: messageBorderColor),
                                             borderRadius: BorderRadius.only(
                                               topRight: Radius.circular(10),
                                               topLeft: Radius.circular(10),
                                               bottomLeft: Radius.circular(10),
                                             ),
                                           ),
-                                        );
-                                      },
-                                      itemCount: snapshot.data?.docs.length,
+                                        ),
+                                      ),
                                     );
-                                  } else {
-                                    return Center(
-                                        child: CircularProgressIndicator());
-                                  }
-                                } else {
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                }
-                              },
+                                  },
+                                  itemCount: snapshot.data?.docs.length,
+                                );
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            } else {
+                              return Center(
+                                  child: CircularProgressIndicator());
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                      child: Container(color: Colors.transparent,))
+                  // Positioned(
+                  //   bottom: 7,
+                  //   left: MediaQuery.of(context).size.width * 0.02,
+                  //   right: MediaQuery.of(context).size.width * 0.02,
+                  //   child: Container(
+                  //     // height: 75,
+                  //     width: double.maxFinite,
+                  //     decoration: BoxDecoration(
+                  //       color: bottomColor,
+                  //       borderRadius: BorderRadius.only(
+                  //         bottomLeft: Radius.circular(10),
+                  //         bottomRight: Radius.circular(10),
+                  //       ),
+                  //       border: Border.all(color: bottomBorderColor),
+                  //     ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.only(bottom: 12.0),
+                  //       child: ListTile(
+                  //         title: TextField(
+                  //           maxLines: null,
+                  //           controller: messageController,
+                  //           decoration: InputDecoration(
+                  //               border: OutlineInputBorder(
+                  //                 borderRadius: BorderRadius.only(
+                  //                   topRight: Radius.circular(10),
+                  //                   bottomLeft: Radius.circular(10),
+                  //                 ),
+                  //               ),
+                  //               enabledBorder: OutlineInputBorder(
+                  //                 borderRadius: BorderRadius.only(
+                  //                   topRight: Radius.circular(10),
+                  //                   bottomLeft: Radius.circular(10),
+                  //                 ),
+                  //                 borderSide: BorderSide(color: inputBorderColor),
+                  //               ),
+                  //               suffixIcon: IconButton(
+                  //                   onPressed: () {
+                  //                     sendImage();
+                  //                   },
+                  //                   icon: Icon(Icons.add))),
+                  //         ),
+                  //         trailing: IconButton(
+                  //           onPressed: () {
+                  //             sendMessage();
+                  //             // sendImage();
+                  //             setState(() {
+                  //               messageController.text = "";
+                  //             });
+                  //           },
+                  //           icon: Icon(
+                  //             Icons.send,
+                  //             size: 30,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+
+                ],
                             ),
-                          ),
-                        ],
+              ),
+              Positioned(
+                bottom: 7,
+                left: MediaQuery.of(context).size.width * 0.02,
+                right: MediaQuery.of(context).size.width * 0.02,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0xff2A2438),
+                        blurRadius: 18,
+                        offset: Offset(0, -2),
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    title: TextField(
+                      maxLines: null,
+                      controller: messageController,
+                      decoration: InputDecoration(
+                        hintText: 'Type your message...',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Color(0xff79777D),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            sendImage();
+                          },
+                          icon: Icon(Icons.add),
+                        ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                    trailing: IconButton(
+                      onPressed: () {
+                        sendMessage();
+                        // sendImage();
+                        setState(() {
+                          messageController.text = "";
+                        });
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: Color.fromRGBO(92, 84, 112, 1),
+                        size: 30,
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: titleColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
-                    border: Border.all(color: titleBorderColor),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Welcome to Community",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+
+            ]
           ),
         ),
       ),
