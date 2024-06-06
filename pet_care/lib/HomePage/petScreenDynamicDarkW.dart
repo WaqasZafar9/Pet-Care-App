@@ -1,6 +1,6 @@
+
 import 'dart:io';
 
-import 'package:blurrycontainer/blurrycontainer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,25 +73,32 @@ class _petScreenDynamicDarkWState extends State<petScreenDynamicDarkW> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 15.0, top: 15.0),
                       child: SimpleShadow(
-                        child: BlurryContainer(
-                          color: Color(0xff584A79),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 19.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Hi " + widget.userData["Name"],
-                                  style: TextStyle(
-                                      fontSize: headingSize, color: TextColor),
-                                ),
-                                Text(
-                                  "Welcome Back 👋",
-                                  style: TextStyle(
-                                      fontSize: headingSize, color: TextColor),
-                                ),
-                              ],
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthentication(userData: widget.userData),)),
+                          child: Container(
+                            width: 219,
+                            height: 97,
+                            decoration: BoxDecoration(
+                                gradient: BackgroundOverlayColor,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 19.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hi " + widget.userData["Name"],
+                                    style: TextStyle(
+                                        fontSize: headingSize, color: TextColor),
+                                  ),
+                                  Text(
+                                    "Welcome Back 👋",
+                                    style: TextStyle(
+                                        fontSize: headingSize, color: TextColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -104,13 +111,16 @@ class _petScreenDynamicDarkWState extends State<petScreenDynamicDarkW> {
                         width: double.maxFinite,
                         decoration: BoxDecoration(
                             gradient: BackgroundOverlayColor,
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(0)),
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
-                              child: BlurryContainer(
-                                color: Color(0xff584A79),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    gradient: headingBackgroundColor
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 11),
                                   child: Text("Our Services",
@@ -184,9 +194,11 @@ class _petScreenDynamicDarkWState extends State<petScreenDynamicDarkW> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 7,bottom: 7),
-                              child: BlurryContainer(
-                                color: Color(0xff584A79),
-                                padding: EdgeInsets.all(0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    gradient: headingBackgroundColor
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 11),
                                   child: Text("Your Pets",

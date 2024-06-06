@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_care/AIScreen/gptScreen.dart';
 import 'package:pet_care/AIScreen/gptScreenDark.dart';
 import 'package:pet_care/ColorsScheme.dart';
+import 'package:pet_care/Community/CommunityScreenDark.dart';
 import 'package:pet_care/Community/CommunityTestScreen.dart';
 import 'package:pet_care/HomePage/addPetForm.dart';
 import 'package:pet_care/HomePage/petDetails.dart';
@@ -49,7 +51,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
     pages=[
       gptScreenDark(),
       gptScreen(),
-      CommunityScreen(userData: widget.userData),
+      // CommunityScreen(userData: widget.userData),
+      CommunityScreenDark(userData: widget.userData),
       shopping()
     ];
     // TODO: implement initState
@@ -70,31 +73,34 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                   Expanded(
                     flex: 3,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, top: 15.0),
+                      padding: const EdgeInsets.only(left: 15.0, top: 15.0,bottom: 8),
                       child: SimpleShadow(
-                        child: Container(
-                          width: 219,
-                          height: 97,
-                          decoration: BoxDecoration(
-                              gradient: BackgroundOverlayColor,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 19.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Hi " + widget.userData["Name"],
-                                  style: TextStyle(
-                                      fontSize: headingSize, color: TextColor),
-                                ),
-                                Text(
-                                  "Welcome Back 👋",
-                                  style: TextStyle(
-                                      fontSize: headingSize, color: TextColor),
-                                ),
-                              ],
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => PhoneAuthentication(userData: widget.userData),)),
+                          child: Container(
+                            width: 219,
+                            height: 97,
+                            decoration: BoxDecoration(
+                                gradient: titleBackgroundColor,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 19.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hi " + widget.userData["Name"],
+                                    style: TextStyle(
+                                        fontSize: headingSize, color: TextColor),
+                                  ),
+                                  Text(
+                                    "Welcome Back 👋",
+                                    style: TextStyle(
+                                        fontSize: headingSize, color: TextColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -102,20 +108,20 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                     ),
                   ),
                   Expanded(
-                      flex: 7,
+                      flex: 6,
                       child: Container(
                         width: double.maxFinite,
                         decoration: BoxDecoration(
                             gradient: BackgroundOverlayColor,
-                            borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(0)),
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
-                                    gradient: backgroundColor
+                                  borderRadius: BorderRadius.circular(12),
+                                  gradient: headingBackgroundColor,
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 11),
@@ -129,7 +135,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                               ),
                             ),
                             Container(
-                              height: MediaQuery.of(context).size.height/4,
+                              height: MediaQuery.of(context).size.height/5,
                               child: ListView.builder(itemBuilder: (context, index) {
 
                                 return Padding(
@@ -141,7 +147,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => pages[index]));
                                       },
                                       child: Container(
-                                        width: 215,
+                                        width: 166,
+                                        height: 169,
                                         decoration: BoxDecoration(
                                             gradient: cardColor,
                                             borderRadius: BorderRadius.circular(20)),
@@ -149,11 +156,11 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             SizedBox(
-                                              height: 100,
-                                              width: 100,
+                                              height: 83,
+                                              width: 74,
                                               child: Image.asset(
-                                                  // "assets/images/HomeScreenPics/Tracking.png"
-                                                picsPath[index]
+                                                // "assets/images/HomeScreenPics/Tracking.png"
+                                                  picsPath[index]
                                               ),
                                             ),
                                             Text(
@@ -179,35 +186,35 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                         ),
                       )),
                   Expanded(
-                    flex: 10,
+                    flex: 12,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(top: 6.0,bottom: 8.0),
                       child: Container(
                         decoration: BoxDecoration(
                             gradient: BackgroundOverlayColor,
-                            borderRadius: BorderRadius.circular(6)),
+                            borderRadius: BorderRadius.only(topRight: Radius.circular(6),topLeft: Radius.circular(6),bottomRight: Radius.circular(3),bottomLeft: Radius.circular(3))),
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 7,bottom: 7),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  gradient: backgroundColor
+                                    borderRadius: BorderRadius.circular(12),
+                                    gradient: headingBackgroundColor
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 11),
                                   child: Text("Your Pets",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 20,
-                                    color: TextColor,
-                                  ),),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 20,
+                                      color: TextColor,
+                                    ),),
                                 ),
                               ),
                             ),
                             Container(
-                              height: MediaQuery.of(context).size.height/2.7,
+                              height: MediaQuery.of(context).size.height/2.4,
                               width: MediaQuery.of(context).size.width,
                               child: StreamBuilder(
                                 stream: FirebaseFirestore.instance
@@ -252,7 +259,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                         .length, // Add one more item for "Add Pet"
                                     itemBuilder: (context, index) {
                                       var pet = petData[index].data()
-                                          as Map<String, dynamic>;
+                                      as Map<String, dynamic>;
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 9.0,vertical: 5),
                                         child: SimpleShadow(
@@ -260,8 +267,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                             width: 363,
                                             height: 100,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              gradient: index%2!=0 ? listTileColor:listTileColorSecond
+                                                borderRadius: BorderRadius.circular(10),
+                                                gradient: index%2!=0 ? listTileColor:listTileColorSecond
                                             ),
                                             child: ListTile(
                                               titleTextStyle: TextStyle(
@@ -273,28 +280,29 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                               leading: CircleAvatar(
                                                 radius: 30,
                                                 backgroundImage:
-                                                    NetworkImage(pet["Photo"]),
+                                                NetworkImage(pet["Photo"]),
                                               ),
                                               title: Text(pet["Name"],style: TextStyle(
-                                                color: TextColor
+                                                  color: TextColor
                                               ),),
                                               subtitle: Text(pet["Breed"],style: TextStyle(
-                                                color: TextColor
+                                                  color: TextColor
                                               ),),
-                                              trailing: IconButton(
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              trackingPetSolo(
-                                                                  petData: pet,
-                                                                  email:
-                                                                      widget.userData[
-                                                                          "Email"]),
-                                                        ));
-                                                  },
-                                                  icon: Icon(Icons.map)),
+                                              trailing: GestureDetector(
+                                                onTap: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            trackingPetSolo(
+                                                                petData: pet,
+                                                                email:
+                                                                widget.userData[
+                                                                "Email"]),
+                                                      ));
+                                                },
+                                                child: Image.asset("assets/images/HomeScreenPics/Tracking.png",height: 50,width: 35,) ,
+                                              ),
                                               contentPadding: EdgeInsets.all(20),
                                               onTap: () {
                                                 Navigator.push(
@@ -324,18 +332,20 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
             ),
             Positioned(
               bottom: 7,
-              left: MediaQuery.of(context).size.width * 0.02,
-              right: MediaQuery.of(context).size.width * 0.02,
+              left: 0,
+              // left: MediaQuery.of(context).size.width * 0.02,
+              right: 0,
+              // right: MediaQuery.of(context).size.width * 0.02,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    // backgroundColor: Color.fromRGBO(128, 213, 196, 0.6),
-                    backgroundColor: Color.fromRGBO(53, 47, 68, 0.8),
+                  // backgroundColor: Color.fromRGBO(128, 213, 196, 0.6),
+                    backgroundColor: buttonColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(10),
                           bottomLeft: Radius.circular(10)),
                     ),
-                    minimumSize: Size(10, 60)),
+                    minimumSize: Size(10, 40)),
                 onPressed: () {
                   Navigator.push(
                     context,
