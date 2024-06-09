@@ -43,6 +43,7 @@ class DataBase {
       for (var doc in event.docs) {
         print("${doc.id} => ${doc.data()["Email"]}");
         data.add({
+          "Email":doc.data()["Email"],
           "title":doc.data()["title"],
           "Details":doc.data()["Details"],
           "Time":doc.data()["Time"],
@@ -116,6 +117,20 @@ class DataBase {
 
     return null;
   }
+
+  static Future<dynamic>? deleteCollection(collection) async{
+    CollectionReference collectionRef = FirebaseFirestore.instance.collection(collection);
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+      await doc.reference.delete();
+    }
+
+    print('Collection deleted');
+
+    return null;
+  }
+
 
   static Future<dynamic>? deleteSpecificField(collection, userID, deletedData) {
     var db = FirebaseFirestore.instance;

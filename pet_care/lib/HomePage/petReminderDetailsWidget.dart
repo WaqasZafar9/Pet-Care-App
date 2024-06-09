@@ -104,7 +104,7 @@ class _PetReminderDetailsState extends State<petReminderDetails> {
                       showModalBottomSheet(
                         context: context,
                         builder: (BuildContext context) {
-                          return showTaskDetailsContainer(remainderDetail: data[index]);
+                          return showTaskDetailsContainer(remainderDetail: data[index],petID: widget.petID,);
                         },
                       );
                     },

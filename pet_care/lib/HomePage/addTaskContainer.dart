@@ -1,5 +1,7 @@
 
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/DataBase.dart';
@@ -32,11 +34,19 @@ class _addTaskContainerState extends State<addTaskContainer> {
 
     super.initState();
   }
-
+  
+  String randomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final random = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(random.nextInt(chars.length))));
+  }
+  
   saveData() async{
     if(taskFormKey.currentState!.validate()){
 
       Map<String,dynamic> taskData={
+        "Email":  randomString(12),
         "title":titleController.text,
         "Details":descriptionController.text,
         "Time":timeController,
@@ -46,7 +56,7 @@ class _addTaskContainerState extends State<addTaskContainer> {
         // "isCompleted":false
       };
 
-      var response = await DataBase.saveMessageData(widget.petId, taskData);
+      var response = await DataBase.saveUserData(widget.petId, taskData);
 
       if(response == true){
         uiHelper.customAlertBox(() { }, context, "Task Added Successfully");

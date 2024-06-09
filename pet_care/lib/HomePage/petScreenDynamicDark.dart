@@ -14,11 +14,13 @@ import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/Community/CommunityScreenDark.dart';
 import 'package:pet_care/Community/CommunityTestScreen.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
+import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/HomePage/addPetForm.dart';
 import 'package:pet_care/HomePage/petDetails.dart';
 import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
 import 'package:pet_care/Shoping/shopping.dart';
 import 'package:pet_care/Tracking/trackingSoloPet.dart';
+import 'package:pet_care/uihelper.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 class petScreenDynamicDark extends StatefulWidget {
@@ -51,6 +53,19 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
     ];
     // TODO: implement initState
     super.initState();
+  }
+
+  deletePet(petID) async{
+
+    try {
+      await DataBase.deleteCollection(petID);
+      await DataBase.deleteUserData(widget.userData["Email"], petID);
+      return true;
+    }
+    catch (ex){
+      return false;
+    }
+
   }
 
   @override
@@ -339,72 +354,117 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                     itemBuilder: (context, index) {
                                       var pet = petData[index].data()
                                           as Map<String, dynamic>;
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 9.0, vertical: 5),
-                                        child: SimpleShadow(
-                                          child: Container(
-                                            width: 363,
-                                            height: 100,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                gradient: index % 2 != 0
-                                                    ? listTileColor
-                                                    : listTileColorSecond),
-                                            child: ListTile(
-                                              titleTextStyle: TextStyle(
-                                                  fontSize: 22,
-                                                  color: Colors.teal.shade700),
-                                              subtitleTextStyle: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.black45),
-                                              leading: CircleAvatar(
-                                                radius: 30,
-                                                backgroundImage:
-                                                    NetworkImage(pet["Photo"]),
+                                      return Dismissible(
+
+                                        key: Key(petData[index].id),
+                                        direction: DismissDirection.endToStart,
+                                        onDismissed: (direction) async {
+                                          var isDeleted = await deletePet(pet["Email"]);
+                                          if (isDeleted) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'Pet ${petData[index]["Name"]} deleted'),
                                               ),
-                                              title: Text(
-                                                pet["Name"],
-                                                style:
-                                                    TextStyle(color: TextColor),
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'Failed to delete ${petData[index]["Name"]}'),
                                               ),
-                                              subtitle: Text(
-                                                pet["Breed"],
-                                                style:
-                                                    TextStyle(color: TextColor),
-                                              ),
-                                              trailing: GestureDetector(
+                                            );
+                                          }
+                                        },
+                                        background: Container(
+                                          alignment: Alignment.centerRight,
+                                          decoration: BoxDecoration(
+                                            color: Colors.red,
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+
+
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0,
+                                              bottom: 8.0,
+                                              left: 12.0,
+                                              right: 12.0),
+                                          child: SimpleShadow(
+                                            child: Container(
+                                              width: 363,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  gradient: index % 2 != 0
+                                                      ? listTileColor
+                                                      : listTileColorSecond),
+                                              child: ListTile(
+                                                titleTextStyle: TextStyle(
+                                                    fontSize: 22,
+                                                    color: Colors.teal.shade700),
+                                                subtitleTextStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.black45),
+                                                leading: CircleAvatar(
+                                                  radius: 30,
+                                                  backgroundImage:
+                                                      NetworkImage(pet["Photo"]),
+                                                ),
+                                                title: Text(
+                                                  pet["Name"],
+                                                  style:
+                                                      TextStyle(color: TextColor),
+                                                ),
+                                                subtitle: Text(
+                                                  pet["Breed"],
+                                                  style:
+                                                      TextStyle(color: TextColor),
+                                                ),
+                                                trailing: GestureDetector(
+                                                  onTap: () async{
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              trackingPetSolo(
+                                                                  petData: pet,
+                                                                  email: widget
+                                                                          .userData[
+                                                                      "Email"]),
+                                                        ));
+
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/images/HomeScreenPics/Tracking.png",
+                                                    height: 50,
+                                                    width: 35,
+                                                  ),
+                                                ),
+                                                contentPadding:
+                                                    EdgeInsets.all(20),
                                                 onTap: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            trackingPetSolo(
-                                                                petData: pet,
-                                                                email: widget
-                                                                        .userData[
-                                                                    "Email"]),
-                                                      ));
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          petDetails(
+                                                              petData: pet),
+                                                    ),
+                                                  );
                                                 },
-                                                child: Image.asset(
-                                                  "assets/images/HomeScreenPics/Tracking.png",
-                                                  height: 50,
-                                                  width: 35,
-                                                ),
                                               ),
-                                              contentPadding:
-                                                  EdgeInsets.all(20),
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        petDetails(
-                                                            petData: pet),
-                                                  ),
-                                                );
-                                              },
                                             ),
                                           ),
                                         ),

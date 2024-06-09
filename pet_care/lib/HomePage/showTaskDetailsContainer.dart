@@ -3,11 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pet_care/ColorsScheme.dart';
+import 'package:pet_care/DataBase.dart';
+import 'package:pet_care/uihelper.dart';
 
 class showTaskDetailsContainer extends StatefulWidget {
 
   Map<String,dynamic> remainderDetail;
-  showTaskDetailsContainer({super.key,required this.remainderDetail});
+  String petID;
+  showTaskDetailsContainer({super.key,required this.remainderDetail,required this.petID});
 
   @override
   State<showTaskDetailsContainer> createState() =>
@@ -29,6 +32,19 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
     description=widget.remainderDetail["Details"];
     isSilent=widget.remainderDetail["isSilent"];
   }
+
+  deleteTask() async{
+    try{
+      uiHelper.customAlertBox(() { }, context, "Collection ${widget.petID} , Email ${widget.remainderDetail["Email"]}");
+      await DataBase.deleteUserData(widget.petID,widget.remainderDetail["Email"]);
+    return true;
+    }
+    catch (ex){
+      print(ex.toString());
+      return false;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -200,18 +216,37 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
             Expanded(
                 flex: 1,
                 child: ElevatedButton(
-                  onPressed: () {
-                    final snackBarSilent = SnackBar(
-                      elevation: 0,
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.transparent,
-                      content: AwesomeSnackbarContent(
-                        title: 'Congratulations !!!',
-                        message: 'Succussfully! Marked Completed!',
-                        contentType: ContentType.success,
-                      ),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBarSilent);
+                  onPressed: () async{
+                    bool response = await deleteTask();
+
+                    if(response) {
+                      final snackBarSilent = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Congratulations !!!',
+                          message: 'Succussfully! Marked Completed!',
+                          contentType: ContentType.success,
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          snackBarSilent);
+                    }
+                    else{
+                      final snackBarSilent = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: 'Deletion Failed',
+                          message: 'Failed to mark Completed!',
+                          contentType: ContentType.success,
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          snackBarSilent);
+                    }
                   },
                   child: Text(
                     "Mark as Completed",
