@@ -16,8 +16,10 @@ import 'package:pet_care/Community/CommunityTestScreen.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/HomePage/addPetForm.dart';
+import 'package:pet_care/HomePage/addPetFormDark.dart';
 import 'package:pet_care/HomePage/petDetails.dart';
 import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
+import 'package:pet_care/HomePage/petDetailsDark.dart';
 import 'package:pet_care/Shoping/shopping.dart';
 import 'package:pet_care/Tracking/trackingSoloPet.dart';
 import 'package:pet_care/uihelper.dart';
@@ -83,7 +85,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                     flex: 3,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, top: 15.0, bottom: 8),
+                          left: 6.0, top: 15.0, bottom: 8),
                       child: SimpleShadow(
                         child: Row(
                           children: [
@@ -93,7 +95,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                   gradient: titleBackgroundColor,
                                   borderRadius: BorderRadius.circular(12)),
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 19.0),
+                                padding: const EdgeInsets.only(left: 9.0),
                                 child: Row(
                                   children: [
                                     widget.userData["Pic"] != null
@@ -137,45 +139,54 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                IconButton(
-                                  disabledColor: Colors.blueGrey.shade600,
-                                  icon: widget.userData["isVerified"] == true
-                                      ? Icon(
-                                          Icons.verified_user_rounded,
-                                          color: Colors.grey,
-                                        )
-                                      : Icon(Icons.verified_user_outlined),
-                                  onPressed:
-                                      widget.userData["isVerified"] == false
-                                          ? () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PhoneAuthentication(
-                                                      userData: widget.userData,
-                                                    ),
-                                                  ));
-                                            }
-                                          : null,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: appBarColor,
+                                  borderRadius: BorderRadius.all(Radius.circular(12))
                                 ),
-                                IconButton(
-                                    onPressed: () async {
-                                      await FirebaseAuth.instance.signOut();
-                                      await Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => Login()));
-                                    },
-                                    icon: Icon(
-                                      Icons.logout_rounded,
-                                      color: Colors.grey,
-                                      size: 30,
-                                    ))
-                              ],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    IconButton(
+                                      disabledColor: Colors.blueGrey.shade600,
+                                      icon: widget.userData["isVerified"] == true
+                                          ? Icon(
+                                              Icons.published_with_changes_outlined,
+                                              color: Colors.grey.shade400,
+                                            )
+                                          : Icon(Icons.unpublished_outlined,color: Colors.grey.shade400,),
+                                      onPressed:
+                                          widget.userData["isVerified"] == false
+                                              ? () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            PhoneAuthentication(
+                                                          userData: widget.userData,
+                                                        ),
+                                                      ));
+                                                }
+                                              : null,
+                                    ),
+                                    IconButton(
+                                        onPressed: () async {
+                                          await FirebaseAuth.instance.signOut();
+                                          await Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => Login()));
+                                        },
+                                        icon: Icon(
+                                          Icons.logout_rounded,
+                                          color: Colors.grey,
+                                          size: 30,
+                                        )),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -459,7 +470,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          petDetails(
+                                                          petDetailsDark(
                                                               petData: pet),
                                                     ),
                                                   );
@@ -503,7 +514,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          addPetForm(userData: widget.userData),
+                          addPetFormDark(userData: widget.userData),
                     ),
                   );
                 },

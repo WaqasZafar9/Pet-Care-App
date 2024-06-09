@@ -6,18 +6,18 @@ import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/uihelper.dart';
 
-class showTaskDetailsContainer extends StatefulWidget {
+class showTaskDetailsContainerDark extends StatefulWidget {
 
   Map<String,dynamic> remainderDetail;
   String petID;
-  showTaskDetailsContainer({super.key,required this.remainderDetail,required this.petID});
+  showTaskDetailsContainerDark({super.key,required this.remainderDetail,required this.petID});
 
   @override
-  State<showTaskDetailsContainer> createState() =>
-      _showTaskDetailsContainerState();
+  State<showTaskDetailsContainerDark> createState() =>
+      _showTaskDetailsContainerDarkState();
 }
 
-class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
+class _showTaskDetailsContainerDarkState extends State<showTaskDetailsContainerDark> {
   bool isSilent=false;
   double headingFont = 20, subHeadingFont = 16;
   String title = "No Data",
@@ -37,7 +37,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
     try{
       uiHelper.customAlertBox(() { }, context, "Collection ${widget.petID} , Email ${widget.remainderDetail["Email"]}");
       await DataBase.deleteUserData(widget.petID,widget.remainderDetail["Email"]);
-    return true;
+      return true;
     }
     catch (ex){
       print(ex.toString());
@@ -52,11 +52,13 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
       height: 550,
       // width: MediaQuery.of(context).size.width/1.04,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade500,width: 2),
-          color: Colors.grey.shade300, borderRadius: BorderRadius.circular(10 )),
+          border: Border(top : BorderSide(color: Colors.grey.shade500,width: 2),),
+          // color: Colors.grey.shade300,
+          gradient: listTileColorSecond,
+          borderRadius: BorderRadius.circular(10 )),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
         ),
 
         child: Column(
@@ -78,7 +80,8 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadiusDirectional.only(topStart: Radius.circular(6),topEnd: Radius.circular(6)),
-                                color: Color.fromRGBO(203, 182, 182, 0.8),
+                                // color: Color.fromRGBO(203, 182, 182, 0.8),
+                                gradient: BackgroundOverlayColorReverse
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -88,9 +91,10 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                                     style: TextStyle(
                                       fontSize: headingFont + 4,
                                       fontWeight: FontWeight.w600,
+                                      color: subTextColor
                                     ),
                                   ),
-                                  Divider()
+                                  Divider(endIndent: 12,)
                                 ],
                               ),
                             ),
@@ -103,7 +107,8 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                               width: double.maxFinite,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadiusDirectional.only(bottomStart: Radius.circular(6),bottomEnd: Radius.circular(6)),
-                                color: Color.fromRGBO(203, 182, 182, 0.5),
+                                // color: Color.fromRGBO(203, 182, 182, 0.5),
+                                  gradient: BackgroundOverlayColorOposite
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -112,6 +117,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                                     description,
                                     style: TextStyle(
                                       fontSize: subHeadingFont,
+                                      color: subTextColor
                                     ),
                                   ),
                                 ),
@@ -129,7 +135,8 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                   child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadiusDirectional.circular(7),
-                        color: Color.fromRGBO(203, 182, 182, 0.7),
+                        // color: Color.fromRGBO(203, 182, 182, 0.7),
+                        gradient: BackgroundOverlayColorReverse
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -141,12 +148,14 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                                 "Time",
                                 style: TextStyle(
                                     fontSize: headingFont,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color: subHeadinTextColor),
                               ),
                               Text(widget.remainderDetail["Time"],
                                   style: TextStyle(
                                       fontSize: subHeadingFont,
-                                      fontWeight: FontWeight.w600))
+                                      fontWeight: FontWeight.w600,
+                                      color: subHeadinTextColor))
                             ],
                           ),
                           Column(
@@ -155,11 +164,13 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                               Text("Date",
                                   style: TextStyle(
                                       fontSize: headingFont,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold,
+                                      color: subHeadinTextColor)),
                               Text(widget.remainderDetail["Date"],
                                   style: TextStyle(
                                       fontSize: subHeadingFont,
-                                      fontWeight: FontWeight.w600))
+                                      fontWeight: FontWeight.w600,
+                                      color: subHeadinTextColor))
                             ],
                           ),
                           Column(
@@ -169,7 +180,8 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                               Text("Reaminder",
                                   style: TextStyle(
                                       fontSize: headingFont,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold,
+                                  color: subHeadinTextColor)),
                               Row(
                                 children: [
                                   Column(
@@ -219,7 +231,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                   onPressed: () async{
                     bool response = await deleteTask();
 
-                    if(response) {
+                    if(response==true) {
                       final snackBarSilent = SnackBar(
                         elevation: 0,
                         behavior: SnackBarBehavior.floating,
@@ -241,7 +253,7 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                         content: AwesomeSnackbarContent(
                           title: 'Deletion Failed',
                           message: 'Failed to mark Completed!',
-                          contentType: ContentType.failure,
+                          contentType: ContentType.success,
                         ),
                       );
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -250,16 +262,20 @@ class _showTaskDetailsContainerState extends State<showTaskDetailsContainer> {
                   },
                   child: Text(
                     "Mark as Completed",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,
+                    color: subTextColor),
                   ),
                   style: ButtonStyle(
+                    backgroundColor: MaterialStateColor.resolveWith(
+                          (states) => Color(0xff352F44),
+                    ),
                     // minimumSize: MaterialStateProperty.all(Size(1000, 10),),
                     minimumSize: MaterialStateProperty.all(Size.infinite),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(7.0),
-                      bottomRight: Radius.circular(7.0),
-                    ))),
+                          bottomLeft: Radius.circular(7.0),
+                          bottomRight: Radius.circular(7.0),
+                        ))),
                   ),
                 ))
           ],

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(13),
-              borderSide: const BorderSide(color: Colors.deepOrange),
+              borderSide: const BorderSide(color: Colors.greenAccent),
             ),
             prefixStyle: const TextStyle(color: Colors.black),
             labelStyle: const TextStyle(color: Colors.black),

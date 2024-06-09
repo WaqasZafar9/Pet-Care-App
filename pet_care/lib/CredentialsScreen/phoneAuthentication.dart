@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/GoogleNavBar.dart';
 import 'package:pet_care/uihelper.dart';
@@ -23,7 +24,7 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
   @override
   void initState() {
     super.initState();
-    sendCode();
+    // sendCode();
   }
 
   late String OTP;
@@ -103,46 +104,62 @@ class _PhoneAuthenticationState extends State<PhoneAuthentication> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Phone Verification"),
+        title: Text("Phone Verification",style: TextStyle(
+          color: subTextColor
+        ),),
+        backgroundColor: appBarColor,
       ),
-      body: Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: otp,
-                validator: (value) => otpValidate(value),
-                decoration: InputDecoration(
-                    labelText: "OTP",
-                    prefixIcon: Icon(Icons.message),
-                    suffixIcon: Visibility(
-                      visible: isResendButtonVisible,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "Resend",
-                          style: TextStyle(fontSize: 10),
-                        ),
-                        style: ButtonStyle(
-                            visualDensity: VisualDensity.comfortable),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: backgroundColor
+        ),
+        child: Form(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  controller: otp,
+                  validator: (value) => otpValidate(value),
+                  style: TextStyle(
+                    color: subTextColor
+                  ),
+                  decoration: InputDecoration(
+                      labelText: "OTP",
+                      labelStyle: TextStyle(
+                        color: subTextColor
                       ),
+                      prefixIcon: Icon(Icons.message,color: subTextColor,),
+                      suffixIcon: Visibility(
+                        visible: isResendButtonVisible,
+                        child: TextButton(
+                          onPressed: () {
+
+                          },
+                          child: Text(
+                            "Resend",
+                            style: TextStyle(fontSize: 10),
+                          ),
+                          style: ButtonStyle(
+                              visualDensity: VisualDensity.comfortable),
+                        ),
+                      )),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ElevatedButton(
+                    onPressed: () => VerifyCode(),
+                    child: Text("Verify OTP"),
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(Size(180, 50)),
+                      elevation: MaterialStateProperty.all(5),
                     )),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ElevatedButton(
-                  onPressed: () => VerifyCode(),
-                  child: Text("Verify OTP"),
-                  style: ButtonStyle(
-                    minimumSize: MaterialStateProperty.all(Size(180, 50)),
-                    elevation: MaterialStateProperty.all(5),
-                  )),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
