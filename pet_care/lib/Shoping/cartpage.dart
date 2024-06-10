@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_care/Shoping/AppBarwidget.dart';
+import 'package:pet_care/Shoping/StripePayment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -15,7 +16,7 @@ class cartpage extends StatefulWidget {
 
 class _CartPageState extends State<cartpage> {
   List<Map<String, dynamic>> items = [];
-  late SharedPreferences prefs; // SharedPreferences instance
+  // late SharedPreferences prefs; // SharedPreferences instance
 
   @override
   void initState() {
@@ -29,23 +30,23 @@ class _CartPageState extends State<cartpage> {
   }
 
   void initializeSharedPreferences() async {
-    prefs = await SharedPreferences.getInstance();// Initialize SharedPreferences
+    // prefs = await SharedPreferences.getInstance();// Initialize SharedPreferences
     loadItems();
   }
 
   void saveItems() {
-    prefs.setStringList('items', items.map((item) => item.toString()).toList());
+    // prefs.setStringList('items', items.map((item) => item.toString()).toList());
   }
 
   void loadItems() {
-    if (prefs != null) {
-      final List<String>? savedItems = prefs.getStringList('items');
-      if (savedItems != null) {
-        items = savedItems.map((item) => Map<String, dynamic>.from(json.decode(item))).toList();
-      }
-    } else {
-      print('SharedPreferences is not initialized.');
-    }
+    // if (prefs != null) {
+    //   final List<String>? savedItems = prefs.getStringList('items');
+    //   if (savedItems != null) {
+    //     items = savedItems.map((item) => Map<String, dynamic>.from(json.decode(item))).toList();
+    //   }
+    // } else {
+    //   print('SharedPreferences is not initialized.');
+    // }
   }
 
 
@@ -315,7 +316,9 @@ class _CartPageState extends State<cartpage> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => StripePayment(),));
+                        },
                         style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll<Color>(
                               Colors.redAccent),
