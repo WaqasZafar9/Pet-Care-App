@@ -17,7 +17,6 @@ class PetDetailsWidgetDark extends StatefulWidget {
 }
 
 class _PetDetailsWidgetDarkState extends State<PetDetailsWidgetDark> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,46 +35,52 @@ class _PetDetailsWidgetDarkState extends State<PetDetailsWidgetDark> {
       child: Column(
         children: [
           // Pet Info Section
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                gradient: BackgroundOverlayColorReverse,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  topLeft: Radius.circular(10),
-                ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(widget.petData!["Photo"]),
-                    radius: 50,
-                  ),
-                  SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.petData!["Name"],
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: TextColor,
-                        ),
-                      ),
-                      Text(
-                        widget.petData!["Breed"],
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: TextColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              gradient: BackgroundOverlayColorReverse,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10),
+                topLeft: Radius.circular(10),
               ),
             ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                widget.petData == null
+                    ? CircleAvatar(
+                        radius: 50,
+                        child: Image.asset("assets\\images\\petPic.png"),
+                        backgroundColor: Colors.white70,
+                      )
+                    : CircleAvatar(
+                        backgroundImage: NetworkImage(widget.petData!["Photo"]),
+                        radius: 50,
+                      ),
+                SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.petData!["Name"],
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: TextColor,
+                      ),
+                    ),
+                    Text(
+                      widget.petData!["Breed"],
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: TextColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
 
           // Pet Reminders / Add Task Section
           Expanded(
@@ -95,7 +100,12 @@ class _PetDetailsWidgetDarkState extends State<PetDetailsWidgetDark> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => addTaskContainerDark(petId: widget.petData!["Email"]),));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          addTaskContainerDark(petId: widget.petData!["Email"]),
+                    ));
               },
               child: Text(
                 "Add Task",
@@ -107,7 +117,8 @@ class _PetDetailsWidgetDarkState extends State<PetDetailsWidgetDark> {
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(buttonColor),
-                padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 16.0)),
+                padding: MaterialStateProperty.all(
+                    EdgeInsets.symmetric(vertical: 16.0)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(

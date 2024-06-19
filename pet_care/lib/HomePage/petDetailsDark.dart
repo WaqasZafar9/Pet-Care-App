@@ -25,9 +25,7 @@ class _petDetailsDarkState extends State<petDetailsDark> {
         iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: headingBackgroundColor
-        ),
+        decoration: BoxDecoration(gradient: headingBackgroundColor),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: PetDetailsWidgetDark(petData: widget.petData),

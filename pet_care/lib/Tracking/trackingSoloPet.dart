@@ -321,7 +321,13 @@ class _trackingPetSoloState extends State<trackingPetSolo> {
                   child: ListTile(
                     title: Text(title),
                     subtitle: Text(subtitle),
-                    leading: CircleAvatar(
+                    leading: picPath==null  ?
+                    CircleAvatar(
+                      radius: 30,
+                      child: Image.asset("assets\\images\\petPic.png"),
+                      backgroundColor: Colors.white70,
+                    ):
+                    CircleAvatar(
                       radius: 30,
                       backgroundImage:  NetworkImage(picPath),
                       backgroundColor: Colors.white70,

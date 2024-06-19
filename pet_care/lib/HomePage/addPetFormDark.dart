@@ -370,6 +370,7 @@ class _addPetFormDarkState extends State<addPetFormDark> {
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Container(
+          height: double.maxFinite,
           decoration: BoxDecoration(
             gradient: backgroundColor
           ),
@@ -558,37 +559,40 @@ class _addPetFormDarkState extends State<addPetFormDark> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.all(Radius.circular(6))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Medical File:",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
-                            ),
-                            ElevatedButton(
-                              onPressed: selectFile,
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: buttonColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              child: Text(
-                                "Upload ",
+                    Visibility(
+                      visible: false,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade400,
+                            borderRadius: BorderRadius.all(Radius.circular(6))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                "Medical File:",
                                 style: TextStyle(
-                                  fontSize: 16,
-                                  color: subTextColor
+                                    fontWeight: FontWeight.w500, fontSize: 16),
+                              ),
+                              ElevatedButton(
+                                onPressed: selectFile,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: buttonColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Upload ",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: subTextColor
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

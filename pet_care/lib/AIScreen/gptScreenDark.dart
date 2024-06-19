@@ -118,6 +118,7 @@ class _GptScreenState extends State<gptScreenDark> {
     final model = GenerativeModel(
       model: 'gemini-pro',
       apiKey: GEMINIAPI,
+
     );
     final content = [Content.text(message)];
     final response = await model.generateContent(content);

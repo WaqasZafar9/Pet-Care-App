@@ -39,9 +39,10 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
   var picsPath = [
     "assets/images/HomeScreenPics/Tracking.png",
     "assets/images/HomeScreenPics/Doctor.png",
-    "assets/images/HomeScreenPics/Doctor.png",
+    "assets/images/Community.png",
     "assets/images/HomeScreenPics/Shop.png"
   ];
+  var size=[30,40,40,40];
   var texts = ["Pet Track", "Pet Doctor", "Pet Community", "Pet Shop"];
   var pages = [];
   @override
@@ -57,17 +58,14 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
     super.initState();
   }
 
-  deletePet(petID) async{
-
+  deletePet(petID) async {
     try {
       await DataBase.deleteCollection(petID);
       await DataBase.deleteUserData(widget.userData["Email"], petID);
       return true;
-    }
-    catch (ex){
+    } catch (ex) {
       return false;
     }
-
   }
 
   @override
@@ -143,20 +141,25 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: appBarColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(12))
-                                ),
+                                    color: appBarColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     IconButton(
                                       disabledColor: Colors.blueGrey.shade600,
-                                      icon: widget.userData["isVerified"] == true
-                                          ? Icon(
-                                              Icons.published_with_changes_outlined,
-                                              color: Colors.grey.shade400,
-                                            )
-                                          : Icon(Icons.unpublished_outlined,color: Colors.grey.shade400,),
+                                      icon:
+                                          widget.userData["isVerified"] == true
+                                              ? Icon(
+                                                  Icons
+                                                      .published_with_changes_outlined,
+                                                  color: Colors.grey.shade400,
+                                                )
+                                              : Icon(
+                                                  Icons.unpublished_outlined,
+                                                  color: Colors.grey.shade400,
+                                                ),
                                       onPressed:
                                           widget.userData["isVerified"] == false
                                               ? () {
@@ -165,7 +168,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                                       MaterialPageRoute(
                                                         builder: (context) =>
                                                             PhoneAuthentication(
-                                                          userData: widget.userData,
+                                                          userData:
+                                                              widget.userData,
                                                         ),
                                                       ));
                                                 }
@@ -177,7 +181,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                           await Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) => Login()));
+                                                  builder: (context) =>
+                                                      Login()));
                                         },
                                         icon: Icon(
                                           Icons.logout_rounded,
@@ -255,7 +260,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                                 width: 74,
                                                 child: Image.asset(
                                                     // "assets/images/HomeScreenPics/Tracking.png"
-                                                    picsPath[index]),
+                                                    picsPath[index]
+                                                ),
                                               ),
                                               Text(
                                                 // "Pet Track",
@@ -366,11 +372,11 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                       var pet = petData[index].data()
                                           as Map<String, dynamic>;
                                       return Dismissible(
-
                                         key: Key(petData[index].id),
                                         direction: DismissDirection.endToStart,
                                         onDismissed: (direction) async {
-                                          var isDeleted = await deletePet(pet["Email"]);
+                                          var isDeleted =
+                                              await deletePet(pet["Email"]);
                                           if (isDeleted) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
@@ -394,7 +400,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                           decoration: BoxDecoration(
                                             color: Colors.red,
                                             borderRadius:
-                                            BorderRadius.circular(10),
+                                                BorderRadius.circular(10),
                                           ),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: 20),
@@ -403,8 +409,6 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                             color: Colors.white,
                                           ),
                                         ),
-
-
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                               top: 8.0,
@@ -424,27 +428,35 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                               child: ListTile(
                                                 titleTextStyle: TextStyle(
                                                     fontSize: 22,
-                                                    color: Colors.teal.shade700),
+                                                    color:
+                                                        Colors.teal.shade700),
                                                 subtitleTextStyle: TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.black45),
-                                                leading: CircleAvatar(
-                                                  radius: 30,
-                                                  backgroundImage:
-                                                      NetworkImage(pet["Photo"]),
-                                                ),
+                                                leading: pet["Photo"] == null
+                                                    ? CircleAvatar(
+                                                        radius: 30,
+                                                        child: Image.asset(
+                                                            "assets\\images\\petPic.png"),
+                                                      )
+                                                    : CircleAvatar(
+                                                        radius: 30,
+                                                        backgroundImage:
+                                                            NetworkImage(
+                                                                pet["Photo"]),
+                                                      ),
                                                 title: Text(
                                                   pet["Name"],
-                                                  style:
-                                                      TextStyle(color: TextColor),
+                                                  style: TextStyle(
+                                                      color: TextColor),
                                                 ),
                                                 subtitle: Text(
                                                   pet["Breed"],
-                                                  style:
-                                                      TextStyle(color: TextColor),
+                                                  style: TextStyle(
+                                                      color: TextColor),
                                                 ),
                                                 trailing: GestureDetector(
-                                                  onTap: () async{
+                                                  onTap: () async {
                                                     Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
@@ -455,7 +467,6 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                                                           .userData[
                                                                       "Email"]),
                                                         ));
-
                                                   },
                                                   child: Image.asset(
                                                     "assets/images/HomeScreenPics/Tracking.png",
