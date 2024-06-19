@@ -23,6 +23,7 @@ import 'package:pet_care/HomePage/petDetailsDark.dart';
 import 'package:pet_care/Shoping/shopping.dart';
 import 'package:pet_care/Tracking/trackingSoloPet.dart';
 import 'package:pet_care/uihelper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 class petScreenDynamicDark extends StatefulWidget {
@@ -177,6 +178,8 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                     ),
                                     IconButton(
                                         onPressed: () async {
+                                          var pref=await SharedPreferences.getInstance();
+                                          pref.remove("userEmail");
                                           await FirebaseAuth.instance.signOut();
                                           await Navigator.pushReplacement(
                                               context,

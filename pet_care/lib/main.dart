@@ -70,7 +70,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => Tests(userData: userData,),
-        '/': (context) => petScreenDynamicDark(userData: userData,),
+        // '/': (context) => petScreenDynamicDark(userData: userData,),
+        '/': (context) => SplashScreen(),
         // '/': (context) =>PhoneAuthentication(userData: userData),
         'Google Nav Bar': (context) => Tests(userData: {"Name": "Test Call"}),
         'Forgot Screen': (context) => ResetPassword(),

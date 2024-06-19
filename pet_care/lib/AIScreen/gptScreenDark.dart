@@ -115,12 +115,19 @@ class _GptScreenState extends State<gptScreenDark> {
   }
 
   geminiModelPro(message) async {
+    // var sh=await SharedPreferences.getInstance();
+    // sh.remove("messageList");
+    final safetySettings = [
+      SafetySetting(HarmCategory.harassment, HarmBlockThreshold.medium),
+      SafetySetting(HarmCategory.hateSpeech, HarmBlockThreshold.medium),
+    ];
     final model = GenerativeModel(
-      model: 'gemini-pro',
+      model: 'gemini-1.5-flash',
       apiKey: GEMINIAPI,
-
+      safetySettings: safetySettings,
+      systemInstruction: Content.system('You are an AI Pet Doctor. Your Name is Pettify. Only Answer Questions or Queries Related to Pets,Pet Care or related to Pets only or informations about Pets and their Foods ,details of animals or information is acceptable .Any query related to pet or animals is correct and you can answer it. Avoid any other questions.if user ask any unrelevant question simple refuse in a respected way."'),
     );
-    final content = [Content.text(message)];
+    final content = [Content.text(messageList.toString())];
     final response = await model.generateContent(content);
     return response.text;
   }

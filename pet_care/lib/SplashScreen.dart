@@ -5,8 +5,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
+import 'package:pet_care/DataBase.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
 import 'package:pet_care/temp.dart';
 import 'package:pet_care/test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'GoogleNavBar.dart';
 
@@ -24,9 +27,27 @@ class SplashScreenState extends State<SplashScreen>{
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 2), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
-    });
+    isUserSaved();
+    // Timer(Duration(seconds: 2), () {
+    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+    // });
+
+  }
+
+  isUserSaved() async{
+    var pref=await SharedPreferences.getInstance();
+
+    if (pref.containsKey('userEmail')) {
+      var userEmail=pref.getString("userEmail");
+      Map<String,dynamic> userData=await DataBase.readData("UserData",userEmail!);
+      await Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => petScreenDynamicDark( userData: userData,)));
+    }
+    else{
+      Timer(const Duration(seconds: 1), () {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+      });
+    }
 
   }
 

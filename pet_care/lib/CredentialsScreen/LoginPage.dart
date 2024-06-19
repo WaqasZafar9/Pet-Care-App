@@ -1,8 +1,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
@@ -11,6 +9,7 @@ import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
 import 'package:pet_care/GoogleNavBar.dart';
 import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
 import 'package:pet_care/uihelper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class Login extends StatefulWidget{
@@ -20,6 +19,7 @@ class Login extends StatefulWidget{
 
 class _LoginState extends State<Login> {
 
+
   login(email,password) async{
 
     UserCredential? userCredential;
@@ -27,6 +27,8 @@ class _LoginState extends State<Login> {
       userCredential=await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async{
 
         Map<String,dynamic> userData=await DataBase.readData("UserData",EmailController.value.text);
+        var pref=await SharedPreferences.getInstance();
+        pref.setString("userEmail",EmailController.value.text);
         await uiHelper.customAlertBox((){},context, "LoginIn + $userData");
         await Navigator.pushReplacement(
             // context, MaterialPageRoute(builder: (context) => Tests( userData: userData,)));
