@@ -38,13 +38,23 @@ cd pettify
 
 ### API Key Configuration
 
-Create a file named `api_keys.dart` in the `lib` directory and add the following content:
+1. Create a file named `.env` in the root directory and add the following content:
 
-```
-var APIKEY = "YOUR_GOOGLE_MAPS_API_KEY";
-var GPTAPI = "YOUR_OPENAI_API_KEY";
-var GEMINIAPI = "YOUR_GEMINI_API_KEY";
-```
+    ```
+    APIKEY="YOUR_GOOGLE_MAPS_API_KEY"
+    GPTAPI="YOUR_OPENAI_API_KEY"
+    GEMINIAPI="YOUR_GEMINI_API_KEY"
+    ```
+
+2. Create a file named `api_keys.dart` in the `lib` directory and add the following content:
+
+    ```dart
+    import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+    var APIKEY = dotenv.env["APIKEY"]!;
+    var GPTAPI = dotenv.env["GPTAPI"]!;
+    var GEMINIAPI = dotenv.env["GEMINIAPI"]!;
+    ```
 
 Replace the placeholder values with your actual API keys.
 
@@ -58,10 +68,9 @@ flutter pub get
 
 ### Android / iOS
 
-```
+```bash
 flutter run
 ```
-
 
 ## Dependencies
 
@@ -93,12 +102,12 @@ flutter run
 - flutter_stripe
 
 ## Contributions
+
 Contributions to this project are welcome. If you find any issues or want to add new features, feel free to open an issue or submit a pull request.  
 > ### Contact me via email: [fuzailraza161@gmail.com](mailto:fuzailraza161@gmail.com)  
 
 ## License
 
 This project is licensed under the GNU License - see the LICENSE file for details.
-
 
 Thank you for using Pettify!
