@@ -28,7 +28,7 @@ class _GptScreenState extends State<gptScreenDark> {
   ];
 
   TextEditingController messageController = TextEditingController();
-  bool isLoading = false, isImageSelected = false;
+  bool isLoading = false, isImageSelected = false,isSend=true;
   late File selectedImage;
 
   @override
@@ -149,6 +149,7 @@ class _GptScreenState extends State<gptScreenDark> {
       isLoading = false;
       messageList.removeLast(); // Remove the loading message
       messageList.add({"IsUser": false, "message": response});
+      isSend=true;
       saveMessages(messageList);
     });
   }
@@ -287,6 +288,7 @@ class _GptScreenState extends State<gptScreenDark> {
                     ),
                     child: ListTile(
                       title: TextField(
+                        enabled: isSend,
                         maxLines: null,
                         controller: messageController,
                         decoration: InputDecoration(
@@ -318,6 +320,7 @@ class _GptScreenState extends State<gptScreenDark> {
                                 "IsUser": true,
                                 "message": messageController.text,
                               });
+                              isSend=false;
                               getResponse(messageController.text);
                               messageController.clear();
                             });

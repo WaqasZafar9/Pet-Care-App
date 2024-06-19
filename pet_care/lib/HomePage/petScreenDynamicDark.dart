@@ -180,6 +180,7 @@ class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
                                         onPressed: () async {
                                           var pref=await SharedPreferences.getInstance();
                                           pref.remove("userEmail");
+                                          pref.remove("messageList");
                                           await FirebaseAuth.instance.signOut();
                                           await Navigator.pushReplacement(
                                               context,
