@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/ColorsScheme.dart';
@@ -5,9 +8,9 @@ import 'package:pet_care/DataBase.dart';
 
 class showTaskDetailsContainerDark extends StatefulWidget {
   Map<String, dynamic> remainderDetail;
-  String petID;
+  String petID,petName;
   showTaskDetailsContainerDark(
-      {super.key, required this.remainderDetail, required this.petID});
+      {super.key, required this.remainderDetail, required this.petID,required this.petName});
 
   @override
   State<showTaskDetailsContainerDark> createState() =>
@@ -29,6 +32,30 @@ class _showTaskDetailsContainerDarkState
     title = widget.remainderDetail["title"];
     description = widget.remainderDetail["Details"];
     isSilent = widget.remainderDetail["isSilent"];
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+  }
+
+
+  int randomInt(int length) {
+    const chars = '0123456789';
+    final random = Random();
+    String randomString = List.generate(length, (index) => chars[random.nextInt(chars.length)]).join();
+    return int.parse(randomString);
+  }
+
+  showNotification(heading, subHeading) {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: randomInt(6) as int,
+            channelKey: "Pettify",
+            title: title + "Task Completed !",
+            summary: widget.petName + " Task",
+        )
+    );
   }
 
   deleteTask() async {
@@ -260,9 +287,10 @@ class _showTaskDetailsContainerDarkState
                       );
                       ScaffoldMessenger.of(context)
                           .showSnackBar(snackBarSilent);
-
-
-
+                      if(!widget.remainderDetail["isSilent"]) {
+                        showNotification(title, description);
+                      }
+                      Navigator.pop(context);
                     } else {
                       final snackBarSilent = SnackBar(
                         elevation: 0,

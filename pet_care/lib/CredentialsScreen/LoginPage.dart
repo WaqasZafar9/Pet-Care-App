@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
         Map<String,dynamic> userData=await DataBase.readData("UserData",EmailController.value.text);
         var pref=await SharedPreferences.getInstance();
         pref.setString("userEmail",EmailController.value.text);
-        await uiHelper.customAlertBox((){},context, "LoginIn + $userData");
+        // await uiHelper.customAlertBox((){},context, "LoginIn + $userData");
         await Navigator.pushReplacement(
             // context, MaterialPageRoute(builder: (context) => Tests( userData: userData,)));
             context, MaterialPageRoute(builder: (context) => petScreenDynamicDark( userData: userData,)));
@@ -49,10 +49,9 @@ class _LoginState extends State<Login> {
   void _submitForm(){
     if(_LoginFormKey.currentState!.validate()){
       login(EmailController.value.text, PasswordController.value.text);
-      uiHelper.customAlertBox((){},context, "Form Valid");
     }
     else{
-      uiHelper.customAlertBox((){},context, "Form Not Valid");
+      uiHelper.customAlertBox((){},context, "Please Enter Email or Password");
     }
 
   }
@@ -107,7 +106,9 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-            child: Text("Pet Care")),
+            child: Text("Pet Care")
+        ),
+        backgroundColor: Color.fromRGBO(10, 101, 10, 0.3),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -180,25 +181,25 @@ class _LoginState extends State<Login> {
                   ],
                 ),
                 TextButton(onPressed:() => Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPassword(),)), child: Text("Forgot Password ?")),
-                ElevatedButton(onPressed: (){
-                  signInWithGoogle();
-
-                }, child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text("SignIN with Google",),
-                    FaIcon(FontAwesomeIcons.googlePlus)
-                  ],
-                ),
-                  style: ButtonStyle(
-
-
-                  ),
-                ),
+                // ElevatedButton(onPressed: (){
+                //   signInWithGoogle();
+                //
+                // }, child: Row(
+                //   mainAxisSize: MainAxisSize.min,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     Text("SignIN with Google",),
+                //     FaIcon(FontAwesomeIcons.googlePlus)
+                //   ],
+                // ),
+                //   style: ButtonStyle(
+                //
+                //
+                //   ),
+                // ),
                 SizedBox(
-                  height: 65,
+                  height: 165,
                 )
               ],
             ),

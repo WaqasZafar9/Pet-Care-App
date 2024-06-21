@@ -88,7 +88,7 @@ class _PetDetailsWidgetDarkState extends State<PetDetailsWidgetDark> {
               padding: const EdgeInsets.all(8.0),
               child: ListView(
                 children: [
-                  petReminderDetailsDark(petID: widget.petData!["Email"]),
+                  petReminderDetailsDark(petID: widget.petData!["Email"],petName: widget.petData!["Name"],),
                 ],
               ),
             ),

@@ -1,16 +1,23 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
-import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/CredentialsScreen/SignUpPage.dart';
-import 'package:pet_care/HomePage/HomeScreen.dart';
 import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+            channelKey: "Pettify",
+            channelName: "Pettify",
+            channelDescription: "Pettfiy 1.0")
+      ],
+      debug: true);
   print("FireBase Added");
   runApp(const MyApp());
 }
@@ -26,7 +33,8 @@ class MyApp extends StatelessWidget {
       "Email": "fuzailraza161@gmail.com",
       "isVerified": false,
       "PhoneNo": "+923014384681",
-      "Pic":"https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d"
+      "Pic":
+          "https://firebasestorage.googleapis.com/v0/b/pettify-96749.appspot.com/o/ProfilePics%2Ffuzailraza161%40gmail.com?alt=media&token=cfb1f919-11da-489e-bcc2-274a4525b28d"
     };
     return MaterialApp(
       debugShowCheckedModeBanner: false,

@@ -8,8 +8,8 @@ import 'package:pet_care/HomePage/showTaskDetailsContainerDark.dart';
 import 'package:pet_care/uihelper.dart';
 
 class petReminderDetailsDark extends StatefulWidget {
-  final String petID;
-  petReminderDetailsDark({Key? key, required this.petID}) : super(key: key);
+  final String petID ,petName;
+  petReminderDetailsDark({Key? key, required this.petID,required this.petName}) : super(key: key);
 
   @override
   _PetReminderDetailsState createState() => _PetReminderDetailsState();
@@ -121,6 +121,7 @@ class _PetReminderDetailsState extends State<petReminderDetailsDark> {
                                 return showTaskDetailsContainerDark(
                                   remainderDetail: data[index],
                                   petID: widget.petID,
+                                  petName: widget.petName,
                                 );
                               },
                             );
@@ -206,8 +207,8 @@ class _PetReminderDetailsState extends State<petReminderDetailsDark> {
                                       const EdgeInsets.only(top: 8, bottom: 8),
                                   child: FaIcon(
                                     data[index]["isSilent"] == true
-                                        ? FontAwesomeIcons.clock
-                                        : FontAwesomeIcons.userClock,
+                                        ? FontAwesomeIcons.bellSlash
+                                        : FontAwesomeIcons.bell,
                                     size: 20,
                                   ),
                                 ),
