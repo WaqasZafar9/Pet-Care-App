@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pet_care/CredentialsScreen/SignUpPage.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
-import 'package:pet_care/HomePage/petScreenDynamicDarkFinal.dart';
+import 'package:pet_care/HomePage/HomeScreen.dart';
 import 'package:pet_care/uihelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

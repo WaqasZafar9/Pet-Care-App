@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/CredentialsScreen/SignUpPage.dart';
-import 'package:pet_care/HomePage/petScreenDynamicDarkFinal.dart';
+import 'package:pet_care/HomePage/HomeScreen.dart';
 import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
 
