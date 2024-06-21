@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_care/ColorsScheme.dart';
-import 'package:pet_care/HomePage/addTaskContainer.dart';
+import 'package:pet_care/HomePage/addTaskContainerDark.dart';
 import 'package:pet_care/HomePage/petReminderDetailsWidget.dart';
 import 'package:pet_care/uihelper.dart';
 
@@ -84,7 +83,7 @@ class _PetDetailsWidgetState extends State<PetDetailsWidget> {
               padding: const EdgeInsets.all(8.0),
               child: isAddTask
                   ? SingleChildScrollView(
-                child: addTaskContainer(petId: widget.petData!["Email"]),
+                child: addTaskContainerDark(petId: widget.petData!["Email"]),
               )
                   : ListView(
                 children: [

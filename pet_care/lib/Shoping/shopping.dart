@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_care/Shoping/category.dart';
 import 'package:pet_care/Shoping/newitem.dart';
 import 'package:pet_care/Shoping/products.dart';
-import 'package:pet_care/slider.dart';
+import 'package:pet_care/Shoping/slider.dart';
 
 import 'AppBarwidget.dart';
 

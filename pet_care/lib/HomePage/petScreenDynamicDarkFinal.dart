@@ -12,7 +12,6 @@ import 'package:pet_care/AIScreen/gptScreen.dart';
 import 'package:pet_care/AIScreen/gptScreenDark.dart';
 import 'package:pet_care/ColorsScheme.dart';
 import 'package:pet_care/Community/CommunityScreenDark.dart';
-import 'package:pet_care/Community/CommunityTestScreen.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/HomePage/addPetForm.dart';
@@ -38,20 +37,20 @@ class petScreenDynamicDark extends StatefulWidget {
 
 class _petScreenDynamicDarkState extends State<petScreenDynamicDark> {
   var picsPath = [
-    "assets/images/HomeScreenPics/Tracking.png",
+    // "assets/images/HomeScreenPics/Tracking.png",
     "assets/images/HomeScreenPics/Doctor.png",
     "assets/images/Community.png",
     "assets/images/HomeScreenPics/Shop.png"
   ];
-  var size=[30,40,40,40];
-  var texts = ["Pet Track", "Pet Doctor", "Pet Community", "Pet Shop"];
+  var texts = [
+    // "Pet Track",
+    "Pet Doctor", "Pet Community", "Pet Shop"];
   var pages = [];
   @override
   void initState() {
     pages = [
       gptScreenDark(),
-      gptScreen(),
-      // CommunityScreen(userData: widget.userData),
+      // gptScreen(),
       CommunityScreenDark(userData: widget.userData),
       shopping()
     ];

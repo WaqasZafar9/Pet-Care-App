@@ -216,7 +216,7 @@ class _GptScreenState extends State<gptScreenDark> {
                                 decoration: BoxDecoration(
                                   gradient: message['IsUser']
                                       ? BackgroundOverlayColor
-                                      : cardColor,
+                                      : chatReplyColor,
                                   borderRadius: message['IsUser']
                                       ? BorderRadius.only(
                                       topRight: Radius.circular(15),
@@ -238,17 +238,13 @@ class _GptScreenState extends State<gptScreenDark> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     if (message['message'] == "Loading...")
-                                    // CircularProgressIndicator(
-                                    //   valueColor: AlwaysStoppedAnimation<Color>(
-                                    //       Colors.blueGrey),
-                                    // )
                                       TypingIndicator()
                                     else
                                       Text(
                                         message['message'],
                                         style: TextStyle(
                                           color: message['IsUser']
-                                              ? Colors.white
+                                              ? Colors.white70
                                               : Colors.black87,
                                         ),
                                       ),

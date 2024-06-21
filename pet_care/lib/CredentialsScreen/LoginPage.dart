@@ -3,11 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
+import 'package:pet_care/CredentialsScreen/SignUpPage.dart';
 import 'package:pet_care/DataBase.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
-import 'package:pet_care/GoogleNavBar.dart';
-import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDarkFinal.dart';
 import 'package:pet_care/uihelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -21,6 +21,7 @@ var subHeadinTextColor=Colors.grey.shade200;
 var subHeadingColor=Colors.teal.shade400;
 var subHeadingColortwo=Colors.teal.shade300;
 const headingSize=20.0;
+const chatReplyColor=LinearGradient(colors: [Color(0xff8476AA),Color(0xff8476AA)],begin: Alignment.bottomCenter,end: Alignment.topCenter);
 
 
 // const appBarColor=Colors.teal;

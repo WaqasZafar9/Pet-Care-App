@@ -1,16 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_care/CheckFiles.dart';
-import 'package:pet_care/Community/CommunityScreen.dart';
 import 'package:pet_care/CredentialsScreen/ForgotPassword.dart';
 import 'package:pet_care/CredentialsScreen/LoginPage.dart';
-import 'package:pet_care/CredentialsScreen/SignUpPageForm.dart';
-import 'package:pet_care/HomePage/petScreenDynamicDark.dart';
-import 'package:pet_care/ProfilePage.dart';
+import 'package:pet_care/CredentialsScreen/SignUpPage.dart';
+import 'package:pet_care/HomePage/petScreenDynamicDarkFinal.dart';
 import 'package:pet_care/SplashScreen.dart';
 import 'package:pet_care/CredentialsScreen/phoneAuthentication.dart';
 
-import 'GoogleNavBar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,11 +65,7 @@ class MyApp extends StatelessWidget {
               endIndent: 30)),
       initialRoute: '/',
       routes: {
-        // '/': (context) => Tests(userData: userData,),
-        // '/': (context) => petScreenDynamicDark(userData: userData,),
         '/': (context) => SplashScreen(),
-        // '/': (context) =>PhoneAuthentication(userData: userData),
-        'Google Nav Bar': (context) => Tests(userData: {"Name": "Test Call"}),
         'Forgot Screen': (context) => ResetPassword(),
         'PhoneAuthenticate': (context) => PhoneAuthentication(
               userData: userData,
