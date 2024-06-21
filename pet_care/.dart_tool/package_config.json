@@ -20,6 +20,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "awesome_notifications",
+      "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/awesome_notifications-0.9.3+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
       "name": "awesome_snackbar_content",
       "rootUri": "file:///C:/Users/fuzai/AppData/Local/Pub/Cache/hosted/pub.dev/awesome_snackbar_content-0.1.3",
       "packageUri": "lib/",
@@ -794,7 +800,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-06-19T23:55:02.354216Z",
+  "generated": "2024-06-21T02:57:34.687519Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///S:/Softwares/flutter_windows_3.19.3-stable/flutter",

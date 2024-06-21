@@ -191,8 +191,6 @@ class _addPetFormDarkState extends State<addPetFormDark> {
     if (_permissionGuranted == PermissionStatus.denied) {
       _permissionGuranted = await _locationController.requestPermission();
       if (_permissionGuranted != PermissionStatus.granted) {
-        uiHelper.customAlertBox(() {}, context, "Location Not Accessible1");
-
         return;
       } else {
         _locationController.onLocationChanged
@@ -202,7 +200,6 @@ class _addPetFormDarkState extends State<addPetFormDark> {
             setState(() {
               _current =
                   LatLng(currentLocation.latitude!, currentLocation.longitude!);
-              // uiHelper.customAlertBox(() {}, context, _current.toString());
               print("Location : $_current");
             });
           }
@@ -216,7 +213,6 @@ class _addPetFormDarkState extends State<addPetFormDark> {
           setState(() {
             _current =
                 LatLng(currentLocation.latitude!, currentLocation.longitude!);
-            // uiHelper.customAlertBox(() {}, context, _current.toString());
             print("Location : $_current");
           });
         }
