@@ -33,7 +33,7 @@
             android:value="2" />
 <!--&lt;!&ndash;        Todo Change API KEY VALUE Accordingly-->
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAdMF0fpmexLjIL9IyDDDxVEWVvwsI6H9w"/>
+            android:value="AIzaSyCst8i0IaUh6KOjTmKE0PTxsqWZyjvyIrc"/>
         <meta-data
             android:name="com.stripe.android.API_KEY"
             android:value="pk_test_51P8dHDSB3vNhGCu27kfYJRnX1v2tw18JjC76XCJ9HkA2C4pvdA78cIaTf0NHyh1NJikZBB6geMXPyYyPQQTKkI3q00eaMHbH1v" />

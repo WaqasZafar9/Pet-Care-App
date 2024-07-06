@@ -4,8 +4,13 @@ build/
 
 # APIkey File
 .env
-
-
+pet_care/lib/apiKey.dart
+lib/apiKey.dart
+/apiKey.dart
+apiKey.dart
+../apiKey.dart
+./apiKey.dart
+.gitignore
 # Local configuration file (sdk path, etc)
 local.properties
 

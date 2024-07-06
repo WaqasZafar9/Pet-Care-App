@@ -72,7 +72,7 @@ class _trackingPetSoloState extends State<trackingPetSolo> {
           pos=LatLng(querySnapshot["LAT"],querySnapshot["LONG"]);
           title=querySnapshot["Name"];
           subtitle=querySnapshot["oneLine"];
-          uiHelper.customAlertBox(() { }, context, "title: $title subtitle $subtitle");
+          // uiHelper.customAlertBox(() { }, context, "title: $title subtitle $subtitle");
         });
       }
     } catch (e) {
@@ -166,6 +166,31 @@ class _trackingPetSoloState extends State<trackingPetSolo> {
           }
         });
       }
+    }
+    else
+      {
+        _locationController.onLocationChanged
+            .listen((LocationData currentLocation) {
+          if (currentLocation.latitude != null &&
+              currentLocation.longitude != null) {
+            setState(() {
+              _current = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+              fetchLocation();
+              // pos=LatLng(pos.latitude  +  0.0000052, pos.longitude +  0.000058) ;
+              print("Location : $_current");
+              print("Location : $pos");
+              print("Title : $title");
+              print("Subtitle : $subtitle");
+              print(polylineCoordinates);
+              if(isRouting) {
+                reFocus(_current!);
+              }
+              // uiHelper.customAlertBox(() { }, context, "Located");
+            });
+          }
+        });
+
+
     }
 
 
